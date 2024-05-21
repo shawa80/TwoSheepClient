@@ -10,21 +10,20 @@ import com.siliconandsynapse.ixcpp.common.Discard;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
 import com.siliconandsynapse.ixcpp.gameInteraction.TableCardEventHandler;
-import com.siliconandsynapse.ixcpp.protocol.game.GameChat;
 import com.siliconandsynapse.ixcpp.ui.ITableDisplay;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.observerPool.ObserverPool;
 
 public class TableModel implements ITableDisplay {
 
-	
+
 	private PlayerCollection players = new PlayerCollection();
 	private PlayerCollection trick = new PlayerCollection();
-		
+
 	private TableModelTranslator handTranslator;
 	private TableModelTranslator trickTranslator;
-	
-	
+
+
 	private ObserverPool<ChoiceRequest> choiceRequest;
 	public void addChoiceListener(ChoiceRequest listener) {
 		choiceRequest.add(listener);
@@ -32,7 +31,7 @@ public class TableModel implements ITableDisplay {
 	public void removeChoiceListener(ChoiceRequest listener) {
 		choiceRequest.remove(listener);
 	}
-	
+
 
 	private ObserverPool<DiscardRequest> discardRequest;
 	public void addDiscardListener(DiscardRequest listener) {
@@ -42,7 +41,7 @@ public class TableModel implements ITableDisplay {
 		discardRequest.remove(listener);
 	}
 
-	
+
 
 	private ObserverPool<UpdateCards> cardUpdate;
 	public void addListener(UpdateCards listener) {
@@ -51,10 +50,10 @@ public class TableModel implements ITableDisplay {
 	public void removeListener(UpdateCards listener) {
 		cardUpdate.remove(listener);
 	}
-	
-	
-	
-	
+
+
+
+
 	private ObserverPool<UpdateGame> gameUpdate;
 	public void addListener(UpdateGame listener) {
 		gameUpdate.add(listener);
@@ -62,42 +61,42 @@ public class TableModel implements ITableDisplay {
 	public void removeListener(UpdateGame listener) {
 		gameUpdate.add(listener);
 	}
-	
-	
+
+
 	public TableModel() {
-		
-		
+
+
 		cardUpdate = new ObserverPool<UpdateCards>(UpdateCards.class);
 		gameUpdate = new ObserverPool<UpdateGame>(UpdateGame.class);
 
 		choiceRequest = new ObserverPool<ChoiceRequest>(ChoiceRequest.class);
 		discardRequest = new ObserverPool<DiscardRequest>(DiscardRequest.class);
-		
+
 		handTranslator = new TableModelTranslator(players, cardUpdate, false);
 		trickTranslator = new TableModelTranslator(trick, cardUpdate, true);
-		
+
 	}
-	
-	
+
+
 	public TableCardEventHandler getHandTranslator() {
-		
+
 		return handTranslator;
 	}
-	
+
 	public TableCardEventHandler getTrickTranslator() {
-		
+
 		return trickTranslator;
 	}
-	
 
-	
-	
+
+
+
 	@Override
 	public void displayDiscard() {
 
-		
+
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -113,8 +112,8 @@ public class TableModel implements ITableDisplay {
 		return null;
 	}
 
-	
-	
+
+
 	@Override
 	public Card getPlay() {
 		// TODO not used
@@ -123,7 +122,7 @@ public class TableModel implements ITableDisplay {
 
 	@Override
 	public void indicatePlayer(int playerId) {
-	
+
 		players.getPlayerFromServer(playerId).setTurn();
 	}
 
@@ -132,96 +131,96 @@ public class TableModel implements ITableDisplay {
 	@Override
 	public void setCardNotice(Mutex arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
-	
+
 	@Override
 	public void displayChoice() {
-		
-		
+
+
 	}
 
 	@Override
 	public ChoiceResponse getChoice() {
 		return null;
 	}
-	
-	
+
+
 	@Override
 	public void setChoice(Choice c) {
-		
+
 		this.choiceRequest.getDispatcher().displayChoiceDialog(c);
 		//notify UI here, none blocking...
 	}
 
 	@Override
 	public void setChoiceNotice(Mutex cBlock) {
-			
+
 	}
 
-	
-	
-	
+
+
+
 	@Override
 	public void setDiscard(Discard d) {
-		
+
 		this.discardRequest.getDispatcher().displayDiscardDialog(d);
-		
+
 	}
 
 	@Override
 	public void setDiscardNotice(Mutex arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
-	@Override
-	public void setGameChat(GameChat arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+//	@Override
+//	public void setGameChat(GameChat arg0) {
+//		// TODO Auto-generated method stub
+//
+//	}
 
 	@Override
 	public void setMyPlayerId(int playerId) {
-		
+
 		players.setMyPlayerId(playerId);
 		trick.setMyPlayerId(playerId);
-		
+
 	}
 
 	@Override
 	public void updateDescription(int playerId, String description) {
-		
+
 		players.getPlayerFromServer(playerId).setDescription(description);
 	}
 
 	@Override
 	public void updatePlayerName(int player, String name) {
-		
+
 		players.getPlayerFromServer(player).setName(name);
 	}
 
 	@Override
 	public void updateScore(int player, int score) {
-		
+
 		players.getPlayerFromServer(player).setScore(score);
-		
+
 	}
 
 	@Override
 	public void updateWealth(int player, int wealth) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
 
 	public PlayerModel getPlayer(int playerId) {
-		
+
 		trick.getPlayerFromGui(playerId); //creates a trick along with a player, so they stay in sync
-		
+
 		return players.getPlayerFromGui(playerId);
 	}
 
@@ -229,14 +228,14 @@ public class TableModel implements ITableDisplay {
 	@Override
 	public void voidPlay() {
 		// TODO unused
-		
+
 	}
 
 	@Override
 	public void writeNotice(String message) {
-		
+
 		gameUpdate.getDispatcher().writeNotice(message);
-		
+
 	}
 
 

@@ -12,17 +12,17 @@ import com.siliconandsynapse.aclient.gameModels.models.UpdateUser;
 public class TwoSheepPlayer implements UpdateUser {
 
 	private TwoSheepActivity act;
-	
+
 	private TextView scoreGui;
 	private TextView nameGui;
 	public ImageView[] privateCards;
 	public ImageView[] publicCards;
-	
+
 	public ImageView trick;
-	
+
 	private PlayerTurnUpdater turn;
-	
-	public TwoSheepPlayer(TwoSheepActivity act, TextView nameGui, TextView scoreGui, ImageView[] privateCards, 
+
+	public TwoSheepPlayer(TwoSheepActivity act, TextView nameGui, TextView scoreGui, ImageView[] privateCards,
 			ImageView[] publicCards, ImageView trick, PlayerTurnUpdater turn) {
 		this.act = act;
 		this.nameGui = nameGui;
@@ -31,28 +31,28 @@ public class TwoSheepPlayer implements UpdateUser {
 		this.publicCards = publicCards;
 		this.trick = trick;
 		this.turn = turn;
-		
+
 		for (int i = 0; i < privateCards.length; i++) {
 			init(privateCards[i]);
 		}
-				
-		for (int i = 0; i < publicCards.length; i++) {		
+
+		for (int i = 0; i < publicCards.length; i++) {
 			init(publicCards[i]);
 		}
-		
+
 		init(trick);
 	}
-	
-	
+
+
 	private void init(ImageView card)
 	{
 		Drawable d = card.getDrawable();
 		LayerDrawable layer = (LayerDrawable)d;
 		layer.setDrawableByLayerId(R.id.top, act.getResources().getDrawable(R.drawable.nocard2));
 		layer.setDrawableByLayerId(R.id.bottom, act.getResources().getDrawable(R.drawable.nocard2));
-		
+
 	}
-	
+
 
 	@Override
 	public void turnChanged(PlayerModel player) {
@@ -62,37 +62,37 @@ public class TwoSheepPlayer implements UpdateUser {
 
 	@Override
 	public void nameChanged(PlayerModel player, final String name) {
-		
+
 		act.runOnUiThread(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				
+
 				nameGui.setText(name);
 			}
-		});	
-		
+		});
+
 	}
 
 	@Override
 	public void scoreChanged(PlayerModel player, final int score) {
 
 		act.runOnUiThread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				scoreGui.setText("" + score);
 			}
-		});	
-		
-		
+		});
+
+
 	}
 
 	@Override
 	public void descriptionChanged(PlayerModel player, final String description) {
-		
 
-		
+
+
 	}
 
 }

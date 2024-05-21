@@ -1,33 +1,27 @@
 package com.siliconandsynapse.aclient;
 
-import com.siliconandsynapse.aclient.NetworkService.OnConnectListener;
-import com.siliconandsynapse.aclient.Fragments.ChatFragment;
-import com.siliconandsynapse.aclient.Fragments.GameFragment;
-import com.siliconandsynapse.aclient.Fragments.ScreenSlidePagerAdapter;
 import com.siliconandsynapse.aclient.game.Images;
-import com.siliconandsynapse.aclient.lobbyModels.Credentials;
-import com.siliconandsynapse.aclient.lobbyModels.DefaultLobbyModel;
-import com.siliconandsynapse.aclient.lobbyModels.DefaultRoomModel;
 import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends FragmentActivity {
+import androidx.viewpager.widget.ViewPager;
+
+public class MainActivity extends Activity {
 
 	private ViewPager mViewPager;
-    private ScreenSlidePagerAdapter mTabsAdapter;
+    //private ScreenSlidePagerAdapter mTabsAdapter;
 	
-	private NetworkService service;
+	//private NetworkService service;
 	
 	//private RoomModel rooms;
 	//private LobbyUserList lobbyModel;
@@ -47,13 +41,13 @@ public class MainActivity extends FragmentActivity {
 		
 		setContentView(R.layout.activity_main);
 
-		final ActionBar actionBar = getActionBar();
+		//final ActionBar actionBar = getActionBar();
 
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		//actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
 
 	    mViewPager = (ViewPager) findViewById(R.id.pager);
-		mTabsAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+		//mTabsAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
 		
 		// Create a tab listener that is called when the user changes tabs.
 	    ActionBar.TabListener tabListener = new ActionBar.TabListener() {
@@ -79,70 +73,70 @@ public class MainActivity extends FragmentActivity {
 	                }
 	            });
 	    
-	    actionBar.addTab(actionBar.newTab().setText("Chat").setTabListener(tabListener));
-	    actionBar.addTab(actionBar.newTab().setText("Games").setTabListener(tabListener));
+	    //actionBar.addTab(actionBar.newTab().setText("Chat").setTabListener(tabListener));
+	    //actionBar.addTab(actionBar.newTab().setText("Games").setTabListener(tabListener));
 	    
-		DefaultRoomModel roomModel = new DefaultRoomModel();	
+		//DefaultRoomModel roomModel = new DefaultRoomModel();
 		
-		final ChatFragment chatWindow = new ChatFragment(this);
-        final GameFragment gameWindow = new GameFragment(this, roomModel);
+		//final ChatFragment chatWindow = new ChatFragment(this);
+        //final GameFragment gameWindow = new GameFragment(this, roomModel);
 		
-        mTabsAdapter.addFragment(chatWindow);
-        mTabsAdapter.addFragment(gameWindow);
+        //mTabsAdapter.addFragment(chatWindow);
+        //mTabsAdapter.addFragment(gameWindow);
 		
-		mViewPager.setAdapter(mTabsAdapter);
+		//mViewPager.setAdapter(mTabsAdapter);
 
 
 	
 		
-		DefaultLobbyModel lobbyModel = new DefaultLobbyModel(); 
-		chatWindow.setLobbyModel(lobbyModel);
+		//DefaultLobbyModel lobbyModel = new DefaultLobbyModel();
+		//chatWindow.setLobbyModel(lobbyModel);
 		
-		service = new NetworkService(this, lobbyModel, roomModel);
-		service.addOnConnectListener(new OnConnectListener() {
-
-			@Override
-			public void connected(NetworkService service) {
-				chatWindow.addMessage("Network", "Connected");
-				chatWindow.setNetworkService(service);
-				gameWindow.setNetworkService(service);
-			}
-
-			@Override
-			public void ModelsCreated(
-					MessageReceiverModel receiver) {
-			
-				chatWindow.setReceiverModel(receiver);
-
-			}
-			
-		
-			
-			@Override
-			public void failed(NetworkService service, String message) {
-				chatWindow.addMessage("Network", message);
-				
-			}
-
-
-		});
-		service.start();
+//		service = new NetworkService(this, lobbyModel, roomModel);
+//		service.addOnConnectListener(new OnConnectListener() {
+//
+//			@Override
+//			public void connected(NetworkService service) {
+//				chatWindow.addMessage("Network", "Connected");
+//				chatWindow.setNetworkService(service);
+//				gameWindow.setNetworkService(service);
+//			}
+//
+//			@Override
+//			public void ModelsCreated(
+//					MessageReceiverModel receiver) {
+//
+//				chatWindow.setReceiverModel(receiver);
+//
+//			}
+//
+//
+//
+//			@Override
+//			public void failed(NetworkService service, String message) {
+//				chatWindow.addMessage("Network", message);
+//
+//			}
+//
+//
+//		});
+//		service.start();
 	}
 
 	
 	private Mutex logonBlock = new Mutex();;
-	private Credentials creds = null;
+	//private Credentials creds = null;
 	
-	public Credentials getUserPass() {
-		
-		Intent intent = new Intent(this, LoginActivity.class);
-		//intent.putExtra("GAME_NAME", gameName);
-		this.startActivityForResult(intent, 9);
-
-		logonBlock.waitFor();	//TODO make interruptable???
-
-		return creds;
-	}
+//	public Credentials getUserPass() {
+//
+//		Intent intent = new Intent(this, LoginActivity.class);
+//		//intent.putExtra("GAME_NAME", gameName);
+//		this.startActivityForResult(intent, 9);
+//
+//		logonBlock.waitFor();	//TODO make interruptable???
+//
+//		return creds;
+//	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -155,7 +149,7 @@ public class MainActivity extends FragmentActivity {
 	        	String user = data.getStringExtra("user");
 	        	String pass = data.getStringExtra("pass");
 	        
-	        	creds = new Credentials(user, pass);
+	        	//creds = new Credentials(user, pass);
 	        }
 	    }
 	    
