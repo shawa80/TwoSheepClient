@@ -14,6 +14,8 @@ import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
 import com.siliconandsynapse.ixcpp.common.cards.types.PokerCard;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfo;
+import com.siliconandsynapse.ixcpp.protocol.game.TableChange;
+import com.siliconandsynapse.ixcpp.protocol.game.TurnChange;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
 import com.siliconandsynapse.net.ixtunnel.ParseError;
@@ -185,11 +187,9 @@ public class GameService implements Runnable {
 	public void run() {
 
 		CardFactory f = CardFactory.getInstance(CardFactory.SHEEPSHEAD);
-		List<Card> x = f.getCards();
 
 
 //		table.setMyPlayerId(0);
-//		table.indicatePlayer(0);
 //		table.getHandTranslator().validateCard(0, "public",
 //				0, 0, x.get(0));
 //		table.getHandTranslator().validateCard(0, "trick",
@@ -237,14 +237,14 @@ public class GameService implements Runnable {
 //			gameChat.registerTable(table);
 //			home.registerReceiver(gameChat);
 //
-//			tableChange = new TableChange(addr, table.getHandTranslator(), cache);
-//			home.registerReceiver(tableChange);
+		TableChange tableChange = new TableChange(addr, table.getHandTranslator(), f);
+			home.registerReceiver(tableChange);
 //
 //			trickChange = new TrickChange(addr, table.getTrickTranslator(), cache);
 //			home.registerReceiver(trickChange);
 //
-//			turnChange = new TurnChange(addr, table);
-//			home.registerReceiver(turnChange);
+			TurnChange turnChange = new TurnChange(addr, table);
+			home.registerReceiver(turnChange);
 //
 //			pause = new Pause(addr);
 //			home.registerReceiver(pause);
