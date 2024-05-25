@@ -33,6 +33,7 @@ public class PlayerPickACard implements IxReciever
 
 	public void accept(IxAddress key, IxManager returnTunnel, Message doc)
 	{
+
 		block.sendNotice();
 	}
 	public String placeInThread()

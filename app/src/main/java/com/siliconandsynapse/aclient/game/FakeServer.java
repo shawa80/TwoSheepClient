@@ -78,8 +78,6 @@ public class FakeServer {
 
         var table = new TableChangeObj(seats);
 
-        tunnel.sendDocumentFromServer(game.append(TableChange.KEY), new Message(table));
-        tunnel.sendDocument(game.append(PlayerPickACard.KEY), new Message(new PlayerPickACardObj()));
         tunnel.registerReceiver(new IxReciever() {
 
             @Override
@@ -98,6 +96,10 @@ public class FakeServer {
                 return new AcceptedAddresses(game.append(PlayerPickACard.KEY));
             }
         });
+
+        tunnel.sendDocumentFromServer(game.append(TableChange.KEY), new Message(table));
+        tunnel.sendDocumentFromServer(game.append(PlayerPickACard.KEY), new Message(new PlayerPickACardObj()));
+
     }
 
 }
