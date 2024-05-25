@@ -167,7 +167,7 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 			turnUpdater.add(updateUserNorth, yourTurn);
 			turnUpdater.add(updateUserSouth, myTurn);
 
-			//TwoSheepUser user = new TwoSheepUser(this, updateUserSouth, service);
+			TwoSheepUser user = new TwoSheepUser(this, updateUserSouth, service);
 
 			service.start();
 
