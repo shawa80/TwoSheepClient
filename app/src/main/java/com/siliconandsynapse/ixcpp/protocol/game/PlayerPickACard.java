@@ -1,17 +1,12 @@
 package com.siliconandsynapse.ixcpp.protocol.game;
 
-import org.w3c.dom.*;
-
+import com.google.gson.Gson;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
 import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.Message;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
-
-import javax.xml.parsers.*;
 
 public class PlayerPickACard implements IxReciever
 {
@@ -31,7 +26,7 @@ public class PlayerPickACard implements IxReciever
 		events = new AcceptedAddresses(addr);
 	}
 
-	public void accept(IxAddress key, IxManager returnTunnel, Message doc)
+	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
 
 		block.sendNotice();
@@ -48,6 +43,9 @@ public class PlayerPickACard implements IxReciever
 
 	public void sendPlayCard(IxManager returnTunnel, Card pickedCard)
 	{
-        returnTunnel.sendDocument(addr, new Message(new PlayerPickACardResponse(pickedCard)));
+		var gson = new Gson();
+		var m = gson.toJson(new PlayerPickACardResponse(pickedCard));
+
+        returnTunnel.sendDocument(addr, m);
 	}
 }

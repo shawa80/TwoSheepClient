@@ -1,5 +1,6 @@
 package com.siliconandsynapse.aclient.game;
 
+import com.google.gson.Gson;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.common.cards.types.SheepsHeadFactory;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfo;
@@ -18,11 +19,7 @@ import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
 import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.Message;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -42,17 +39,23 @@ public class FakeServer {
 
     public void start() {
 
+        String msg = "";
+        var gson = new Gson();
+
+
         SheepsHeadFactory f = new SheepsHeadFactory();
         List<Card> cards = f.getCards();
 
         IxAddress game = IxAddress.createRoot("TwoSheep");
 
         List<PlayerInfoObj> x = Stream.of(
-                new PlayerInfoObj(0, "player0"),
-                new PlayerInfoObj(1, "player1")).collect(Collectors.toList());
-        tunnel.sendDocumentFromServer(game.append(PlayerInfo.KEY), new Message(x));
+                new PlayerInfoObj("player0", 0),
+                new PlayerInfoObj("player1", 1)).collect(Collectors.toList());
+        msg = gson.toJson(x);
+        tunnel.sendDocumentFromServer(game.append(PlayerInfo.KEY), msg);
 
-        tunnel.sendDocumentFromServer(game.append(TurnChange.KEY), new Message(new TurnChangeObj(0)));
+        msg = gson.toJson((new TurnChangeObj(0)));
+        tunnel.sendDocumentFromServer(game.append(TurnChange.KEY), msg);
 
         var seats = IntStream.range(0, 2)
                 .mapToObj(s -> new TableChangeObjSeat(s,
@@ -81,9 +84,9 @@ public class FakeServer {
         tunnel.registerReceiver(new IxReciever() {
 
             @Override
-            public void accept(IxAddress key, IxManager returnTunnel, Message doc) {
-                var resp = (PlayerPickACardResponse)doc.getDoc();
-                var i = resp.getCode();
+            public void accept(IxAddress key, IxManager returnTunnel, String doc) {
+                var resp = gson.fromJson(doc, PlayerPickACardResponse.class);
+                var i = resp.code();
             }
 
             @Override
@@ -97,9 +100,10 @@ public class FakeServer {
             }
         });
 
-        tunnel.sendDocumentFromServer(game.append(TableChange.KEY), new Message(table));
-        tunnel.sendDocumentFromServer(game.append(PlayerPickACard.KEY), new Message(new PlayerPickACardObj()));
-
+        msg = gson.toJson(table);
+        tunnel.sendDocumentFromServer(game.append(TableChange.KEY), msg);
+        msg = gson.toJson(new PlayerPickACardObj());
+        tunnel.sendDocumentFromServer(game.append(PlayerPickACard.KEY), msg);
     }
 
 }

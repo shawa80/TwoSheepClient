@@ -7,10 +7,10 @@ class RecvProxy implements Runnable
 {
 	private IxReciever recv;
 	private IxManager ret;
-	private Message doc;
+	private String doc;
 	private IxAddress key;
 
-	public RecvProxy(IxReciever r, IxAddress k, IxManager re, Message d)
+	public RecvProxy(IxReciever r, IxAddress k, IxManager re, String d)
 	{
 		recv = r;
 		ret = re;

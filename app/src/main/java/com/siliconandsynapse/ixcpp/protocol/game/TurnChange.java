@@ -1,16 +1,11 @@
 package com.siliconandsynapse.ixcpp.protocol.game;
 
-import javax.xml.xpath.*;
-
-import org.w3c.dom.*;
-
+import com.google.gson.Gson;
 import com.siliconandsynapse.ixcpp.ui.ITableDisplay;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
 import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.Message;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
 
 public class TurnChange implements IxReciever
 {
@@ -32,11 +27,12 @@ public class TurnChange implements IxReciever
 
 	}
 
-	public void accept(IxAddress key, IxManager returnTunnel, Message doc)
+	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
-        TurnChangeObj x = (TurnChangeObj)doc.getDoc();
+		var gson = new Gson();
+		var x = gson.fromJson(doc, TurnChangeObj.class);
 
-		table.indicatePlayer(x.getPlayerId());
+		table.indicatePlayer(x.playerId());
 	}
 	public String placeInThread()
 	{

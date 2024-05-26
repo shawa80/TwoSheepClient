@@ -88,16 +88,16 @@ public class IxManager extends IxTunnel
 	//////////////////////////////////////////////////////////////////////////////////
 	// prevent any one from directly reading or writing to the tunnel using the IxTunnel1 interface
 	/////////////////////////////////////////////////////////////////////////////////
-	public void sendDocument(Message doc) throws IOException
+	public void sendDocument(String doc) throws IOException
 	{
 		throw new IOException("IxManager does not support direct tunnel writing");
 	}
 
-	public void sendDocument(IxAddress key, Message sendDoc)
+	public void sendDocument(IxAddress key, String sendDoc)
 	{
 		super.sendDocument(new KeyDocPair(key,sendDoc));
 	}
-	public void sendDocumentFromServer(IxAddress key, Message sendDoc) {
+	public void sendDocumentFromServer(IxAddress key, String sendDoc) {
 		super.sendDocumentFromServer(new KeyDocPair(key, sendDoc));
 	}
 
@@ -216,7 +216,7 @@ public class IxManager extends IxTunnel
 			IxReciever recv;
 			IxAddress key;
 
-			Message doc;
+			String doc;
 
 			while (true)
 			{

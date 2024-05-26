@@ -1,17 +1,19 @@
 package com.siliconandsynapse.ixcpp.protocol.game;
 
-import org.w3c.dom.*;
-
-import android.util.Log;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.InstanceCreator;
+import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
+import com.siliconandsynapse.ixcpp.common.cards.types.PokerCard;
 import com.siliconandsynapse.ixcpp.gameInteraction.TableCardEventHandler;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
 import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.Message;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class TableChange implements IxReciever
 {
@@ -38,22 +40,33 @@ public class TableChange implements IxReciever
 	}
 
 
-	public void accept(IxAddress key, IxManager returnTunnel, Message doc)
+	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
+
+		class CardCreator implements InstanceCreator<Card> {
+			@Override
+			public Card createInstance(Type type) {
+				return new PokerCard(0, 0, 0);
+			}
+		}
+
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Card.class,  new CardCreator());
+		Gson gson = gsonBuilder.create();
+
+		var x = gson.fromJson(doc, TableChangeObj.class);
 
 		table.invalidateAllCards();
 
-		TableChangeObj x = (TableChangeObj) doc.getDoc();
-
-		x.getSeats().forEach( seat-> {
-			seat.getStacks().forEach(stack -> {
-				stack.getCards().forEach(card -> {
-					table.validateCard(seat.getPlayerId(),
-						stack.getStackType(), stack.getId(),
-						card.getLevel(),
-						cache.createCard(card.getCard().getCode(),
-								card.getCard().getSuit(),
-								card.getCard().getType()));
+		x.seats().forEach( seat-> {
+			seat.stacks().forEach(stack -> {
+				stack.cards().forEach(card -> {
+					table.validateCard(seat.playerId(),
+						stack.stackType(), stack.id(),
+						card.level(),
+						cache.createCard(card.card().getCode(),
+								card.card().getSuit(),
+								card.card().getType()));
 				});
 			});
 		});

@@ -28,7 +28,7 @@ public class PokerCard extends Card {
 	public static final int DIAMOND = 3;
 
 	
-	PokerCard(int secureCode, int s, int v) throws IndexOutOfBoundsException {
+	public PokerCard(int secureCode, int s, int v) throws IndexOutOfBoundsException {
 		super(secureCode, s, v);
 	}
 

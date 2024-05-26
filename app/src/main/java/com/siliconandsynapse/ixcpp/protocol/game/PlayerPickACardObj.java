@@ -1,4 +1,3 @@
 package com.siliconandsynapse.ixcpp.protocol.game;
 
-public class PlayerPickACardObj {
-}
+public class PlayerPickACardObj { }
