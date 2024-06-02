@@ -17,8 +17,7 @@
         android:theme="@style/AppTheme"
          android:hardwareAccelerated="false">
         <activity
-
-            android:name=".game.TwoSheep.TwoSheepActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:exported="true">

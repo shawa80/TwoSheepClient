@@ -21,15 +21,12 @@ public class IxManager extends IxTunnel
 	//private DocumentBuilder documentBuilder;
 	//private IxManager self;
 
-	//threads
 	private Thread reciever;
 	//private Thread sender;
-	//private LinkedBlockingQueue<KeyDocPair> sendQ;
 
-	//Shandlers
 	private Hashtable<IxAddress, IxReciever> handlers;
 	//private IxReciever defaultHandler;
-	//private IxReciever allHandler;
+	private IxReciever allHandler;
 
 	//object that want to be notified when the connection closes
 	//private Vector<ConnectionNotifier> closed;
@@ -39,13 +36,13 @@ public class IxManager extends IxTunnel
 
 
 
-	public IxManager()
+	public IxManager(Socket client) throws IOException
 	{
-		this(new Vector<IxReciever>());
+		this(client, new Vector<IxReciever>());
 	}
-	public IxManager(Vector<IxReciever> bootRecievers)
+	public IxManager(Socket client, Vector<IxReciever> bootRecievers) throws IOException
 	{
-		super();
+		super(client);
 		//self = this;
 
 		handlers = new Hashtable<IxAddress, IxReciever>();
@@ -58,14 +55,11 @@ public class IxManager extends IxTunnel
 
 		bootRecievers.forEach(this::registerReceiver);
 
-
 		reciever = new Thread(new HandleEvents(this));
 		reciever.setName("IxManager.reciever.");
 		reciever.setDaemon(true);
 		reciever.start();
-//
-//
-//		sendQ = new LinkedBlockingQueue<KeyDocPair>();
+
 //		sender = new Thread(new HandleSends(this));
 //		sender.setName("IxManager.sender.");
 //		sender.setDaemon(true);
@@ -73,9 +67,6 @@ public class IxManager extends IxTunnel
 	}
 
 
-	////////////////////////////////////////////////////////////////////////////////
-	/// Session
-	///////////////////////////////////////////////////////////////////////////////
 //	public void putSession(String key, Object value)
 //	{
 //		session.put(key, value);
@@ -85,9 +76,6 @@ public class IxManager extends IxTunnel
 //		return session.get(key);
 //	}
 
-	//////////////////////////////////////////////////////////////////////////////////
-	// prevent any one from directly reading or writing to the tunnel using the IxTunnel1 interface
-	/////////////////////////////////////////////////////////////////////////////////
 	public void sendDocument(String doc) throws IOException
 	{
 		throw new IOException("IxManager does not support direct tunnel writing");
@@ -97,14 +85,8 @@ public class IxManager extends IxTunnel
 	{
 		super.sendDocument(new KeyDocPair(key,sendDoc));
 	}
-	public void sendDocumentFromServer(IxAddress key, String sendDoc) {
-		super.sendDocumentFromServer(new KeyDocPair(key, sendDoc));
-	}
 
 
-	//////////////////////////////////////////////////////////////////
-	// Register closed connection
-	//////////////////////////////////////////////////////////////////
 //	public synchronized void registerConnectionNotifier(ConnectionNotifier c)
 //	{
 //		closed.add(c);
@@ -114,20 +96,17 @@ public class IxManager extends IxTunnel
 //		closed.remove(c);
 //	}
 
-	///////////////////////////////////////////////////////////////////
-	// Un/Register a handler to process data from tunnel
-	///////////////////////////////////////////////////////////////////
 	//runs only when a register event is not found.
 //	public synchronized void registerDefaultReciever(IxReciever handle)
 //	{
 //		defaultHandler = handle;
 //	}
 //
-//	//runs for every event
-//	public synchronized void registerAllReciever(IxReciever handle)
-//	{
-//		allHandler = handle;
-//	}
+
+	public synchronized void registerAllReciever(IxReciever handle)
+	{
+		allHandler = handle;
+	}
 	//runs for registered event
 	public synchronized void registerReceiver(IxReciever handle)
 	{
@@ -144,22 +123,21 @@ public class IxManager extends IxTunnel
 		}
 
 	}
-//	public synchronized void unregisterReciever(IxReciever handle)
-//	{
-//		//IxReciever recv;
-//		AcceptedAddresses keys;
-//
-//		keys = handle.getEvents();
-//
-//		for (IxAddress key : keys) {
-//
-//			if (handlers.containsKey(key) == true)
-//			{
-//				handlers.remove(key);
-//			}
-//		}
-//
-//	}
+	public synchronized void unregisterReciever(IxReciever handle)
+	{
+		AcceptedAddresses keys;
+
+		keys = handle.getEvents();
+
+		for (IxAddress key : keys) {
+
+			if (handlers.containsKey(key) == true)
+			{
+				handlers.remove(key);
+			}
+		}
+
+	}
 //	public synchronized void unregisterReciever(IxAddress key)
 //	{
 //		handlers.remove(key);
@@ -204,7 +182,7 @@ public class IxManager extends IxTunnel
 //
 //	}
 
-//
+
 	private class HandleEvents implements Runnable
 	{
 		private IxManager tunnel;
@@ -222,18 +200,20 @@ public class IxManager extends IxTunnel
 			{
 
 				try {
-				KeyDocPair pair = tunnel.recieveDocument();
+					KeyDocPair pair = tunnel.recieveDocument();
 
-				key = pair.getKey();
-				doc = pair.getDoc();
+					key = pair.getKey();
+					doc = pair.getDoc();
 
-				recv = handlers.get(key);
-				if (recv == null)
-					continue;
+					if (allHandler != null)
+						allHandler.accept(key, tunnel, doc);
 
-				recv.accept(key, tunnel, doc);
+					recv = handlers.get(key);
+					if (recv == null)
+						continue;
+
+					recv.accept(key, tunnel, doc);
 				} catch (Exception ex) {
-
 					System.out.println();
 				}
 			}

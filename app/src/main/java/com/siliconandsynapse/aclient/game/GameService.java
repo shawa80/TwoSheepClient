@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.List;
 
+import android.app.Activity;
 import android.util.Log;
 
 //import com.siliconandsynapse.aclient.NetworkService;
+import com.siliconandsynapse.aclient.NetworkService;
 import com.siliconandsynapse.aclient.gameModels.TableModel;
 import com.siliconandsynapse.ixcpp.common.ChoiceResponse;
 import com.siliconandsynapse.ixcpp.common.Discard;
@@ -67,8 +69,8 @@ public class GameService implements Runnable {
 //	private String gameName;
 //	private IxAddress addr;
 //
-//	private NetworkService service;
-	private FakeServer service;
+	private NetworkService service;
+	//private FakeServer service;
 //
 //	private CardFactory cache;
 	private TableModel table;
@@ -92,11 +94,12 @@ public class GameService implements Runnable {
 
 	private static Hashtable<String, GameService> services = new Hashtable<String, GameService>();
 
+	private Activity act;
 
-	public static GameService getService(String gameName) {
+	public static GameService getService(Activity act, String gameName) {
 
 		if (!services.containsKey(gameName)) {
-			services.put(gameName, new GameService(gameName));
+			services.put(gameName, new GameService(act, gameName));
 		}
 
 		return services.get(gameName);
@@ -106,10 +109,11 @@ public class GameService implements Runnable {
 
 
 
-	private GameService(String gameName) {
+	private GameService(Activity act, String gameName) {
 
 //		this.gameName = gameName;
 //
+		act = this.act;
 		cardServerBlock = new Mutex();
 		cardUserBlock = new Mutex();
 		cardToPlay = null;
@@ -205,11 +209,11 @@ public class GameService implements Runnable {
 
 		IxAddress addr = IxAddress.createRoot("TwoSheep");
 
-		service = new FakeServer();
+		//service = new FakeServer();
 
 
-//		service = NetworkService.getService();
-//
+		//service = new NetworkService(act);
+
 //		baseAddr = service.getGameAddr();
 //
 //		try {
@@ -217,7 +221,7 @@ public class GameService implements Runnable {
 //		} catch (ParseError e) {
 //			e.printStackTrace();
 //		}
-//
+
 			home = service.getTunnel();
 
 //			gameStart = new GameStart(addr, cache);

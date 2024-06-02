@@ -130,7 +130,7 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 
 			mapCards();
 
-			service = GameService.getService(gameName);
+			service = GameService.getService(this, gameName);
 
 //			updateGame = new UpdateGame() {
 //
