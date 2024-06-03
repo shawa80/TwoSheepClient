@@ -1,60 +1,43 @@
-//package com.siliconandsynapse.ixcpp.protocol.lobby;
-//
-//import javax.xml.parsers.DocumentBuilder;
-//import javax.xml.parsers.DocumentBuilderFactory;
-//
-//import org.w3c.dom.Document;
-//import org.w3c.dom.Element;
-//
-//import com.siliconandsynapse.ixcpp.Cmd;
-//import com.siliconandsynapse.net.ixtunnel.IxAddress;
-//import com.siliconandsynapse.net.ixtunnel.IxManager;
-//import com.siliconandsynapse.net.ixtunnel.ParseError;
-//
-//public class JoinGameCmd implements Cmd {
-//
-//	private String gameId;
-//
-//	private DocumentBuilder documentBuilder;
-//
-//	public JoinGameCmd(String gameId) {
-//
-//		this.gameId = gameId;
-//	}
-//
-//
-//
-//	@Override
-//	public void execute(IxAddress baseAddr, IxManager tunnel) {
-//
-//		Document doc;
-//		Element message;
-//
-//		try {
-//			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-//		} catch (Exception e) {
-//
-//		}
-//
-//		doc = documentBuilder.newDocument();
-//		message = doc.createElement("JoinGame");
-//		message.setAttribute("gameId", gameId);
-//		doc.appendChild(message);
-//
-//		IxAddress addr = null;
-//
-//		try {
-//			addr = baseAddr.append("JoinGame");
-//		} catch (ParseError e) {
-//			e.printStackTrace();
-//		}
-//
-//		try {
-//			tunnel.sendDocument(addr, doc);
-//		} catch (Exception e) {
-//			return;
-//		}
-//
-//	}
-//
-//}
+package com.siliconandsynapse.ixcpp.protocol.lobby;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
+import com.google.gson.Gson;
+import com.siliconandsynapse.net.ixtunnel.IxAddress;
+import com.siliconandsynapse.net.ixtunnel.IxManager;
+import com.siliconandsynapse.net.ixtunnel.ParseError;
+
+public class JoinGameCmd {
+
+	private String gameId;
+
+	private DocumentBuilder documentBuilder;
+
+	public JoinGameCmd(String gameId) {
+
+		this.gameId = gameId;
+	}
+
+
+	public void execute(IxAddress baseAddr, IxManager tunnel) {
+
+		IxAddress addr = null;
+
+        addr = baseAddr.append("JoinGame");
+
+        var gson = new Gson();
+        var doc = gson.toJson(new JoinGameRequest(gameId));
+
+		try {
+			tunnel.sendDocument(addr, doc);
+		} catch (Exception e) {
+			return;
+		}
+
+	}
+
+}

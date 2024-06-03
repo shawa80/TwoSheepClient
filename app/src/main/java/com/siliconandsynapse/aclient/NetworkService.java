@@ -10,9 +10,11 @@ import java.util.Vector;
 
 //import com.siliconandsynapse.aclient.lobbyModels.Credentials;
 //import com.siliconandsynapse.aclient.lobbyModels.DefaultMessageModel;
-//import com.siliconandsynapse.aclient.lobbyModels.GameModel;
+import com.siliconandsynapse.aclient.lobbyModels.GameModel;
 //import com.siliconandsynapse.ixcpp.Cmd;
-//import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
+import com.siliconandsynapse.aclient.lobbyModels.GameModel;
+import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
+import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 //import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 //import com.siliconandsynapse.ixcpp.protocol.HeartBeat;
 //import com.siliconandsynapse.ixcpp.protocol.lobby.AccessControl;
@@ -25,6 +27,10 @@ import java.util.Vector;
 //import com.siliconandsynapse.ixcpp.protocol.lobby.UserList;
 //import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
 import com.siliconandsynapse.ixcpp.protocol.Debug;
+import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGame;
+import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGame;
+import com.siliconandsynapse.ixcpp.protocol.lobby.ListGames;
+import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
 import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
 import com.siliconandsynapse.ixcpp.userInteraction.PasswordPrompt;
 import com.siliconandsynapse.ixcpp.userInteraction.UserPassword;
@@ -40,13 +46,12 @@ public class NetworkService implements Runnable {
 	private Thread t;
 
 	private IxManager tunnel;
-	private Debug debug;
 	//private MessageDisplay messageDisplay;
-	//private CreateGame createGame;
+	private CreateGame createGame;
 	//private DeleteGame deleteGame;
-	//private JoinGame joinGame;
-	//private GameController gameManager;
-	//private ListGames listGames;
+	private JoinGame joinGame;
+	private GameController gameManager;
+	private ListGames listGames;
 	//private AccessControl accessControl;
 	//private UserAdd userAdd;
 	//private UserDel userDel;
@@ -55,7 +60,7 @@ public class NetworkService implements Runnable {
 	//private PlayerLeftGame playerLeftGame;
 	//private HeartBeat beat;
 	//private ListDealers listDealer;
-	//private Welcome welcome;
+	private Welcome welcome;
 	//private DealerJavaHint dealerJavaHint;
 
 	private IxAddress rootAddr;
@@ -63,12 +68,12 @@ public class NetworkService implements Runnable {
 	private IxAddress lobbyAddr;
 	//private IxAddress extnAddr;
 
-	private Activity act;
+	private MainActivity act;
 
 	//game objects
 	//private LobbyModel lobbyModel;
 	//private DefaultMessageModel lobbyMessageReceiver;
-	//private RoomModel roomModel;
+	private RoomModel roomModel;
 	//private MessageSenderModel lobbyMessageSend;
 
 
@@ -96,21 +101,20 @@ public class NetworkService implements Runnable {
 //	}
 
 
-	public NetworkService(Activity act, Debug d
+	public NetworkService(MainActivity act,
 						  //		LobbyModel lobbyModel,
-						  //		RoomModel roomModel
+						  		RoomModel roomModel
     ) {
 
 
 		//service = this;
-		this.debug = d;
 
 		this.act = act;
 		onConnect = new ObserverPool<OnConnectListener>(OnConnectListener.class);
 
 //		this.lobbyModel = lobbyModel;
-//		this.roomModel = roomModel;
-//		gameManager = new GameModel(act);
+		this.roomModel = roomModel;
+		gameManager = new GameModel(act);
 
         rootAddr = IxAddress.createRoot("ixcpp");
         lobbyAddr = rootAddr.append("lobby");
@@ -143,7 +147,7 @@ public class NetworkService implements Runnable {
 		//dealerJavaHint = new DealerJavaHint(extnAddr);
 
 		//gameList = new GameList(dealerJavaHint);
-		//gameManager = new GameManager(gamesAddr, messageAdder, gameList);
+		gameManager = new GameModel(act);
 
 //		accessControl = new AccessControl(lobbyAddr, new PasswordPrompt() {
 //
@@ -161,33 +165,27 @@ public class NetworkService implements Runnable {
 //
 //		messageDisplay = new MessageDisplay(lobbyAddr, lobbyMessageReceiver);
 //
-//		createGame = new CreateGame(lobbyAddr, roomModel);
+		createGame = new CreateGame(lobbyAddr, roomModel);
 //		deleteGame = new DeleteGame(lobbyAddr, roomModel);
-//		joinGame = new JoinGame(lobbyAddr, gameManager);
-//		listGames = new ListGames(lobbyAddr, roomModel);
+		joinGame = new JoinGame(lobbyAddr, gameManager);
+		listGames = new ListGames(lobbyAddr);
 		//userAdd = new UserAdd(lobbyAddr, lobbyModel);
 		//userDel = new UserDel(lobbyAddr, lobbyModel);
 //		userList = new UserList(lobbyAddr, lobbyModel);
 		//playerJoinedGame = new PlayerJoinedGame(lobbyAddr, roomModel);
 		//playerLeftGame = new PlayerLeftGame(lobbyAddr, roomModel);
 		//listDealer = new ListDealers(lobbyAddr, gameList);
-//		welcome = new Welcome(lobbyAddr, new Welcome.ProtocalMonitor() {
-//			@Override
-//			public void welcome() {
-//				//TODO request Dealer list
-//
-//			}
-//		});
+		welcome = new Welcome(lobbyAddr, act);
 //
 //		beat = new HeartBeat();
 
 //		bootStrap.add(accessControl);
 //
 //		bootStrap.add(messageDisplay);
-//		bootStrap.add(createGame);
+		bootStrap.add(createGame);
 //		bootStrap.add(deleteGame);
-//		bootStrap.add(joinGame);
-//		bootStrap.add(listGames);
+		bootStrap.add(joinGame);
+		bootStrap.add(listGames);
 		//bootStrap.add(userAdd);
 		//bootStrap.add(userDel);
 //		bootStrap.add(userList);
@@ -195,7 +193,7 @@ public class NetworkService implements Runnable {
 		//bootStrap.add(playerLeftGame);
 //		bootStrap.add(beat);
 		//bootStrap.add(listDealer);
-//		bootStrap.add(welcome);
+		bootStrap.add(welcome);
 		//bootStrap.add(dealerJavaHint);
 
 		Socket connection = null;
@@ -215,7 +213,7 @@ public class NetworkService implements Runnable {
 		try {
 
 			tunnel = new IxManager(connection, bootStrap);
-			tunnel.registerAllReciever(debug);
+			tunnel.registerAllReciever(new Debug(act));
 
 		} catch (Exception e) {
 			e.printStackTrace();

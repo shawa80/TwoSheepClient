@@ -1,9 +1,11 @@
 package com.siliconandsynapse.aclient;
 
 import com.siliconandsynapse.aclient.game.Images;
+import com.siliconandsynapse.aclient.lobbyModels.DefaultRoomModel;
 import com.siliconandsynapse.ixcpp.protocol.Debug;
 import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
 import com.siliconandsynapse.ixcpp.util.Mutex;
+import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -24,7 +26,7 @@ public class MainActivity extends Activity {
 
 	private NetworkService service;
 	
-	//private RoomModel rooms;
+	private RoomModel rooms;
 	//private LobbyUserList lobbyModel;
 	
 	public MainActivity() {
@@ -45,7 +47,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 	    debug = (TextView) findViewById(R.id.debugLog);
 
-		service = new NetworkService(this, new Debug(this));
+		service = new NetworkService(this, new DefaultRoomModel());
 //		service.addOnConnectListener(new OnConnectListener() {
 //
 //			@Override
