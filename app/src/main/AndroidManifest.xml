@@ -27,13 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
-<!--            android:name="com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepActivity"-->
-<!--            android:label="@string/title_activity_game"-->
-<!--            android:launchMode="singleInstance"-->
-<!--            android:screenOrientation="portrait" >-->
-<!--        </activity>-->
+        <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:name="com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepActivity"
+            android:label="@string/title_activity_game"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
+        </activity>
 <!--        <activity-->
 <!--            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
 <!--            android:name="com.siliconandsynapse.aclient.game.Euchre.EuchreActivity"-->

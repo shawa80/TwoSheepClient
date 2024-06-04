@@ -1,6 +1,8 @@
 package com.siliconandsynapse.net.ixtunnel;
 
 
+import com.siliconandsynapse.aclient.MainActivity;
+
 import java.net.*;
 import java.io.*;
 
