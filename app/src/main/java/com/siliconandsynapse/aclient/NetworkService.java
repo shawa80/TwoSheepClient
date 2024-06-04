@@ -94,11 +94,11 @@ public class NetworkService implements Runnable {
 	}
 
 
-//	private static NetworkService service;
-//
-//	public static NetworkService getService() {
-//		return service;
-//	}
+	private static NetworkService service;
+
+	public static NetworkService getService() {
+		return service;
+	}
 
 
 	public NetworkService(MainActivity act,
@@ -107,7 +107,7 @@ public class NetworkService implements Runnable {
     ) {
 
 
-		//service = this;
+		service = this;
 
 		this.act = act;
 		onConnect = new ObserverPool<OnConnectListener>(OnConnectListener.class);
@@ -165,7 +165,7 @@ public class NetworkService implements Runnable {
 //
 //		messageDisplay = new MessageDisplay(lobbyAddr, lobbyMessageReceiver);
 //
-		createGame = new CreateGame(lobbyAddr, roomModel);
+		createGame = new CreateGame(lobbyAddr, roomModel, gameManager);
 //		deleteGame = new DeleteGame(lobbyAddr, roomModel);
 		joinGame = new JoinGame(lobbyAddr, gameManager);
 		listGames = new ListGames(lobbyAddr);

@@ -3,6 +3,8 @@ package com.siliconandsynapse.ixcpp.protocol.game;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
+import com.google.gson.TypeAdapter;
+import com.google.gson.reflect.TypeToken;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
 import com.siliconandsynapse.ixcpp.common.cards.types.PokerCard;
@@ -54,11 +56,12 @@ public class TableChange implements IxReciever
 		gsonBuilder.registerTypeAdapter(Card.class,  new CardCreator());
 		Gson gson = gsonBuilder.create();
 
-		var x = gson.fromJson(doc, TableChangeObj.class);
+		var t = new TypeToken<List<TableChangeObjSeat>>(){};
+		var x = gson.fromJson(doc, t);
 
 		table.invalidateAllCards();
 
-		x.seats().forEach( seat-> {
+		x.forEach( seat-> {
 			seat.stacks().forEach(stack -> {
 				stack.cards().forEach(card -> {
 					table.validateCard(seat.playerId(),

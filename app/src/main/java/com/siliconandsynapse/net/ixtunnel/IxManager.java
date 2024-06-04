@@ -194,7 +194,7 @@ public class IxManager extends IxTunnel
 		public void run()
 		{
 			IxReciever recv;
-			IxAddress key;
+			IxAddress key = null;
 
 			String doc;
 
@@ -216,7 +216,7 @@ public class IxManager extends IxTunnel
 
 					recv.accept(key, tunnel, doc);
 				} catch (Exception ex) {
-					System.out.println();
+					System.out.println(key.getFullPath());
 				}
 			}
 

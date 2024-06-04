@@ -15,10 +15,12 @@ import com.siliconandsynapse.ixcpp.common.Discard;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
 import com.siliconandsynapse.ixcpp.common.cards.types.PokerCard;
+import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfo;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerPickACard;
 import com.siliconandsynapse.ixcpp.protocol.game.TableChange;
 import com.siliconandsynapse.ixcpp.protocol.game.TurnChange;
+import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGameCmd;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
@@ -66,7 +68,7 @@ public class GameService implements Runnable {
 	private IxManager home;
 //
 //	private IxAddress baseAddr;
-//	private String gameName;
+	private String gameName;
 //	private IxAddress addr;
 //
 	private NetworkService service;
@@ -111,7 +113,7 @@ public class GameService implements Runnable {
 
 	private GameService(Activity act, String gameName) {
 
-//		this.gameName = gameName;
+		this.gameName = gameName;
 //
 		act = this.act;
 		cardServerBlock = new Mutex();
@@ -207,12 +209,10 @@ public class GameService implements Runnable {
 //		x.get(3).setFace(Card.UP);
 //		table.getHandTranslator().removeNonvalidatedCards();
 
-		IxAddress addr = IxAddress.createRoot("TwoSheep");
-
-		//service = new FakeServer();
+		IxAddress addr = IxAddress.createRoot("ixcpp.games." + gameName);
 
 
-		//service = new NetworkService(act);
+		service = NetworkService.getService();
 
 //		baseAddr = service.getGameAddr();
 //
@@ -263,9 +263,11 @@ public class GameService implements Runnable {
 //			home.registerReceiver(playerDiscard);
 //
 
-
-
 		service.start();
+
+		var jg = new JoinGameCmd(gameName);
+		var gameKey = IxAddress.createRoot("ixcpp.lobby");
+		jg.execute(gameKey, home);
 
 
 //		service.executeLobby(new JoinGameCmd(gameName));

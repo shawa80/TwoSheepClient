@@ -38,7 +38,7 @@ public class JoinGame implements IxReciever
         var gson = new Gson();
         var x = gson.fromJson(doc, JoinGameObj.class);
 
-		gameManager.startGame(returnTunnel, x.gameId(), x.type());
+		//gameManager.startGame(returnTunnel, x.gameId(), x.type());
 
 	}
 	public String placeInThread()

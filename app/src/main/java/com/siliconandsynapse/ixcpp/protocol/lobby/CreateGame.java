@@ -3,6 +3,7 @@ package com.siliconandsynapse.ixcpp.protocol.lobby;
 import org.w3c.dom.*;
 
 import com.google.gson.Gson;
+import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
@@ -20,15 +21,15 @@ public class CreateGame implements IxReciever
 	private IxAddress baseAddr;
 	private IxAddress addr;
 
-	private XPathFactory factory;
+	private GameController gameManager;
 
-	public CreateGame(IxAddress baseAddr, RoomModel model)
+	public CreateGame(IxAddress baseAddr, RoomModel model, GameController gameManager)
 	{
 
 		this.model = model;
 		this.baseAddr = baseAddr;
+		this.gameManager = gameManager;
 
-		factory = XPathFactory.newInstance();
 		addr = baseAddr.append("CreateGame");
 
 		events = new AcceptedAddresses(addr);
@@ -44,9 +45,10 @@ public class CreateGame implements IxReciever
 		var roomType = x.type();
 
 		model.addGame(new GameInfo(id, roomType), returnTunnel);
-		var jg = new JoinGameCmd(x.name());
-		var gameKey = key.getParent();
-		jg.execute(gameKey, returnTunnel);
+
+		gameManager.startGame(returnTunnel, x.name(), x.type());
+
+
 	}
 	public String placeInThread()
 	{
