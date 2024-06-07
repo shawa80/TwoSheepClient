@@ -168,7 +168,7 @@ public class NetworkService implements Runnable {
 		createGame = new CreateGame(lobbyAddr, roomModel, gameManager);
 //		deleteGame = new DeleteGame(lobbyAddr, roomModel);
 		joinGame = new JoinGame(lobbyAddr, gameManager);
-		listGames = new ListGames(lobbyAddr);
+		listGames = new ListGames(lobbyAddr, gameManager);
 		//userAdd = new UserAdd(lobbyAddr, lobbyModel);
 		//userDel = new UserDel(lobbyAddr, lobbyModel);
 //		userList = new UserList(lobbyAddr, lobbyModel);

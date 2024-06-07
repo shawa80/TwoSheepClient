@@ -6,6 +6,7 @@ import org.w3c.dom.*;
 //import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfoObj;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
@@ -27,10 +28,12 @@ public class ListGames implements IxReciever
 	private IxAddress addr;
 
 	private XPathFactory factory;
+	private GameController gameManager;
 
-	public ListGames(IxAddress baseAddr)
+	public ListGames(IxAddress baseAddr, GameController gameManager)
 	{
 		this.baseAddr = baseAddr;
+		this.gameManager = gameManager;
 
         addr = baseAddr.append("ListGames");
 
@@ -55,8 +58,24 @@ public class ListGames implements IxReciever
         var t = new TypeToken<List<ListGamesObj>>(){};
         var games = gson.fromJson(doc, t);
 
-		var cmd = new CreateGameCmd("Two Sheep");
-		cmd.execute(key.getParent(), returnTunnel);
+		String gameId = null;
+		String type = null;
+		for (var g: games) {
+			if (g.freeSeats() > 0)
+			{
+				gameId = g.gameId();
+				type = g.type();
+				break;
+			}
+		}
+
+		if (gameId == null) {
+
+			var cmd = new CreateGameCmd("Two Sheep");
+			cmd.execute(key.getParent(), returnTunnel);
+		} else {
+			gameManager.startGame(returnTunnel, gameId, type);
+		}
 	}
 	public String placeInThread()
 	{
