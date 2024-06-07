@@ -123,10 +123,10 @@ public class Images {
 
 	private static int getPokerImageResource(Card card, boolean horiz) {
 		
-		if (card.getFace() == Card.DOWN && horiz == true)
+		if (card.getFace() == Card.Facing.DOWN && horiz == true)
 			return R.drawable.back_hz;
 		
-		if (card.getFace() == Card.DOWN)
+		if (card.getFace() == Card.Facing.DOWN)
 			return R.drawable.back;
 		
 		if (card.getSuitType() == -1 || card.getValueType() == -1)

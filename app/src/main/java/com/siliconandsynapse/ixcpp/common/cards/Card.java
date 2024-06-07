@@ -2,13 +2,18 @@ package com.siliconandsynapse.ixcpp.common.cards;
 
 public abstract class Card
 {
-	public static final int UP = 1;
-	public static final int DOWN = 2;
+	public enum Facing {
+		UP,
+		DOWN
+	}
+
+//	public static final int UP = 1;
+//	public static final int DOWN = 2;
 
 
 	protected int suit;
 	protected int value;
-	private int facing;
+	private Facing facing;
 	private int secureCode;
 
 
@@ -16,7 +21,7 @@ public abstract class Card
 	{
 		suit = s;
 		value = v;
-		facing = DOWN;
+		facing = Facing.DOWN;
 		this.secureCode = secureCode;
 		
 	}
@@ -29,9 +34,9 @@ public abstract class Card
 		suit = getSuitValue(csuit);
 
 		if (value == -1 || suit == -1)
-			facing = DOWN;
+			facing = Facing.DOWN;
 		else
-			facing = UP;
+			facing = Facing.UP;
 	}
 
 	public abstract String getHint();
@@ -40,11 +45,11 @@ public abstract class Card
 		visitor.visit(this);
 	}
 		
-	public void setFace(int f)
+	public void setFace(Facing f)
 	{
 		facing = f;
 	}
-	public int getFace()
+	public Facing getFace()
 	{
 		return facing;
 	}

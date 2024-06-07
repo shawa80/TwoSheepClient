@@ -43,7 +43,7 @@ public class DiscardSerialize
 			card = doc.createElement("card");
 
 			card.setAttribute("id", c.getCode() + "");
-			if (c.getFace() == Card.UP)
+			if (c.getFace() == Card.Facing.UP)
 			{
 				card.setAttribute("type", c.getType());
 				card.setAttribute("suit", c.getSuit());
