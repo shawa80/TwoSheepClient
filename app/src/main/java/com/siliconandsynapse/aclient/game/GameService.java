@@ -39,7 +39,7 @@ import com.siliconandsynapse.net.ixtunnel.RecieverExists;
 //import com.siliconandsynapse.ixcpp.protocol.game.PlayerPickACard;
 //import com.siliconandsynapse.ixcpp.protocol.game.QuitGame;
 //import com.siliconandsynapse.ixcpp.protocol.game.TableChange;
-//import com.siliconandsynapse.ixcpp.protocol.game.TrickChange;
+import com.siliconandsynapse.ixcpp.protocol.game.TrickChange;
 //import com.siliconandsynapse.ixcpp.protocol.game.TurnChange;
 //import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGameCmd;
 //import com.siliconandsynapse.ixcpp.util.Mutex;
@@ -56,8 +56,8 @@ public class GameService implements Runnable {
 	private PlayerPickACard playerPickACard;
 //	private GameMessage gameMessage;
 //	private GameChat gameChat;
-//	private TableChange tableChange;
-//	private TrickChange trickChange;
+	private TableChange tableChange;
+	private TrickChange trickChange;
 //	private TurnChange turnChange;
 //	private Pause pause;
 //	private PlayerChoice playerChoice;
@@ -243,12 +243,12 @@ public class GameService implements Runnable {
 //			gameChat.registerTable(table);
 //			home.registerReceiver(gameChat);
 //
-			var tableChange = new TableChange(addr, table.getHandTranslator(), f);
+			tableChange = new TableChange(addr, table.getHandTranslator(), f);
 			home.registerReceiver(tableChange);
-//
-//			trickChange = new TrickChange(addr, table.getTrickTranslator(), cache);
-//			home.registerReceiver(trickChange);
-//
+
+			trickChange = new TrickChange(addr, table.getTrickTranslator(), f);
+			home.registerReceiver(trickChange);
+
 			var turnChange = new TurnChange(addr, table);
 			home.registerReceiver(turnChange);
 //
