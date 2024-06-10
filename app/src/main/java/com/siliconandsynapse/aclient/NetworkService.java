@@ -198,7 +198,7 @@ public class NetworkService implements Runnable {
 
 		Socket connection = null;
         try {
-			connection = new Socket("192.168.2.213", 1077);
+			connection = new Socket("twosheep.shawtonabbey.com", 1077);
 
         } catch (UnknownHostException e) {
         	e.printStackTrace();
