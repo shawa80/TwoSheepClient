@@ -11,6 +11,7 @@ import com.siliconandsynapse.aclient.game.UpdateCardsListener;
 import com.siliconandsynapse.aclient.gameModels.models.UpdateGame;
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -71,6 +72,7 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 			//setContentView(R.layout.activity_game);
 			setContentView(R.layout.activity_game2);
 
+
 			Log.d("DebugPrint", "Game activity create");
 
 			gameName = "1";
@@ -108,6 +110,7 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 			yourPublic[5] = (ImageView)this.findViewById(R.id.yourPublic6);
 
 
+
 			myPrivate[0] = (ImageView)this.findViewById(R.id.myPrivate1);
 			myPrivate[1] = (ImageView)this.findViewById(R.id.myPrivate2);
 			myPrivate[2] = (ImageView)this.findViewById(R.id.myPrivate3);
@@ -123,7 +126,6 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 			yourCard = (ImageView)this.findViewById(R.id.YourCard);
 			myCard = (ImageView)this.findViewById(R.id.MyCard);
 
-
 			currentMsg = (TextView)this.findViewById(R.id.currentMsg);
 
 
@@ -132,22 +134,11 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 
 			service = GameService.getService(this, gameName);
 
-//			updateGame = new UpdateGame() {
-//
-//				@Override
-//				public void writeNotice(final String msg) {
-//					TwoSheepActivity.this.runOnUiThread(new Runnable() {
-//
-//						@Override
-//						public void run() {
-//							currentMsg.setText(msg);
-//						}
-//
-//					});
-//				}
-//			};
-			service.getModel().addListener(updateGame);
-
+			service.getModel().addListener((msg) -> {
+				TwoSheepActivity.this.runOnUiThread(() -> {
+					currentMsg.setText(msg);
+				});
+			});
 
 			updateCardsListener = new UpdateCardsListener(this, cardsByAddress, table);
 			service.getModel().addListener(updateCardsListener);
@@ -176,6 +167,7 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 		}
 
 		table.invalidate();
+
 	}
 
 

@@ -5,10 +5,14 @@
     <item
         android:id="@+id/bottom" 
         android:drawable="@drawable/nocard" 
-        android:left="0px" android:top="0px" />
+        android:left="0px" android:top="0px"
+        android:width="20px"
+        android:height="31px"/>
     <item 
         android:id="@+id/top"
         android:drawable="@drawable/nocard" 
-        android:left="5px" android:top="5px"  />
+        android:left="5px" android:top="5px"
+        android:width="20px"
+        android:height="31px"/>
 
 </layer-list>

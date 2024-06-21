@@ -5,6 +5,9 @@
     <item
         android:id="@+id/bottom" 
         android:drawable="@drawable/nocard" 
-        android:left="0px" android:top="0px" android:right="25px" android:bottom="36px"/>
+        android:left="0px"
+        android:top="0px"
+        android:right="25px"
+        android:bottom="36px"/>
 
 </layer-list>
