@@ -35,7 +35,7 @@ public class Pause implements IxReciever
 		try {
 			Thread.sleep(x.seconds() * 1000);
 		} catch (InterruptedException ignored) {
-
+			System.out.println("");
 		}
 	}
 	public String placeInThread()

@@ -16,6 +16,8 @@ import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
 import com.siliconandsynapse.ixcpp.common.cards.types.PokerCard;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
+import com.siliconandsynapse.ixcpp.protocol.Pause;
+import com.siliconandsynapse.ixcpp.protocol.game.PlayerId;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfo;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerPickACard;
 import com.siliconandsynapse.ixcpp.protocol.game.TableChange;
@@ -52,14 +54,14 @@ public class GameService implements Runnable {
 
 //	private GameStart gameStart;
 	private PlayerInfo playerInfo;
-//	private PlayerId playerId;
+	private PlayerId playerId;
 	private PlayerPickACard playerPickACard;
 //	private GameMessage gameMessage;
 //	private GameChat gameChat;
 	private TableChange tableChange;
 	private TrickChange trickChange;
 //	private TurnChange turnChange;
-//	private Pause pause;
+	private Pause pause;
 //	private PlayerChoice playerChoice;
 //	private PlayerDiscard playerDiscard;
 //
@@ -229,10 +231,10 @@ public class GameService implements Runnable {
 //
 			playerInfo = new PlayerInfo(addr, table);
 			home.registerReceiver(playerInfo);
-//
-//			playerId = new PlayerId(addr, table);
-//			home.registerReceiver(playerId);
-//
+
+			playerId = new PlayerId(addr, table);
+			home.registerReceiver(playerId);
+
 			playerPickACard = new PlayerPickACard(addr, cardServerBlock);
 			home.registerReceiver(playerPickACard);
 //
@@ -251,10 +253,10 @@ public class GameService implements Runnable {
 
 			var turnChange = new TurnChange(addr, table);
 			home.registerReceiver(turnChange);
-//
-//			pause = new Pause(addr);
-//			home.registerReceiver(pause);
-//
+
+			pause = new Pause(addr);
+			home.registerReceiver(pause);
+
 //			playerChoice = new PlayerChoice(addr, table, choiceServerBlock);
 //			home.registerReceiver(playerChoice);
 //
