@@ -17,6 +17,7 @@ import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
 import com.siliconandsynapse.ixcpp.common.cards.types.PokerCard;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.protocol.Pause;
+import com.siliconandsynapse.ixcpp.protocol.game.GameMessage;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerId;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfo;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerPickACard;
@@ -56,7 +57,7 @@ public class GameService implements Runnable {
 	private PlayerInfo playerInfo;
 	private PlayerId playerId;
 	private PlayerPickACard playerPickACard;
-//	private GameMessage gameMessage;
+	private GameMessage gameMessage;
 //	private GameChat gameChat;
 	private TableChange tableChange;
 	private TrickChange trickChange;
@@ -237,9 +238,9 @@ public class GameService implements Runnable {
 
 			playerPickACard = new PlayerPickACard(addr, cardServerBlock);
 			home.registerReceiver(playerPickACard);
-//
-//			gameMessage = new GameMessage(addr, table);
-//			home.registerReceiver(gameMessage);
+
+			gameMessage = new GameMessage(addr, table);
+			home.registerReceiver(gameMessage);
 //
 //			gameChat = new GameChat(addr, home);
 //			gameChat.registerTable(table);
