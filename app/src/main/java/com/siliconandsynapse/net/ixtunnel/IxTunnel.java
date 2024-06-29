@@ -62,7 +62,7 @@ public class IxTunnel
 				out.flush();
 
 			} catch (Exception e) {
-				//e.printStackTrace();
+				e.printStackTrace();
 				return;
 			}
 
