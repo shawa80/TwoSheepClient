@@ -26,10 +26,10 @@ public class GameModel implements GameController {
 	}
 
 	@Override
-	public void startGame(IxManager arg0, String gameName, String gametype) {
+	public void startGame(IxManager arg0, int gameId, String gametype) {
 
 		Intent intent = new Intent(act, TwoSheepActivity.class);
-		intent.putExtra("GAME_NAME", gameName);
+		intent.putExtra("GAME_NAME", gameId);
 
 		act.startActivity(intent);
 	}

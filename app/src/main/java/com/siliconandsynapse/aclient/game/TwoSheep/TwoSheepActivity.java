@@ -51,7 +51,7 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 
 	private Hashtable<CardAddress, ImageView> cardsByAddress = new Hashtable<CardAddress, ImageView>();
 
-	private String gameName;
+	private int gameId;
 
 	private UpdateGame updateGame;
 	private UpdateCardsListener updateCardsListener;
@@ -75,11 +75,11 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 
 			Log.d("DebugPrint", "Game activity create");
 
-			gameName = "1";
+			gameId = 1;
 
 			Bundle extras = getIntent().getExtras();
 			if (extras != null) {
-			    gameName = extras.getString("GAME_NAME");
+			    gameId = extras.getInt("GAME_NAME");
 			}
 
 			table = (ViewGroup)this.findViewById(R.id.table);
@@ -132,7 +132,7 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 
 			mapCards();
 
-			service = GameService.getService(this, gameName);
+			service = GameService.getService(this, gameId);
 
 			service.getModel().addListener((msg) -> {
 				TwoSheepActivity.this.runOnUiThread(() -> {
@@ -186,7 +186,7 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 
 		try {
 
-			//service.stop();
+			service.stop();
 		} catch (Exception ex) {
 			Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
 		}

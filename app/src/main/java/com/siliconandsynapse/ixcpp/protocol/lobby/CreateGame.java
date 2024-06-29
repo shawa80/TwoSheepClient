@@ -41,7 +41,7 @@ public class CreateGame implements IxReciever
         var gson = new Gson();
         var x = gson.fromJson(doc, CreateGameObj.class);
 
-		var id = Integer.parseInt(x.name());
+		var id = x.gameId();
 		var roomType = x.type();
 
 		model.addGame(new GameInfo(id, roomType), returnTunnel);

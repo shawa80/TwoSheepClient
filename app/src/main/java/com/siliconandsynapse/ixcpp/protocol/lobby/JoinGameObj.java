@@ -1,3 +1,3 @@
 package com.siliconandsynapse.ixcpp.protocol.lobby;
 
-public record JoinGameObj(String gameId, String type) {}
+public record JoinGameObj(int gameId, String type) {}

@@ -47,7 +47,7 @@ public class ListGames implements IxReciever
         var games = gson.fromJson(doc, t);
 
 		for (var g: games) {
-			var id = Integer.parseInt(g.gameId());
+			var id = g.gameId();
 			model.addGame(new GameInfo(id, g.type()), returnTunnel);
 		}
 

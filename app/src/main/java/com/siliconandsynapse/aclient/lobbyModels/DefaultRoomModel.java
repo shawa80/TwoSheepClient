@@ -40,6 +40,9 @@ public class DefaultRoomModel implements RoomModel {
 	@Override
 	public void addGame(GameInfo game, IxManager tunnel) {
 
+		if (games.containsKey(game.getId()))
+			return;
+
 		games.put(game.getId(), new Game(game, tunnel));
 
 		pool.getDispatcher().gameAdded(game,  tunnel);

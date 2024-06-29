@@ -138,7 +138,7 @@ public class NetworkService implements Runnable {
 	}
 
 	public void joinGame(GameInfo gi) {
-		gameManager.startGame(getTunnel(), gi.getId()+"", gi.getName());
+		gameManager.startGame(getTunnel(), gi.getId(), gi.getName());
 	}
 
 

@@ -1,3 +1,3 @@
 package com.siliconandsynapse.ixcpp.protocol.lobby;
 
-public record CreateGameObj (String name, String type) { }
+public record CreateGameObj (int gameId, String type) { }

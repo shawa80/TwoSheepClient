@@ -21,6 +21,7 @@ import com.siliconandsynapse.ixcpp.protocol.game.GameMessage;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerId;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfo;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerPickACard;
+import com.siliconandsynapse.ixcpp.protocol.game.QuitGame;
 import com.siliconandsynapse.ixcpp.protocol.game.TableChange;
 import com.siliconandsynapse.ixcpp.protocol.game.TurnChange;
 import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGameCmd;
@@ -61,7 +62,7 @@ public class GameService implements Runnable {
 //	private GameChat gameChat;
 	private TableChange tableChange;
 	private TrickChange trickChange;
-//	private TurnChange turnChange;
+	private TurnChange turnChange;
 	private Pause pause;
 //	private PlayerChoice playerChoice;
 //	private PlayerDiscard playerDiscard;
@@ -71,9 +72,9 @@ public class GameService implements Runnable {
 	private IxManager home;
 //
 //	private IxAddress baseAddr;
-	private String gameName;
-//	private IxAddress addr;
-//
+	private int gameId;
+	private IxAddress addr;
+
 	private NetworkService service;
 	//private FakeServer service;
 //
@@ -97,26 +98,26 @@ public class GameService implements Runnable {
 //	private Discard dis;
 
 
-	private static Hashtable<String, GameService> services = new Hashtable<String, GameService>();
+	private static Hashtable<Integer, GameService> services = new Hashtable<>();
 
 	private Activity act;
 
-	public static GameService getService(Activity act, String gameName) {
+	public static GameService getService(Activity act, int gameId) {
 
-		if (!services.containsKey(gameName)) {
-			services.put(gameName, new GameService(act, gameName));
+		if (!services.containsKey(gameId)) {
+			services.put(gameId, new GameService(act, gameId));
 		}
 
-		return services.get(gameName);
+		return services.get(gameId);
 	}
 
 
 
 
 
-	private GameService(Activity act, String gameName) {
+	private GameService(Activity act, int gameId) {
 
-		this.gameName = gameName;
+		this.gameId = gameId;
 //
 		act = this.act;
 		cardServerBlock = new Mutex();
@@ -212,7 +213,7 @@ public class GameService implements Runnable {
 //		x.get(3).setFace(Card.UP);
 //		table.getHandTranslator().removeNonvalidatedCards();
 
-		IxAddress addr = IxAddress.createRoot("ixcpp.games." + gameName);
+		addr = IxAddress.createRoot("ixcpp.games." + gameId);
 
 
 		service = NetworkService.getService();
@@ -252,7 +253,7 @@ public class GameService implements Runnable {
 			trickChange = new TrickChange(addr, table.getTrickTranslator(), f);
 			home.registerReceiver(trickChange);
 
-			var turnChange = new TurnChange(addr, table);
+			turnChange = new TurnChange(addr, table);
 			home.registerReceiver(turnChange);
 
 			pause = new Pause(addr);
@@ -268,7 +269,7 @@ public class GameService implements Runnable {
 
 		service.start();
 
-		var jg = new JoinGameCmd(gameName);
+		var jg = new JoinGameCmd(gameId);
 		var gameKey = IxAddress.createRoot("ixcpp.lobby");
 		jg.execute(gameKey, home);
 
@@ -294,38 +295,37 @@ public class GameService implements Runnable {
 
 	public void stop() {
 
-//		services.remove(gameName);
-//
-//
-//		serviceCard.stop();
-//		serviceChoice.stop();
-//		serviceDiscard.stop();
-//
-//		t.interrupt();
-//
-//		try {
-//			t.join();
-//		} catch (InterruptedException e) {
-//
-//		}
-//
-//		QuitGame quit = new QuitGame(addr);
-//
-//		quit.sendQuitGame(home, gameName);
-//
-//
-//		home.unregisterReciever(gameStart);
-//		home.unregisterReciever(playerInfo);
-//		home.unregisterReciever(playerId);
-//		home.unregisterReciever(playerPickACard);
-//		home.unregisterReciever(gameMessage);
-//		home.unregisterReciever(gameChat);
-//		home.unregisterReciever(tableChange);
-//		home.unregisterReciever(trickChange);
-//		home.unregisterReciever(turnChange);
-//		home.unregisterReciever(pause);
-//		home.unregisterReciever(playerChoice);
-//		home.unregisterReciever(playerDiscard);
+		services.remove(gameId);
+
+		serviceCard.stop();
+		//serviceChoice.stop();
+		//serviceDiscard.stop();
+
+		t.interrupt();
+
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+
+		}
+
+		var quit = new QuitGame(addr);
+
+		quit.sendQuitGame(home, gameId);
+
+
+		//home.unregisterReciever(gameStart);
+		home.unregisterReciever(playerInfo);
+		home.unregisterReciever(playerId);
+		home.unregisterReciever(playerPickACard);
+		home.unregisterReciever(gameMessage);
+		//home.unregisterReciever(gameChat);
+		home.unregisterReciever(tableChange);
+		home.unregisterReciever(trickChange);
+		home.unregisterReciever(turnChange);
+		home.unregisterReciever(pause);
+		//home.unregisterReciever(playerChoice);
+		//home.unregisterReciever(playerDiscard);
 	}
 
 

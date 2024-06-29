@@ -13,11 +13,11 @@ import com.siliconandsynapse.net.ixtunnel.ParseError;
 
 public class JoinGameCmd {
 
-	private String gameId;
+	private int gameId;
 
 	private DocumentBuilder documentBuilder;
 
-	public JoinGameCmd(String gameId) {
+	public JoinGameCmd(int gameId) {
 
 		this.gameId = gameId;
 	}
