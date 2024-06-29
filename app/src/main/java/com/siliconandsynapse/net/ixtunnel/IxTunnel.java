@@ -112,10 +112,10 @@ public class IxTunnel
 
 	public void close()
 	{
-//		try {
-//			connection.close();
-//		} catch (Exception e) {
-//
-//		}
+		try {
+			connection.close();
+		} catch (Exception e) {
+
+		}
 	}
 }

@@ -267,7 +267,7 @@ public class GameService implements Runnable {
 //			home.registerReceiver(playerDiscard);
 //
 
-		service.start();
+		//service.start();  already running
 
 		var jg = new JoinGameCmd(gameId);
 		var gameKey = IxAddress.createRoot("ixcpp.lobby");

@@ -148,12 +148,15 @@ public class MainActivity extends Activity {
 //
 //		});
 
+
+		service.start();
 	}
+
 
 	@Override
 	protected void onStart() {
 		super.onStart();
-		service.start();
+		//service.start();
 	}
 
 	private Mutex logonBlock = new Mutex();;
