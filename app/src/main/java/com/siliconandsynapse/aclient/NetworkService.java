@@ -14,6 +14,7 @@ import com.siliconandsynapse.aclient.lobbyModels.GameModel;
 //import com.siliconandsynapse.ixcpp.Cmd;
 import com.siliconandsynapse.aclient.lobbyModels.GameModel;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
+import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 //import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 //import com.siliconandsynapse.ixcpp.protocol.HeartBeat;
@@ -28,6 +29,7 @@ import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 //import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
 import com.siliconandsynapse.ixcpp.protocol.Debug;
 import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGame;
+import com.siliconandsynapse.ixcpp.protocol.lobby.DeleteGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.ListGames;
 import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
@@ -48,7 +50,7 @@ public class NetworkService implements Runnable {
 	private IxManager tunnel;
 	//private MessageDisplay messageDisplay;
 	private CreateGame createGame;
-	//private DeleteGame deleteGame;
+	private DeleteGame deleteGame;
 	private JoinGame joinGame;
 	private GameController gameManager;
 	private ListGames listGames;
@@ -135,6 +137,10 @@ public class NetworkService implements Runnable {
 		t.start();
 	}
 
+	public void joinGame(GameInfo gi) {
+		gameManager.startGame(getTunnel(), gi.getId()+"", gi.getName());
+	}
+
 
 	public IxManager getTunnel() {
 		return tunnel;
@@ -166,9 +172,9 @@ public class NetworkService implements Runnable {
 //		messageDisplay = new MessageDisplay(lobbyAddr, lobbyMessageReceiver);
 //
 		createGame = new CreateGame(lobbyAddr, roomModel, gameManager);
-//		deleteGame = new DeleteGame(lobbyAddr, roomModel);
+		deleteGame = new DeleteGame(lobbyAddr, roomModel);
 		joinGame = new JoinGame(lobbyAddr, gameManager);
-		listGames = new ListGames(lobbyAddr, gameManager);
+		listGames = new ListGames(lobbyAddr, roomModel, gameManager);
 		//userAdd = new UserAdd(lobbyAddr, lobbyModel);
 		//userDel = new UserDel(lobbyAddr, lobbyModel);
 //		userList = new UserList(lobbyAddr, lobbyModel);

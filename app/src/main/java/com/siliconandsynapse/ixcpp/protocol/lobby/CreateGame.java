@@ -46,9 +46,7 @@ public class CreateGame implements IxReciever
 
 		model.addGame(new GameInfo(id, roomType), returnTunnel);
 
-		gameManager.startGame(returnTunnel, x.name(), x.type());
-
-
+		//gameManager.startGame(returnTunnel, x.name(), x.type());
 	}
 	public String placeInThread()
 	{

@@ -3,8 +3,6 @@ package com.siliconandsynapse.ixcpp.gameInteraction;
 
 public class GameInfo {
 
-	
-
 		private int gameId;
 		private String name;
 		
