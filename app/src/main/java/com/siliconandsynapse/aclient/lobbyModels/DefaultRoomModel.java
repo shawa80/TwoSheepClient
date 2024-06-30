@@ -11,7 +11,6 @@ import com.siliconandsynapse.observerPool.ObserverPool;
 
 public class DefaultRoomModel implements RoomModel {
 
-
 	private ObserverPool<RoomModelListener> pool;
 	private Hashtable<Integer, GameInfo> games;
 
@@ -38,23 +37,26 @@ public class DefaultRoomModel implements RoomModel {
 	}
 
 	@Override
-	public void addGame(GameInfo game, IxManager tunnel) {
+	public void addGame(GameInfo game) {
 
 		if (games.containsKey(game.getId()))
 			return;
 
-		games.put(game.getId(), new Game(game, tunnel));
+		var g = new Game(game);
+		games.put(game.getId(), g);
 
-		pool.getDispatcher().gameAdded(game,  tunnel);
+		pool.getDispatcher().gameAdded(g);
 	}
 
 	@Override
-	public void addPlayerToGame(GameInfo game, String player) {
+	public void addPlayerToGame(int gameId, int seat, String player) {
 
-		if (games.containsKey(game.getId())) {
+		if (games.containsKey(gameId)) {
 
-			Game g = (Game)games.get(game.getId());
-			g.players.add(new Player(player));
+			var g = (Game)games.get(gameId);
+			var p = new Player(seat, player);
+			g.addPlayer(p);
+			pool.getDispatcher().playerAdded(g, p);
 		}
 	}
 
@@ -62,54 +64,18 @@ public class DefaultRoomModel implements RoomModel {
 	public void removeGame(int id) {
 
 		games.remove(id);
-		pool.getDispatcher().gameRemoved(new GameInfo(id, ""));
+		pool.getDispatcher().gameRemoved(id);
 	}
 
 	@Override
-	public void removePlayerFromGame(GameInfo game, String player) {
+	public void removePlayerFromGame(int gameId, int seat) {
 
+		if (games.containsKey(gameId)) {
 
-	}
-
-
-	public class Game extends GameInfo {
-
-		//private IxManager tunnel;
-
-		public HashSet<Player> players;
-
-
-		public Game(GameInfo game, IxManager tunnel) {
-
-			super(game.getId(), game.getName());
-
-			//this.tunnel = tunnel;
-
-			players = new HashSet<Player>();
-
+			var g = (Game)games.get(gameId);
+			g.removePlayer(seat);
+			pool.getDispatcher().playerRemoved(g, seat);
 		}
-
-		public Game(int id, String type, IxManager tunnel) {
-
-			super(id, type);
-
-			//this.tunnel = tunnel;
-
-			players = new HashSet<Player>();
-
-		}
-	}
-
-	private class Player {
-
-		//private String name;
-
-		public Player(String name) {
-
-			//this.name = name;
-
-		}
-
 	}
 
 }

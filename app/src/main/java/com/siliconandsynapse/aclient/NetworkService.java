@@ -32,6 +32,8 @@ import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.DeleteGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.ListGames;
+import com.siliconandsynapse.ixcpp.protocol.lobby.PlayerJoinedGame;
+import com.siliconandsynapse.ixcpp.protocol.lobby.PlayerLeftGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
 import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
 import com.siliconandsynapse.ixcpp.userInteraction.PasswordPrompt;
@@ -58,8 +60,8 @@ public class NetworkService implements Runnable {
 	//private UserAdd userAdd;
 	//private UserDel userDel;
 	//private UserList userList;
-	//private PlayerJoinedGame playerJoinedGame;
-	//private PlayerLeftGame playerLeftGame;
+	private PlayerJoinedGame playerJoinedGame;
+	private PlayerLeftGame playerLeftGame;
 	//private HeartBeat beat;
 	//private ListDealers listDealer;
 	private Welcome welcome;
@@ -178,8 +180,8 @@ public class NetworkService implements Runnable {
 		//userAdd = new UserAdd(lobbyAddr, lobbyModel);
 		//userDel = new UserDel(lobbyAddr, lobbyModel);
 //		userList = new UserList(lobbyAddr, lobbyModel);
-		//playerJoinedGame = new PlayerJoinedGame(lobbyAddr, roomModel);
-		//playerLeftGame = new PlayerLeftGame(lobbyAddr, roomModel);
+		playerJoinedGame = new PlayerJoinedGame(lobbyAddr, roomModel);
+		playerLeftGame = new PlayerLeftGame(lobbyAddr, roomModel);
 		//listDealer = new ListDealers(lobbyAddr, gameList);
 		welcome = new Welcome(lobbyAddr, act);
 //
@@ -195,8 +197,8 @@ public class NetworkService implements Runnable {
 		//bootStrap.add(userAdd);
 		//bootStrap.add(userDel);
 //		bootStrap.add(userList);
-		//bootStrap.add(playerJoinedGame);
-		//bootStrap.add(playerLeftGame);
+		bootStrap.add(playerJoinedGame);
+		bootStrap.add(playerLeftGame);
 //		bootStrap.add(beat);
 		//bootStrap.add(listDealer);
 		bootStrap.add(welcome);

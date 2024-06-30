@@ -2,6 +2,9 @@ package com.siliconandsynapse.aclient;
 
 import com.siliconandsynapse.aclient.game.Images;
 import com.siliconandsynapse.aclient.lobbyModels.DefaultRoomModel;
+import com.siliconandsynapse.aclient.lobbyModels.Game;
+import com.siliconandsynapse.aclient.lobbyModels.Player;
+import com.siliconandsynapse.aclient.lobbyModels.RoomModelListener;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
 import com.siliconandsynapse.ixcpp.protocol.Debug;
 import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGameCmd;
@@ -60,8 +63,8 @@ public class MainActivity extends Activity {
 
 		createGame = (Button)findViewById(R.id.addGame);
 		games = (ListView)findViewById(R.id.gameList);
-		var arrayList = new ArrayList<GameInfo>();
-		var adapter = new ArrayAdapter<GameInfo>(getApplicationContext(),
+		var arrayList = new ArrayList<Game>();
+		var adapter = new ArrayAdapter<>(getApplicationContext(),
 				android.R.layout.simple_list_item_1, arrayList);
 
 		games.setAdapter(adapter);
@@ -69,9 +72,9 @@ public class MainActivity extends Activity {
 
 
 		var rm = new DefaultRoomModel();
-		rm.addListener(new RoomModel.RoomModelListener() {
+		rm.addListener(new RoomModelListener() {
 			@Override
-			public void gameAdded(GameInfo game, IxManager tunnel) {
+			public void gameAdded(Game game) {
 				MainActivity.this.runOnUiThread(() -> {
 					adapter.add(game);
 				});
@@ -79,18 +82,22 @@ public class MainActivity extends Activity {
 			}
 
 			@Override
-			public void gameRemoved(GameInfo game) {
+			public void gameRemoved(int gameId) {
 
 			}
 
 			@Override
-			public void playerAdded(GameInfo game, String player) {
-
+			public void playerAdded(Game game, Player player) {
+				MainActivity.this.runOnUiThread(() -> {
+					adapter.notifyDataSetChanged();
+				});
 			}
 
 			@Override
-			public void playerRemoved(GameInfo game, String player) {
-
+			public void playerRemoved(Game game, int seat) {
+				MainActivity.this.runOnUiThread(() -> {
+					adapter.notifyDataSetChanged();
+				});
 			}
 		});
 
