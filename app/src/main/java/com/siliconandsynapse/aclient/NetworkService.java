@@ -34,6 +34,7 @@ import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.ListGames;
 import com.siliconandsynapse.ixcpp.protocol.lobby.PlayerJoinedGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.PlayerLeftGame;
+import com.siliconandsynapse.ixcpp.protocol.lobby.SetName;
 import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
 import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
 import com.siliconandsynapse.ixcpp.userInteraction.PasswordPrompt;
@@ -222,6 +223,9 @@ public class NetworkService implements Runnable {
 
 			tunnel = new IxManager(connection, bootStrap);
 			tunnel.registerAllReciever(new Debug(act));
+
+			var sn = new SetName();
+			sn.execute(lobbyAddr, tunnel, "Android");
 
 		} catch (Exception e) {
 			e.printStackTrace();
