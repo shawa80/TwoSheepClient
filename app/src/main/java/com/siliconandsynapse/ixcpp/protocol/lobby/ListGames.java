@@ -48,7 +48,7 @@ public class ListGames implements IxReciever
 
 		for (var g: games) {
 			var id = g.gameId();
-			model.addGame(new GameInfo(id, g.type()));
+			model.addGame(new GameInfo(id, g.type()), g.players());
 		}
 
 //		String gameId = null;

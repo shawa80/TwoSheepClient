@@ -1,3 +1,6 @@
 package com.siliconandsynapse.ixcpp.protocol.lobby;
 
-public record ListGamesObj(int gameId, String type, int freeSeats) {}
+import java.util.List;
+
+public record ListGamesObj(int gameId, String type,
+                           int freeSeats, List<ListGamesPlayersObj> players) {}

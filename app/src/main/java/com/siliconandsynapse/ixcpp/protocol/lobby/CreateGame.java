@@ -44,7 +44,7 @@ public class CreateGame implements IxReciever
 		var id = x.gameId();
 		var roomType = x.type();
 
-		model.addGame(new GameInfo(id, roomType));
+		model.addGame(new GameInfo(id, roomType), null);
 
 		//gameManager.startGame(returnTunnel, x.name(), x.type());
 	}

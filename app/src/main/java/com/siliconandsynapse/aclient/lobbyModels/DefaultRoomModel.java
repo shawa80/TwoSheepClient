@@ -3,9 +3,11 @@ package com.siliconandsynapse.aclient.lobbyModels;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.List;
 
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
+import com.siliconandsynapse.ixcpp.protocol.lobby.ListGamesPlayersObj;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
 import com.siliconandsynapse.observerPool.ObserverPool;
 
@@ -37,12 +39,16 @@ public class DefaultRoomModel implements RoomModel {
 	}
 
 	@Override
-	public void addGame(GameInfo game) {
+	public void addGame(GameInfo game, List<ListGamesPlayersObj> players) {
 
 		if (games.containsKey(game.getId()))
 			return;
 
 		var g = new Game(game);
+		if (players != null)
+			for (var p : players) {
+				g.addPlayer(new Player(p.seat(), p.name()));
+			}
 		games.put(game.getId(), g);
 
 		pool.getDispatcher().gameAdded(g);
