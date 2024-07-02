@@ -40,6 +40,7 @@ public class MainActivity extends Activity {
 	private NetworkService service;
 	private Button createGame;
 	private ListView games;
+	private ArrayList<Game> gameList;
 	
 	private RoomModel rooms;
 	//private LobbyUserList lobbyModel;
@@ -63,9 +64,9 @@ public class MainActivity extends Activity {
 
 		createGame = (Button)findViewById(R.id.addGame);
 		games = (ListView)findViewById(R.id.gameList);
-		var arrayList = new ArrayList<Game>();
+		gameList = new ArrayList<Game>();
 		var adapter = new ArrayAdapter<>(getApplicationContext(),
-				android.R.layout.simple_list_item_1, arrayList);
+				android.R.layout.simple_list_item_1, gameList);
 
 		games.setAdapter(adapter);
 
@@ -83,7 +84,17 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void gameRemoved(int gameId) {
+				MainActivity.this.runOnUiThread(() -> {
 
+					var x = gameList.stream()
+						.filter((g)-> g.getId() == gameId)
+						.findFirst();
+
+					x.ifPresent((game) -> adapter.remove(game));
+
+
+
+				});
 			}
 
 			@Override

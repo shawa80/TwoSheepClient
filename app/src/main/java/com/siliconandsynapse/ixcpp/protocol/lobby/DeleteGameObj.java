@@ -1,3 +1,3 @@
 package com.siliconandsynapse.ixcpp.protocol.lobby;
 
-public record DeleteGameObj(int id) { }
+public record DeleteGameObj(int gameId) { }

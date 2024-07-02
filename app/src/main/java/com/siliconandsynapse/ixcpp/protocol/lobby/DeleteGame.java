@@ -36,7 +36,7 @@ public class DeleteGame implements IxReciever
         var gson = new Gson();
         var game = gson.fromJson(doc, DeleteGameObj.class);
 
-		model.removeGame(game.id());
+		model.removeGame(game.gameId());
 	}
 	public String placeInThread()
 	{

@@ -192,7 +192,7 @@ public class NetworkService implements Runnable {
 //
 //		bootStrap.add(messageDisplay);
 		bootStrap.add(createGame);
-//		bootStrap.add(deleteGame);
+		bootStrap.add(deleteGame);
 		bootStrap.add(joinGame);
 		bootStrap.add(listGames);
 		//bootStrap.add(userAdd);

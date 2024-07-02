@@ -188,8 +188,6 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 			service.stop();
 		}).start();
 
-
-
 	}
 
 
