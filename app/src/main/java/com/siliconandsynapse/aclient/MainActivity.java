@@ -59,6 +59,11 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		Bundle extras = getIntent().getExtras();
+		var clientName = "";
+		if (extras != null)
+			clientName = extras.getString("user");
+
 		Images.loadCache(this);
 		setContentView(R.layout.games);
 
@@ -112,7 +117,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		service = new NetworkService(this, rm);
+		service = new NetworkService(this, rm, clientName);
 
 		games.setOnItemClickListener((parent, view, pos, id)-> {
 			new Thread(() -> {

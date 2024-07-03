@@ -10,6 +10,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepActivity;
+
 public class LoginActivity extends Activity {
 
 	@Override
@@ -21,25 +23,17 @@ public class LoginActivity extends Activity {
 		final EditText user = (EditText)findViewById(R.id.userInput);
 		
 		Button loginBtn = (Button)findViewById(R.id.loginBtn);
-		    	
-        	
-        loginBtn.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
+        loginBtn.setOnClickListener((e) -> {
 				
-				Intent output = new Intent();
-				output.putExtra("user", user.getText().toString());
-				output.putExtra("pass", password.getText().toString());
-				setResult(RESULT_OK, output);
-				finish();
-				
-			}
-        	
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.putExtra("user", user.getText().toString());
+			intent.putExtra("pass", password.getText().toString());
+
+			this.startActivity(intent);
         	
         });
-        
-        
+
 	}
 
 	@Override

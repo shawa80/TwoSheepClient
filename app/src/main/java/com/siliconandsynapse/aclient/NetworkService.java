@@ -80,7 +80,7 @@ public class NetworkService implements Runnable {
 	//private DefaultMessageModel lobbyMessageReceiver;
 	private RoomModel roomModel;
 	//private MessageSenderModel lobbyMessageSend;
-
+	private String clientName;
 
 	private ObserverPool<OnConnectListener> onConnect;
 
@@ -108,11 +108,13 @@ public class NetworkService implements Runnable {
 
 	public NetworkService(MainActivity act,
 						  //		LobbyModel lobbyModel,
-						  		RoomModel roomModel
+						  		RoomModel roomModel,
+						  String clientName
     ) {
 
 
 		service = this;
+		this.clientName = clientName;
 
 		this.act = act;
 		onConnect = new ObserverPool<OnConnectListener>(OnConnectListener.class);
@@ -225,7 +227,7 @@ public class NetworkService implements Runnable {
 			tunnel.registerAllReciever(new Debug(act));
 
 			var sn = new SetName();
-			sn.execute(lobbyAddr, tunnel, "Android");
+			sn.execute(lobbyAddr, tunnel, clientName);
 
 		} catch (Exception e) {
 			e.printStackTrace();
