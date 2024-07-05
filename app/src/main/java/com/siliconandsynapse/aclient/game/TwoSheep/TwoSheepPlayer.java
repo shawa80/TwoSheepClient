@@ -1,5 +1,6 @@
 package com.siliconandsynapse.aclient.game.TwoSheep;
 
+import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.widget.ImageView;
@@ -11,7 +12,7 @@ import com.siliconandsynapse.aclient.gameModels.models.UpdateUser;
 
 public class TwoSheepPlayer implements UpdateUser {
 
-	private TwoSheepActivity act;
+	private Activity act;
 
 	private TextView scoreGui;
 	private TextView nameGui;
@@ -22,8 +23,15 @@ public class TwoSheepPlayer implements UpdateUser {
 
 	private PlayerTurnUpdater turn;
 
-	public TwoSheepPlayer(TwoSheepActivity act, TextView nameGui, TextView scoreGui, ImageView[] privateCards,
-			ImageView[] publicCards, ImageView trick, PlayerTurnUpdater turn) {
+	public TwoSheepPlayer(Activity act, TextView nameGui, TextView scoreGui, ImageView[] privateCards,
+						  ImageView[] publicCards, ImageView trick, PlayerTurnUpdater turn) {
+
+		if (privateCards == null)
+			privateCards = new ImageView[0];
+
+		if (publicCards == null)
+			publicCards = new ImageView[0];
+
 		this.act = act;
 		this.nameGui = nameGui;
 		this.scoreGui = scoreGui;
@@ -32,9 +40,11 @@ public class TwoSheepPlayer implements UpdateUser {
 		this.trick = trick;
 		this.turn = turn;
 
+
 		for (int i = 0; i < privateCards.length; i++) {
 			init(privateCards[i]);
 		}
+
 
 		for (int i = 0; i < publicCards.length; i++) {
 			init(publicCards[i]);

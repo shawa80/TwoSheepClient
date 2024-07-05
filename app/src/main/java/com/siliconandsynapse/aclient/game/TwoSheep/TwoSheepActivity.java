@@ -9,6 +9,8 @@ import com.siliconandsynapse.aclient.game.GameService;
 import com.siliconandsynapse.aclient.game.Images;
 import com.siliconandsynapse.aclient.game.UpdateCardsListener;
 import com.siliconandsynapse.aclient.gameModels.models.UpdateGame;
+import com.siliconandsynapse.ixcpp.common.Choice;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.LayerDrawable;
@@ -236,5 +238,8 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 	}
 
 
+	@Override
+	public void showChoice(Choice c) {
 
+	}
 }

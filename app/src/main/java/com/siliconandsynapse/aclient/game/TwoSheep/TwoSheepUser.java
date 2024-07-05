@@ -1,17 +1,22 @@
 package com.siliconandsynapse.aclient.game.TwoSheep;
 
 import com.siliconandsynapse.aclient.game.CardSelectHandler;
+import com.siliconandsynapse.aclient.game.GameActivity;
 import com.siliconandsynapse.aclient.game.GameService;
+import com.siliconandsynapse.aclient.gameModels.PlayerModel;
+import com.siliconandsynapse.aclient.gameModels.models.ChoiceRequest;
+import com.siliconandsynapse.aclient.gameModels.models.UpdateUser;
+import com.siliconandsynapse.ixcpp.common.Choice;
 
 import java.util.Arrays;
 //import com.siliconandsynapse.aclient.game.GameService;
 
-public class TwoSheepUser {
+public class TwoSheepUser implements ChoiceRequest {
 
-	private TwoSheepActivity act;
+	private GameActivity act;
 	private TwoSheepPlayer player;
 
-	public TwoSheepUser(TwoSheepActivity act, TwoSheepPlayer player, GameService service) {
+	public TwoSheepUser(GameActivity act, TwoSheepPlayer player, GameService service) {
 		this.act = act;
 		this.player = player;
 
@@ -28,5 +33,14 @@ public class TwoSheepUser {
 	}
 
 
+	@Override
+	public void displayChoiceDialog(Choice c) {
+		act.runOnUiThread(new Runnable() {
 
+			@Override
+			public void run() {
+				act.showChoice(c);
+			}
+		});
+	}
 }

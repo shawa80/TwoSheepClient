@@ -18,6 +18,7 @@ import com.siliconandsynapse.ixcpp.common.cards.types.PokerCard;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.protocol.Pause;
 import com.siliconandsynapse.ixcpp.protocol.game.GameMessage;
+import com.siliconandsynapse.ixcpp.protocol.game.PlayerChoice;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerId;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfo;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerPickACard;
@@ -64,7 +65,7 @@ public class GameService implements Runnable {
 	private TrickChange trickChange;
 	private TurnChange turnChange;
 	private Pause pause;
-//	private PlayerChoice playerChoice;
+	private PlayerChoice playerChoice;
 //	private PlayerDiscard playerDiscard;
 //
 	private Thread t;
@@ -86,10 +87,10 @@ public class GameService implements Runnable {
 	private Mutex cardUserBlock;
 	private Card cardToPlay;
 
-//	private GameServiceChoice serviceChoice;
-	//private Mutex choiceServerBlock;
-	//private Mutex choiceUserBlock;
-//	private ChoiceResponse resp;
+	private GameServiceChoice serviceChoice;
+	private Mutex choiceServerBlock;
+	private Mutex choiceUserBlock;
+	private ChoiceResponse resp;
 //
 //
 //	private GameServiceDiscard serviceDiscard;
@@ -123,12 +124,12 @@ public class GameService implements Runnable {
 		cardServerBlock = new Mutex();
 		cardUserBlock = new Mutex();
 		cardToPlay = null;
-//
-//
-//		choiceUserBlock = new Mutex();
-//		choiceServerBlock = new Mutex();
-//		resp = null;
-//
+
+
+		choiceUserBlock = new Mutex();
+		choiceServerBlock = new Mutex();
+		resp = null;
+
 //		discardServerBlock = new Mutex();
 //		discardUserBlock = new Mutex();
 //
@@ -163,18 +164,18 @@ public class GameService implements Runnable {
 
 
 
-//	public Mutex getChoiceBlock() {
-//		return choiceUserBlock;
-//	}
-//
-//
-//	public void setChoiceResponse(ChoiceResponse resp) {
-//		this.resp = resp;
-//	}
-//
-//	public ChoiceResponse getChoiceResponse() {
-//		return resp;
-//	}
+	public Mutex getChoiceBlock() {
+		return choiceUserBlock;
+	}
+
+
+	public void setChoiceResponse(ChoiceResponse resp) {
+		this.resp = resp;
+	}
+
+	public ChoiceResponse getChoiceResponse() {
+		return resp;
+	}
 
 
 
@@ -259,9 +260,9 @@ public class GameService implements Runnable {
 			pause = new Pause(addr);
 			home.registerReceiver(pause);
 
-//			playerChoice = new PlayerChoice(addr, table, choiceServerBlock);
-//			home.registerReceiver(playerChoice);
-//
+			playerChoice = new PlayerChoice(addr, table, choiceServerBlock);
+			home.registerReceiver(playerChoice);
+
 //			//add UNREGISTER when adding this receiver!!!!
 //			playerDiscard = new PlayerDiscard(addr, table, cache, discardServerBlock);
 //			home.registerReceiver(playerDiscard);
@@ -279,11 +280,11 @@ public class GameService implements Runnable {
 		serviceCard = new GameServiceCard(
 				cardServerBlock, cardUserBlock, this,
 				playerPickACard, home);
-//
-//		serviceChoice = new GameServiceChoice(
-//				choiceServerBlock, choiceUserBlock, this,
-//				playerChoice, home);
-//
+
+		serviceChoice = new GameServiceChoice(
+				choiceServerBlock, choiceUserBlock, this,
+				playerChoice, home);
+
 //		serviceDiscard = new GameServiceDiscard(
 //				discardServerBlock, discardUserBlock, this,
 //				playerDiscard, home);
@@ -298,7 +299,7 @@ public class GameService implements Runnable {
 		services.remove(gameId);
 
 		serviceCard.stop();
-		//serviceChoice.stop();
+		serviceChoice.stop();
 		//serviceDiscard.stop();
 
 		t.interrupt();
@@ -324,7 +325,7 @@ public class GameService implements Runnable {
 		home.unregisterReciever(trickChange);
 		home.unregisterReciever(turnChange);
 		home.unregisterReciever(pause);
-		//home.unregisterReciever(playerChoice);
+		home.unregisterReciever(playerChoice);
 		//home.unregisterReciever(playerDiscard);
 	}
 

@@ -128,6 +128,20 @@ public class MainActivity extends Activity {
 
 		});
 
+		createGame.setOnLongClickListener((view) -> {
+
+			new Thread(() -> {
+				//network on main thread exception!!!!!!!!!!!!!!!
+				var tun = service.getTunnel();
+				var cmd = new CreateGameCmd("Three Sheep");
+				try {
+					cmd.execute(IxAddress.parse("ixcpp.lobby"), tun);
+				} catch (ParseError e) {
+					throw new RuntimeException(e);
+				}}).start();
+			return true;
+		});
+
 		createGame.setOnClickListener((view) -> {
 
 			new Thread(() -> {

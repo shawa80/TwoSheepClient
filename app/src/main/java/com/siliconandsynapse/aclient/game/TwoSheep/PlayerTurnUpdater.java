@@ -2,16 +2,17 @@ package com.siliconandsynapse.aclient.game.TwoSheep;
 
 import java.util.Hashtable;
 
+import android.app.Activity;
 import android.widget.TextView;
 
 //import com.siliconandsynapse.aclient.game.Euchre.EuchrePlayer;
 
 public class PlayerTurnUpdater {
 
-	private TwoSheepActivity act;
+	private Activity act;
 	private Hashtable<TwoSheepPlayer, TextView> mapping = new Hashtable<TwoSheepPlayer, TextView>();
 
-	public PlayerTurnUpdater(TwoSheepActivity act) {
+	public PlayerTurnUpdater(Activity act) {
 		this.act = act;
 
 	}
