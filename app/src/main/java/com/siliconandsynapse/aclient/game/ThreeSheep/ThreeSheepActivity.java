@@ -48,6 +48,10 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
     private TextView westTurn;
     private TextView southTurn;
 
+    private TextView eastDesc;
+    private TextView westDesc;
+    private TextView southDesc;
+
 
     private TextView eastScore;
     private TextView westScore;
@@ -111,6 +115,9 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
             westTurn = (TextView)this.findViewById(R.id.turnWest);
             eastTurn = (TextView)this.findViewById(R.id.turnEast);
 
+            southDesc = (TextView)this.findViewById(R.id.descSouth);
+            westDesc = (TextView)this.findViewById(R.id.descWest);
+            eastDesc = (TextView)this.findViewById(R.id.descEast);
 
             eastPrivate[0] = (ImageView)this.findViewById(R.id.east1);
             eastPrivate[1] = (ImageView)this.findViewById(R.id.east2);
@@ -170,11 +177,11 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
             turnUpdater = new PlayerTurnUpdater(this);
 
             updateUserWest = new TwoSheepPlayer(this, westName, westScore,
-                    westPrivate, null, trickWest, turnUpdater);
+                    westPrivate, null, trickWest, turnUpdater, westDesc);
             updateUserEast = new TwoSheepPlayer(this, eastName, eastScore,
-                    eastPrivate, null, trickEast, turnUpdater);
+                    eastPrivate, null, trickEast, turnUpdater, eastDesc);
             updateUserSouth = new TwoSheepPlayer(this, southName, southScore,
-                    southPrivate, null, trickSouth, turnUpdater);
+                    southPrivate, null, trickSouth, turnUpdater, southDesc);
 
             service.getModel().getPlayer(0).addListener(updateUserSouth);
             service.getModel().getPlayer(1).addListener(updateUserWest);

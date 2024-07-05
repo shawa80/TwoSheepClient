@@ -16,6 +16,7 @@ public class TwoSheepPlayer implements UpdateUser {
 
 	private TextView scoreGui;
 	private TextView nameGui;
+	private TextView descGui;
 	public ImageView[] privateCards;
 	public ImageView[] publicCards;
 
@@ -24,7 +25,8 @@ public class TwoSheepPlayer implements UpdateUser {
 	private PlayerTurnUpdater turn;
 
 	public TwoSheepPlayer(Activity act, TextView nameGui, TextView scoreGui, ImageView[] privateCards,
-						  ImageView[] publicCards, ImageView trick, PlayerTurnUpdater turn) {
+						  ImageView[] publicCards, ImageView trick, PlayerTurnUpdater turn,
+						  TextView descGui) {
 
 		if (privateCards == null)
 			privateCards = new ImageView[0];
@@ -35,6 +37,7 @@ public class TwoSheepPlayer implements UpdateUser {
 		this.act = act;
 		this.nameGui = nameGui;
 		this.scoreGui = scoreGui;
+		this.descGui = descGui;
 		this.privateCards = privateCards;
 		this.publicCards = publicCards;
 		this.trick = trick;
@@ -101,7 +104,15 @@ public class TwoSheepPlayer implements UpdateUser {
 	@Override
 	public void descriptionChanged(PlayerModel player, final String description) {
 
+		if (descGui == null)
+			return;
+		act.runOnUiThread(new Runnable() {
 
+			@Override
+			public void run() {
+				descGui.setText(description);
+			}
+		});
 
 	}
 
