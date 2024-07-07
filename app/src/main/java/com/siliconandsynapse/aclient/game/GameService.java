@@ -19,6 +19,7 @@ import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.protocol.Pause;
 import com.siliconandsynapse.ixcpp.protocol.game.GameMessage;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerChoice;
+import com.siliconandsynapse.ixcpp.protocol.game.PlayerDiscard;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerId;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfo;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerPickACard;
@@ -66,8 +67,8 @@ public class GameService implements Runnable {
 	private TurnChange turnChange;
 	private Pause pause;
 	private PlayerChoice playerChoice;
-//	private PlayerDiscard playerDiscard;
-//
+	private PlayerDiscard playerDiscard;
+
 	private Thread t;
 
 	private IxManager home;
@@ -78,8 +79,8 @@ public class GameService implements Runnable {
 
 	private NetworkService service;
 	//private FakeServer service;
-//
-//	private CardFactory cache;
+
+	private CardFactory cache;
 	private TableModel table;
 
 	private GameServiceCard serviceCard;
@@ -91,12 +92,12 @@ public class GameService implements Runnable {
 	private Mutex choiceServerBlock;
 	private Mutex choiceUserBlock;
 	private ChoiceResponse resp;
-//
-//
-//	private GameServiceDiscard serviceDiscard;
-//	private Mutex discardServerBlock;
-//	private Mutex discardUserBlock;
-//	private Discard dis;
+
+
+	private GameServiceDiscard serviceDiscard;
+	private Mutex discardServerBlock;
+	private Mutex discardUserBlock;
+	private Discard dis;
 
 
 	private static Hashtable<Integer, GameService> services = new Hashtable<>();
@@ -130,9 +131,9 @@ public class GameService implements Runnable {
 		choiceServerBlock = new Mutex();
 		resp = null;
 
-//		discardServerBlock = new Mutex();
-//		discardUserBlock = new Mutex();
-//
+		discardServerBlock = new Mutex();
+		discardUserBlock = new Mutex();
+
 		//cache = CardFactory.getInstance(CardFactory.POKER);
 
 		table = new TableModel();
@@ -180,17 +181,17 @@ public class GameService implements Runnable {
 
 
 
-//	public Mutex getDiscardBlock() {
-//		return discardUserBlock;
-//	}
-//
-//	public void setDiscardResponse(Discard dis) {
-//		this.dis = dis;
-//	}
-//
-//	public Discard getDiscardResponse() {
-//		return dis;
-//	}
+	public Mutex getDiscardBlock() {
+		return discardUserBlock;
+	}
+
+	public void setDiscardResponse(Discard dis) {
+		this.dis = dis;
+	}
+
+	public Discard getDiscardResponse() {
+		return dis;
+	}
 
 
 	public TableModel getModel() {
@@ -263,10 +264,10 @@ public class GameService implements Runnable {
 			playerChoice = new PlayerChoice(addr, table, choiceServerBlock);
 			home.registerReceiver(playerChoice);
 
-//			//add UNREGISTER when adding this receiver!!!!
-//			playerDiscard = new PlayerDiscard(addr, table, cache, discardServerBlock);
-//			home.registerReceiver(playerDiscard);
-//
+
+			playerDiscard = new PlayerDiscard(addr, table, f, discardServerBlock);
+			home.registerReceiver(playerDiscard);
+
 
 		//service.start();  already running
 
@@ -285,10 +286,10 @@ public class GameService implements Runnable {
 				choiceServerBlock, choiceUserBlock, this,
 				playerChoice, home);
 
-//		serviceDiscard = new GameServiceDiscard(
-//				discardServerBlock, discardUserBlock, this,
-//				playerDiscard, home);
-//
+		serviceDiscard = new GameServiceDiscard(
+				discardServerBlock, discardUserBlock, this,
+				playerDiscard, home);
+
 //		serviceCard.join();
 //		serviceChoice.join();
 //		serviceDiscard.join();
@@ -300,7 +301,7 @@ public class GameService implements Runnable {
 
 		serviceCard.stop();
 		serviceChoice.stop();
-		//serviceDiscard.stop();
+		serviceDiscard.stop();
 
 		t.interrupt();
 
@@ -326,7 +327,7 @@ public class GameService implements Runnable {
 		home.unregisterReciever(turnChange);
 		home.unregisterReciever(pause);
 		home.unregisterReciever(playerChoice);
-		//home.unregisterReciever(playerDiscard);
+		home.unregisterReciever(playerDiscard);
 	}
 
 

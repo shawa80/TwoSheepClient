@@ -28,6 +28,8 @@ import com.siliconandsynapse.aclient.game.UpdateCardsListener;
 import com.siliconandsynapse.aclient.gameModels.models.UpdateGame;
 import com.siliconandsynapse.ixcpp.common.Choice;
 import com.siliconandsynapse.ixcpp.common.ChoiceResponse;
+import com.siliconandsynapse.ixcpp.common.Discard;
+import com.siliconandsynapse.ixcpp.common.cards.Card;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -61,7 +63,7 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
 
     private final int PRIVATE_TOTAL = 10;
 
-    private ImageView[] southPrivate = new ImageView[PRIVATE_TOTAL];
+    private ImageView[] southPrivate = new ImageView[PRIVATE_TOTAL+2];
     private ImageView[] eastPrivate = new ImageView[PRIVATE_TOTAL];
     private ImageView[] westPrivate = new ImageView[PRIVATE_TOTAL];
 
@@ -152,6 +154,9 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
             southPrivate[8] = (ImageView)this.findViewById(R.id.south9);
             southPrivate[9] = (ImageView)this.findViewById(R.id.south10);
 
+            southPrivate[10] = (ImageView)this.findViewById(R.id.south11);
+            southPrivate[11] = (ImageView)this.findViewById(R.id.south12);
+
 
             trickEast = (ImageView)this.findViewById(R.id.trickEast);
             trickWest = (ImageView)this.findViewById(R.id.trickWest);
@@ -196,6 +201,7 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
             TwoSheepUser user = new TwoSheepUser(this, updateUserSouth, service);
 
             service.getModel().addChoiceListener(user);
+            service.getModel().addDiscardListener(user);
 
             service.start();
 
@@ -305,6 +311,45 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
 
     private void hideChoice() {
 		choice.setVisibility(View.GONE);
+	}
+
+    public void showDiscard(final Discard d) {
+
+		TextView text = (TextView)this.findViewById(R.id.choiceMessage);
+
+		text.setText(d.getMessage());
+
+		final ArrayList<String> names = new ArrayList<String>();
+		names.clear();
+
+		for (int i = 0; i < d.getCount(); i++) {
+			Card c = d.getCardAt(i);
+
+			names.add(c.getType() + " of " + c.getSuit());
+		}
+
+		ArrayAdapter<String> namesAA = new ArrayAdapter<String> (this, android.R.layout.simple_list_item_1, names );
+	    ListView choiceList = (ListView)this.findViewById(R.id.choiceOptions);
+	    choiceList.setAdapter(namesAA);
+
+
+	    choiceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	    	@Override
+	    	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+	    		ThreeSheepActivity.this.hideChoice();
+
+	    		Discard response = new Discard();
+	    		response.addCard(d.getCardAt(position));
+	           service.setDiscardResponse(response);
+	           service.getDiscardBlock().sendNotice();
+	        }
+	    });
+
+	    choice.setVisibility(View.VISIBLE);
+	    choice.bringToFront();
+
+		table.invalidate();
 	}
 }
 
