@@ -250,6 +250,10 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
             cardsByAddress.put(new CardAddress(1, "private", i, 0),  westPrivate[i]);
             cardsByAddress.put(new CardAddress(2, "private", i, 0),  eastPrivate[i]);
         }
+        cardsByAddress.put(new CardAddress(0, "private",
+                PRIVATE_TOTAL, 0),  southPrivate[10]);
+        cardsByAddress.put(new CardAddress(0, "private",
+                PRIVATE_TOTAL+1, 0),  southPrivate[11]);
 
     }
 
@@ -319,30 +323,43 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
 
 		text.setText(d.getMessage());
 
-		final ArrayList<String> names = new ArrayList<String>();
+		final ArrayList<Card> names = new ArrayList<>();
 		names.clear();
 
 		for (int i = 0; i < d.getCount(); i++) {
 			Card c = d.getCardAt(i);
 
-			names.add(c.getType() + " of " + c.getSuit());
+			names.add(c);
 		}
 
-		ArrayAdapter<String> namesAA = new ArrayAdapter<String> (this, android.R.layout.simple_list_item_1, names );
+		var namesAA = new ArrayAdapter<Card> (this, android.R.layout.simple_list_item_1, names );
 	    ListView choiceList = (ListView)this.findViewById(R.id.choiceOptions);
 	    choiceList.setAdapter(namesAA);
 
 
+        final int[] count = {0};
+        final ArrayList<Card> pickedCards = new ArrayList<>();
 	    choiceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	    	@Override
 	    	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
-	    		ThreeSheepActivity.this.hideChoice();
+                count[0]++;
 
-	    		Discard response = new Discard();
-	    		response.addCard(d.getCardAt(position));
-	           service.setDiscardResponse(response);
-	           service.getDiscardBlock().sendNotice();
+                var card = namesAA.getItem(position);
+                pickedCards.add(card);
+                namesAA.remove(card);
+
+                if (count[0] == 2)
+                {
+                    ThreeSheepActivity.this.hideChoice();
+
+                    Discard response = new Discard();
+                    response.addCard(pickedCards.get(0));
+                    response.addCard(pickedCards.get(1));
+                    service.setDiscardResponse(response);
+                    service.getDiscardBlock().sendNotice();
+                }
+
 	        }
 	    });
 
