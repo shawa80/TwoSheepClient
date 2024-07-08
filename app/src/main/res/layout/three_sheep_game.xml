@@ -423,15 +423,6 @@
         />
 
     <ImageView
-        android:id="@+id/trickNorth"
-        android:layout_width="43dip"
-        android:layout_height="70dip"
-        android:layout_above="@+id/trickCenter"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/nop"
-        android:src="@drawable/dual_stack" />
-
-    <ImageView
         android:id="@+id/trickSouth"
         android:layout_width="43dip"
         android:layout_height="70dip"
@@ -490,7 +481,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/westPrivate"
         android:layout_toRightOf="@+id/westPrivate"
-        android:rotation="90"
         android:text="westName" />
 
     <TextView
@@ -499,16 +489,14 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/westPrivate"
         android:layout_toRightOf="@+id/westPrivate"
-        android:rotation="90"
         android:text="westDesc" />
 
     <TextView
         android:id="@+id/eastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@+id/eastPrivate"
         android:layout_alignTop="@+id/eastPrivate"
-        android:rotation="90"
+        android:layout_toLeftOf="@+id/eastPrivate"
         android:text="eastName" />
 
     <TextView
@@ -517,7 +505,6 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/eastPrivate"
         android:layout_toLeftOf="@+id/eastPrivate"
-        android:rotation="90"
         android:text="eastDesc" />
 
     <TextView
@@ -552,12 +539,5 @@
 <!--        android:layout_below="@+id/northPrivate"-->
 <!--        android:text="TextView" />-->
 
-    <TextView
-        android:id="@+id/score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/turnSouth"
-        android:layout_alignParentRight="true"
-        android:text="TextView" />
 
 </RelativeLayout>
