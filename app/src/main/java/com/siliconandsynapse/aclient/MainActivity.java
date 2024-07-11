@@ -133,7 +133,7 @@ public class MainActivity extends Activity {
 			new Thread(() -> {
 				//network on main thread exception!!!!!!!!!!!!!!!
 				var tun = service.getTunnel();
-				var cmd = new CreateGameCmd("Three Sheep");
+				var cmd = new CreateGameCmd("Euchre");
 				try {
 					cmd.execute(IxAddress.parse("ixcpp.lobby"), tun);
 				} catch (ParseError e) {

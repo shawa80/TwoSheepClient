@@ -52,13 +52,13 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait" >
         </activity>
-<!--        <activity-->
-<!--            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
-<!--            android:name="com.siliconandsynapse.aclient.game.Euchre.EuchreActivity"-->
-<!--            android:label="@string/title_activity_game"-->
-<!--            android:launchMode="singleInstance"-->
-<!--            android:screenOrientation="portrait" >-->
-<!--        </activity>-->
+        <activity
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:name="com.siliconandsynapse.aclient.game.Euchre.EuchreActivity"
+            android:label="@string/title_activity_game"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait" >
+        </activity>
 <!--        <activity-->
 <!--            android:name=".LoginActivity"-->
 <!--            android:label="@string/title_activity_login"-->
