@@ -24,6 +24,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -41,6 +43,9 @@ public class MainActivity extends Activity {
 	private Button createGame;
 	private ListView games;
 	private ArrayList<Game> gameList;
+
+	private ListView dealers;
+	private View dealerChoice;
 	
 	private RoomModel rooms;
 	//private LobbyUserList lobbyModel;
@@ -66,6 +71,36 @@ public class MainActivity extends Activity {
 
 		Images.loadCache(this);
 		setContentView(R.layout.games);
+
+		dealerChoice = (View)findViewById(R.id.dealers);
+		dealers = (ListView)findViewById(R.id.dealersOptions);
+		var dealersList = new ArrayList<String>();
+		dealersList.add("Two Sheep");
+		dealersList.add("Three Sheep");
+		dealersList.add("Euchre");
+
+		var dealerAdapter = new ArrayAdapter<>(getApplicationContext(),
+				android.R.layout.simple_list_item_1, dealersList);
+		dealers.setAdapter(dealerAdapter);
+		dealerChoice.setVisibility(View.GONE);
+
+		dealers.setOnItemClickListener((adpt, view, pos, arg) -> {
+			dealerChoice.setVisibility(View.GONE);
+
+			var dealerName = dealerAdapter.getItem(pos);
+
+			new Thread(() -> {
+				//network on main thread exception!!!!!!!!!!!!!!!
+				var tun = service.getTunnel();
+				var cmd = new CreateGameCmd(dealerName);
+				try {
+					cmd.execute(IxAddress.parse("ixcpp.lobby"), tun);
+				} catch (ParseError e) {
+					throw new RuntimeException(e);
+				}}).start();
+
+		});
+
 
 		createGame = (Button)findViewById(R.id.addGame);
 		games = (ListView)findViewById(R.id.gameList);
@@ -128,31 +163,9 @@ public class MainActivity extends Activity {
 
 		});
 
-		createGame.setOnLongClickListener((view) -> {
-
-			new Thread(() -> {
-				//network on main thread exception!!!!!!!!!!!!!!!
-				var tun = service.getTunnel();
-				var cmd = new CreateGameCmd("Euchre");
-				try {
-					cmd.execute(IxAddress.parse("ixcpp.lobby"), tun);
-				} catch (ParseError e) {
-					throw new RuntimeException(e);
-				}}).start();
-			return true;
-		});
-
 		createGame.setOnClickListener((view) -> {
 
-			new Thread(() -> {
-			//network on main thread exception!!!!!!!!!!!!!!!
-			var tun = service.getTunnel();
-			var cmd = new CreateGameCmd("Two Sheep");
-			try {
-				cmd.execute(IxAddress.parse("ixcpp.lobby"), tun);
-			} catch (ParseError e) {
-				throw new RuntimeException(e);
-			}}).start();
+			dealerChoice.setVisibility(View.VISIBLE);
 
 		});
 
