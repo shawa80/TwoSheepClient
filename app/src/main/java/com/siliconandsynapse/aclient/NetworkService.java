@@ -28,6 +28,7 @@ import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 //import com.siliconandsynapse.ixcpp.protocol.lobby.UserList;
 //import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
 import com.siliconandsynapse.ixcpp.protocol.Debug;
+import com.siliconandsynapse.ixcpp.protocol.HeartBeat;
 import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.DeleteGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGame;
@@ -63,7 +64,7 @@ public class NetworkService implements Runnable {
 	//private UserList userList;
 	private PlayerJoinedGame playerJoinedGame;
 	private PlayerLeftGame playerLeftGame;
-	//private HeartBeat beat;
+	private HeartBeat beat;
 	//private ListDealers listDealer;
 	private Welcome welcome;
 	//private DealerJavaHint dealerJavaHint;
@@ -187,8 +188,8 @@ public class NetworkService implements Runnable {
 		playerLeftGame = new PlayerLeftGame(lobbyAddr, roomModel);
 		//listDealer = new ListDealers(lobbyAddr, gameList);
 		welcome = new Welcome(lobbyAddr, act);
-//
-//		beat = new HeartBeat();
+
+		beat = new HeartBeat();
 
 //		bootStrap.add(accessControl);
 //
@@ -202,7 +203,7 @@ public class NetworkService implements Runnable {
 //		bootStrap.add(userList);
 		bootStrap.add(playerJoinedGame);
 		bootStrap.add(playerLeftGame);
-//		bootStrap.add(beat);
+		bootStrap.add(beat);
 		//bootStrap.add(listDealer);
 		bootStrap.add(welcome);
 		//bootStrap.add(dealerJavaHint);
