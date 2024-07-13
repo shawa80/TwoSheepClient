@@ -279,7 +279,7 @@ public class EuchreActivity extends Activity implements GameActivity {
 		new Thread(() -> {
 			service.stop();
 		}).start();
-		
+
 	}
 
 

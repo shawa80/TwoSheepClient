@@ -80,8 +80,8 @@ public class TwoSheepPlayer implements UpdateUser {
 
 			@Override
 			public void run() {
-
-				nameGui.setText(name);
+				if (nameGui != null)
+					nameGui.setText(name);
 			}
 		});
 
@@ -94,7 +94,8 @@ public class TwoSheepPlayer implements UpdateUser {
 
 			@Override
 			public void run() {
-				scoreGui.setText("" + score);
+				if (scoreGui != null)
+					scoreGui.setText("" + score);
 			}
 		});
 
@@ -110,7 +111,8 @@ public class TwoSheepPlayer implements UpdateUser {
 
 			@Override
 			public void run() {
-				descGui.setText(description);
+				if (descGui != null)
+					descGui.setText(description);
 			}
 		});
 

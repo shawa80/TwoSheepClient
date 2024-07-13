@@ -36,8 +36,8 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 	private TextView yourTurn;
 	private TextView myTurn;
 
-	private TextView myScore;
-	private TextView yourScore;
+	//private TextView myScore;
+	//private TextView yourScore;
 
 
 	private final int PRIVATE_TOTAL = 4;
@@ -97,8 +97,8 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 			yourTurn = (TextView)this.findViewById(R.id.yourTurn);
 
 
-			myScore = (TextView)this.findViewById(R.id.myScore);
-			yourScore = (TextView)this.findViewById(R.id.yourScore);
+			//myScore = (TextView)this.findViewById(R.id.myScore);
+			//yourScore = (TextView)this.findViewById(R.id.yourScore);
 
 			yourPrivate[0] = (ImageView)this.findViewById(R.id.yourPrivate1);
 			yourPrivate[1] = (ImageView)this.findViewById(R.id.yourPrivate2);
@@ -149,9 +149,9 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 
 			turnUpdater = new PlayerTurnUpdater(this);
 
-			updateUserNorth = new TwoSheepPlayer(this, yourName, yourScore,
+			updateUserNorth = new TwoSheepPlayer(this, yourName, null,
 					yourPrivate, yourPublic, yourCard, turnUpdater, null);
-			updateUserSouth = new TwoSheepPlayer(this, myName, myScore,
+			updateUserSouth = new TwoSheepPlayer(this, myName, null,
 					myPrivate, myPublic, myCard, turnUpdater, null);
 			service.getModel().getPlayer(1).addListener(updateUserNorth);
 			service.getModel().getPlayer(0).addListener(updateUserSouth);
