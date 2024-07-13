@@ -44,6 +44,8 @@ public class PlayerInfo implements IxReciever
 		pi.forEach(p -> {
 			table.updatePlayerName(p.id(), p.name());
 			table.updateDescription(p.id(), p.description());
+			table.updateScore(p.id(), p.points());
+			table.updateWealth(p.id(), p.wealth());
 		});
 
 	}

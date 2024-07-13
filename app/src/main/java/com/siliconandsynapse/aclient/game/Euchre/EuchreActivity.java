@@ -276,15 +276,10 @@ public class EuchreActivity extends Activity implements GameActivity {
 
 		super.onStop();
 
-
-		try {
-
+		new Thread(() -> {
 			service.stop();
-		} catch (Exception ex) {
-			Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show();
-		}
-		Log.d("DebugPrint", "GameActivity stop");
-
+		}).start();
+		
 	}
 
 
