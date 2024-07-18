@@ -49,6 +49,7 @@ import com.siliconandsynapse.observerPool.ObserverPool;
 
 public class NetworkService implements Runnable {
 
+	private String server;
 	private Thread t;
 
 	private IxManager tunnel;
@@ -107,13 +108,11 @@ public class NetworkService implements Runnable {
 	}
 
 
-	public NetworkService(MainActivity act,
-						  //		LobbyModel lobbyModel,
-						  		RoomModel roomModel,
-						  String clientName
+	public NetworkService(MainActivity act, String server,
+						  RoomModel roomModel, String clientName
     ) {
 
-
+		this.server = server;
 		service = this;
 		this.clientName = clientName;
 
@@ -210,7 +209,7 @@ public class NetworkService implements Runnable {
 
 		Socket connection = null;
         try {
-			connection = new Socket("twosheep.shawtonabbey.com", 1077);
+			connection = new Socket(server, 1077);
 
         } catch (UnknownHostException e) {
         	e.printStackTrace();

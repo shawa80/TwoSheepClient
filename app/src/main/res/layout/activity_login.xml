@@ -25,35 +25,26 @@
         android:layout_below="@+id/userText"
         android:ems="10" />
 
-    <TextView
-        android:id="@+id/passwordText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/userInput"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/userInput"
-        android:text="Password"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/passwordInput"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/server"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordText"
-        android:layout_alignRight="@+id/userInput"
-        android:layout_alignStart="@+id/passwordText"
-        android:layout_below="@+id/passwordText"
-        android:ems="10"
-        android:inputType="textPassword" />
+        android:layout_below="@+id/userInput"
+        android:layout_alignEnd="@+id/userInput"
+        android:layout_alignLeft="@+id/userInput"
+        />
 
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/passwordInput"
-        android:layout_alignLeft="@+id/passwordInput"
+        android:layout_alignEnd="@+id/userInput"
+        android:layout_alignLeft="@+id/userInput"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/passwordInput"
+        android:layout_below="@+id/server"
         android:text="Login" />
+
+
 
 </RelativeLayout>

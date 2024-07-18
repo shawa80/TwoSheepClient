@@ -14,6 +14,7 @@ import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
 import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.server.locator.LocatorService;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -68,6 +69,12 @@ public class MainActivity extends Activity {
 		var clientName = "";
 		if (extras != null)
 			clientName = extras.getString("user");
+		var connectTo = "";
+		if (extras != null)
+			connectTo = extras.getString("server");
+
+
+		(new test()).start(clientName);
 
 		Images.loadCache(this);
 		setContentView(R.layout.games);
@@ -152,7 +159,7 @@ public class MainActivity extends Activity {
 			}
 		});
 
-		service = new NetworkService(this, rm, clientName);
+		service = new NetworkService(this, connectTo, rm, clientName);
 
 		games.setOnItemClickListener((parent, view, pos, id)-> {
 			new Thread(() -> {
