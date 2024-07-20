@@ -1,15 +1,12 @@
 package com.siliconandsynapse.ixcpp.protocol.game;
 
-import org.w3c.dom.*;
-
 import com.google.gson.Gson;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
-public class QuitGame implements IxReciever
+public class QuitGame implements IxReceiver
 {
 	private AcceptedAddresses events;
 	private IxAddress baseAddr;

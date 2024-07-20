@@ -5,9 +5,9 @@ import com.siliconandsynapse.ixcpp.ui.ITableDisplay;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
-public class TurnChange implements IxReciever
+public class TurnChange implements IxReceiver
 {
     public final static String KEY = "TurnChange";
 

@@ -1,18 +1,13 @@
 package com.siliconandsynapse.ixcpp.protocol.game;
 
-import javax.xml.xpath.*;
-
-import org.w3c.dom.*;
-
 import com.google.gson.Gson;
 import com.siliconandsynapse.ixcpp.ui.ITableDisplay;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
-public class GameMessage implements IxReciever
+public class GameMessage implements IxReceiver
 {
 
 	private AcceptedAddresses events;

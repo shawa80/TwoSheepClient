@@ -6,9 +6,9 @@ import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
-public class PlayerPickACard implements IxReciever
+public class PlayerPickACard implements IxReceiver
 {
     public static final String KEY = "PlayerPickACard";
 	private AcceptedAddresses events;

@@ -1,9 +1,7 @@
 package com.siliconandsynapse.net.ixtunnel;
 
 
-import org.w3c.dom.*;
-
-public interface IxReciever
+public interface IxReceiver
 {
 
 	void accept(IxAddress key, IxManager returnTunnel, String doc);

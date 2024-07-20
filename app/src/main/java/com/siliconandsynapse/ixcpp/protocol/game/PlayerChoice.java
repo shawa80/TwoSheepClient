@@ -1,25 +1,18 @@
 package com.siliconandsynapse.ixcpp.protocol.game;
 
-import javax.xml.xpath.*;
-
-import org.w3c.dom.*;
-
 import com.google.gson.Gson;
 import com.siliconandsynapse.ixcpp.ui.ITableDisplay;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 import com.siliconandsynapse.ixcpp.common.Answer;
 import com.siliconandsynapse.ixcpp.common.Choice;
 import com.siliconandsynapse.ixcpp.common.ChoiceResponse;
 
-import javax.xml.parsers.*;
 
-
-public class PlayerChoice implements IxReciever
+public class PlayerChoice implements IxReceiver
 {
 	private AcceptedAddresses events;
 	private ITableDisplay table;

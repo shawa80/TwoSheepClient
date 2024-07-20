@@ -1,6 +1,5 @@
 package com.siliconandsynapse.ixcpp.gameInteraction;
 
-import com.siliconandsynapse.aclient.lobbyModels.RoomModelListener;
 import com.siliconandsynapse.ixcpp.protocol.lobby.ListGamesPlayersObj;
 
 import java.util.List;
@@ -14,7 +13,4 @@ public interface RoomModel extends Iterable<GameInfo>
 	public void addPlayerToGame(int gameId, int seat, String player);
 	public void removePlayerFromGame(int gameId, int seat);
 
-
-	public void addListener(RoomModelListener listener);
-	public void removeListener(RoomModelListener listener);
 }

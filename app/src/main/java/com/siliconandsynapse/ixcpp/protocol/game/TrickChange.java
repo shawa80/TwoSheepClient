@@ -1,9 +1,5 @@
 package com.siliconandsynapse.ixcpp.protocol.game;
 
-import javax.xml.xpath.*;
-
-import org.w3c.dom.*;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
@@ -15,13 +11,12 @@ import com.siliconandsynapse.ixcpp.gameInteraction.TableCardEventHandler;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class TrickChange implements IxReciever
+public class TrickChange implements IxReceiver
 {
 
     private AcceptedAddresses events;

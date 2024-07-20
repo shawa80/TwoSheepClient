@@ -3,7 +3,6 @@ package com.siliconandsynapse.ixcpp.protocol.game;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.InstanceCreator;
-import com.google.gson.TypeAdapter;
 import com.google.gson.reflect.TypeToken;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
@@ -12,12 +11,12 @@ import com.siliconandsynapse.ixcpp.gameInteraction.TableCardEventHandler;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class TableChange implements IxReciever
+public class TableChange implements IxReceiver
 {
 
     public final static String KEY = "TableChange";

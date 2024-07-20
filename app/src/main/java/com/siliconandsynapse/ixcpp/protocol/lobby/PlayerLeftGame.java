@@ -1,18 +1,13 @@
 package com.siliconandsynapse.ixcpp.protocol.lobby;
 
-import org.w3c.dom.*;
-
 import com.google.gson.Gson;
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
-import javax.xml.xpath.*;
-
-public class PlayerLeftGame implements IxReciever
+public class PlayerLeftGame implements IxReceiver
 {
 	private AcceptedAddresses events;
 

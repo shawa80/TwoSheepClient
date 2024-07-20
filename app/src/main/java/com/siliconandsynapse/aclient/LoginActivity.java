@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepActivity;
+import com.siliconandsynapse.aclient.util.SelectedListener;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class LoginActivity extends Activity {
 		final var serverList = (Spinner)findViewById(R.id.server);
 
 		final String[] connectTo = {"twosheep.shawtonabbey.com"};
+
 		final var s = new ArrayList<ServerConnection>();
 		s.add(new ServerConnection("Internet Server", "twosheep.shawtonabbey.com"));
 		s.add(new ServerConnection("Local Server", "localhost"));
@@ -37,18 +39,9 @@ public class LoginActivity extends Activity {
 				android.R.layout.simple_list_item_1, s);
 		serverList.setAdapter(servers);
 
-		serverList.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				var serverChoice = (ServerConnection)parent.getItemAtPosition(position);
-				connectTo[0] = serverChoice.address();
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
+		serverList.setOnItemSelectedListener((SelectedListener)(selector, view, pos, id) -> {
+			var serverChoice = (ServerConnection)selector.getItemAtPosition(pos);
+			connectTo[0] = serverChoice.address();
 		});
 
 		var loginBtn = (Button)findViewById(R.id.loginBtn);
@@ -87,22 +80,4 @@ public class LoginActivity extends Activity {
 		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
 }

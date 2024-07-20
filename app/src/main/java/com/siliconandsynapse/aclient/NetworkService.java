@@ -1,7 +1,5 @@
 package com.siliconandsynapse.aclient;
 
-import android.app.Activity;
-
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -12,7 +10,6 @@ import java.util.Vector;
 //import com.siliconandsynapse.aclient.lobbyModels.DefaultMessageModel;
 import com.siliconandsynapse.aclient.lobbyModels.GameModel;
 //import com.siliconandsynapse.ixcpp.Cmd;
-import com.siliconandsynapse.aclient.lobbyModels.GameModel;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
@@ -38,12 +35,9 @@ import com.siliconandsynapse.ixcpp.protocol.lobby.PlayerLeftGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.SetName;
 import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
 import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
-import com.siliconandsynapse.ixcpp.userInteraction.PasswordPrompt;
-import com.siliconandsynapse.ixcpp.userInteraction.UserPassword;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 import com.siliconandsynapse.observerPool.ObserverPool;
 
@@ -153,7 +147,7 @@ public class NetworkService implements Runnable {
 
 	public void run() {
 
-		Vector<IxReciever> bootStrap = new Vector<IxReciever>();
+		Vector<IxReceiver> bootStrap = new Vector<IxReceiver>();
 
 		//dealerJavaHint = new DealerJavaHint(extnAddr);
 

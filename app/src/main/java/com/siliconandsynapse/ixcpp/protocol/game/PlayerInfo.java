@@ -7,12 +7,12 @@ import com.siliconandsynapse.ixcpp.ui.ITableDisplay;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.util.List;
 
-public class PlayerInfo implements IxReciever
+public class PlayerInfo implements IxReceiver
 {
 
 	public final static String KEY = "PlayerInfo";

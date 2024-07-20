@@ -1,11 +1,8 @@
 package com.siliconandsynapse.aclient.game;
 
-import java.io.IOException;
 import java.util.Hashtable;
-import java.util.List;
 
 import android.app.Activity;
-import android.util.Log;
 
 //import com.siliconandsynapse.aclient.NetworkService;
 import com.siliconandsynapse.aclient.NetworkService;
@@ -14,8 +11,6 @@ import com.siliconandsynapse.ixcpp.common.ChoiceResponse;
 import com.siliconandsynapse.ixcpp.common.Discard;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
-import com.siliconandsynapse.ixcpp.common.cards.types.PokerCard;
-import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.protocol.Pause;
 import com.siliconandsynapse.ixcpp.protocol.game.GameMessage;
 import com.siliconandsynapse.ixcpp.protocol.game.PlayerChoice;
@@ -30,8 +25,6 @@ import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGameCmd;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
-import com.siliconandsynapse.net.ixtunnel.RecieverExists;
 //import com.siliconandsynapse.ixcpp.protocol.Pause;
 //import com.siliconandsynapse.ixcpp.protocol.game.GameChat;
 //import com.siliconandsynapse.ixcpp.protocol.game.GameMessage;

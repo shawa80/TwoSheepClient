@@ -4,10 +4,10 @@ import com.google.gson.Gson;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 
-public class Pause implements IxReciever
+public class Pause implements IxReceiver
 {
 	private AcceptedAddresses events;
 

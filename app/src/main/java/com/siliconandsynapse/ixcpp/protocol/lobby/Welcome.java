@@ -1,16 +1,13 @@
 package com.siliconandsynapse.ixcpp.protocol.lobby;
 
 
-import org.w3c.dom.*;
-
 import com.siliconandsynapse.aclient.MainActivity;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
-public class Welcome implements IxReciever
+public class Welcome implements IxReceiver
 {
 	private AcceptedAddresses events;
 
@@ -32,7 +29,6 @@ public class Welcome implements IxReciever
 
 	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
-		monitor.log("got welcome");
 	}
 	public String placeInThread()
 	{

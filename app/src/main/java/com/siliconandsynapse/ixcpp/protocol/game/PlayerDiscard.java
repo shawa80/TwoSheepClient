@@ -1,7 +1,5 @@
 package com.siliconandsynapse.ixcpp.protocol.game;
 
-import org.w3c.dom.*;
-
 import com.google.gson.Gson;
 import com.siliconandsynapse.ixcpp.common.cards.CardFactory;
 import com.siliconandsynapse.ixcpp.ui.ITableDisplay;
@@ -9,14 +7,12 @@ import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 import com.siliconandsynapse.ixcpp.common.Discard;
-import com.siliconandsynapse.ixcpp.common.DiscardSerialize;
 
 import java.util.ArrayList;
 
-public class PlayerDiscard implements IxReciever
+public class PlayerDiscard implements IxReceiver
 {
 
 	private AcceptedAddresses events;

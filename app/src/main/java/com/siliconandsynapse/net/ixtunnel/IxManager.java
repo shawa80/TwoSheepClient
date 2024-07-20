@@ -1,21 +1,10 @@
 package com.siliconandsynapse.net.ixtunnel;
 
 
-import com.siliconandsynapse.aclient.MainActivity;
-
 import java.net.*;
 import java.io.*;
 
-import org.w3c.dom.*;
-
-import javax.xml.parsers.*;
-
 import java.util.*;
-
-import javax.xml.xpath.*;
-
-import java.util.concurrent.*;
-
 
 
 public class IxManager extends IxTunnel
@@ -26,9 +15,9 @@ public class IxManager extends IxTunnel
 	private Thread reciever;
 	//private Thread sender;
 
-	private Hashtable<IxAddress, IxReciever> handlers;
+	private Hashtable<IxAddress, IxReceiver> handlers;
 	//private IxReciever defaultHandler;
-	private IxReciever allHandler;
+	private IxReceiver allHandler;
 
 	//object that want to be notified when the connection closes
 	//private Vector<ConnectionNotifier> closed;
@@ -40,20 +29,20 @@ public class IxManager extends IxTunnel
 
 	public IxManager(Socket client) throws IOException
 	{
-		this(client, new Vector<IxReciever>());
+		this(client, new Vector<IxReceiver>());
 	}
-	public IxManager(Socket client, Vector<IxReciever> bootRecievers) throws IOException
+	public IxManager(Socket client, Vector<IxReceiver> bootRecievers) throws IOException
 	{
 		super(client);
 		//self = this;
 
-		handlers = new Hashtable<IxAddress, IxReciever>();
+		handlers = new Hashtable<IxAddress, IxReceiver>();
 		//defaultHandler = null;
 		//closed = new Vector<ConnectionNotifier>();
 
 		//session = new Hashtable<String, Object>();
 
-		IxReciever bootStrap;
+		IxReceiver bootStrap;
 
 		bootRecievers.forEach(this::registerReceiver);
 
@@ -105,12 +94,12 @@ public class IxManager extends IxTunnel
 //	}
 //
 
-	public synchronized void registerAllReciever(IxReciever handle)
+	public synchronized void registerAllReciever(IxReceiver handle)
 	{
 		allHandler = handle;
 	}
 	//runs for registered event
-	public synchronized void registerReceiver(IxReciever handle)
+	public synchronized void registerReceiver(IxReceiver handle)
 	{
 		AcceptedAddresses keys;
 
@@ -125,7 +114,7 @@ public class IxManager extends IxTunnel
 		}
 
 	}
-	public synchronized void unregisterReciever(IxReciever handle)
+	public synchronized void unregisterReciever(IxReceiver handle)
 	{
 		AcceptedAddresses keys;
 
@@ -193,7 +182,7 @@ public class IxManager extends IxTunnel
 		}
 		public void run()
 		{
-			IxReciever recv;
+			IxReceiver recv;
 			IxAddress key = null;
 
 			String doc;

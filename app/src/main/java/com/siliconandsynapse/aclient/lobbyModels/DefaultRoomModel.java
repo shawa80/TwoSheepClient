@@ -13,12 +13,19 @@ import com.siliconandsynapse.observerPool.ObserverPool;
 
 public class DefaultRoomModel implements RoomModel {
 
-	private ObserverPool<RoomModelListener> pool;
+	public ObserverPool<PlayerAddedListener> playerAdded;
+	public ObserverPool<PlayerRemovedListener> playerRemoved;
+	public ObserverPool<GameAddedListener> gameAdded;
+	public ObserverPool<GameRemovedListener> gameRemoved;
+
 	private Hashtable<Integer, GameInfo> games;
 
 	public DefaultRoomModel() {
 
-		pool = new ObserverPool<RoomModelListener>(RoomModelListener.class);
+		playerAdded = new ObserverPool<>(PlayerAddedListener.class);
+		playerRemoved = new ObserverPool<>(PlayerRemovedListener.class);
+		gameAdded = new ObserverPool<>(GameAddedListener.class);
+		gameRemoved = new ObserverPool<>(GameRemovedListener.class);
 		games = new Hashtable<Integer, GameInfo>();
 
 	}
@@ -28,15 +35,6 @@ public class DefaultRoomModel implements RoomModel {
 		return games.values().iterator();
 	}
 
-	@Override
-	public void addListener(RoomModelListener listener) {
-		pool.add(listener);
-	}
-
-	@Override
-	public void removeListener(RoomModelListener listener) {
-		pool.add(listener);
-	}
 
 	@Override
 	public void addGame(GameInfo game, List<ListGamesPlayersObj> players) {
@@ -51,7 +49,7 @@ public class DefaultRoomModel implements RoomModel {
 			}
 		games.put(game.getId(), g);
 
-		pool.getDispatcher().gameAdded(g);
+		gameAdded.getDispatcher().gameAdded(g);
 	}
 
 	@Override
@@ -62,7 +60,7 @@ public class DefaultRoomModel implements RoomModel {
 			var g = (Game)games.get(gameId);
 			var p = new Player(seat, player);
 			g.addPlayer(p);
-			pool.getDispatcher().playerAdded(g, p);
+			playerAdded.getDispatcher().playerAdded(g, p);
 		}
 	}
 
@@ -70,7 +68,7 @@ public class DefaultRoomModel implements RoomModel {
 	public void removeGame(int id) {
 
 		games.remove(id);
-		pool.getDispatcher().gameRemoved(id);
+		gameRemoved.getDispatcher().gameRemoved(id);
 	}
 
 	@Override
@@ -80,7 +78,7 @@ public class DefaultRoomModel implements RoomModel {
 
 			var g = (Game)games.get(gameId);
 			g.removePlayer(seat);
-			pool.getDispatcher().playerRemoved(g, seat);
+			playerRemoved.getDispatcher().playerRemoved(g, seat);
 		}
 	}
 

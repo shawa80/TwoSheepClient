@@ -4,41 +4,24 @@ import com.siliconandsynapse.aclient.game.Images;
 import com.siliconandsynapse.aclient.lobbyModels.DefaultRoomModel;
 import com.siliconandsynapse.aclient.lobbyModels.Game;
 import com.siliconandsynapse.aclient.lobbyModels.Player;
-import com.siliconandsynapse.aclient.lobbyModels.RoomModelListener;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
-import com.siliconandsynapse.ixcpp.protocol.Debug;
 import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGameCmd;
-import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
-import com.siliconandsynapse.net.ixtunnel.IxManager;
 import com.siliconandsynapse.net.ixtunnel.ParseError;
 import com.siliconandsynapse.server.locator.LocatorService;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
 public class MainActivity extends Activity {
-
-	//private TextView debug;
 
 	private NetworkService service;
 	private Button createGame;
@@ -55,12 +38,7 @@ public class MainActivity extends Activity {
 
 	}
 
-	public void log(String log) {
-		//this.runOnUiThread(() -> {
-		//	debug.append(log + "\n");
-		//});
-	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,7 +52,7 @@ public class MainActivity extends Activity {
 			connectTo = extras.getString("server");
 
 
-		(new test()).start(clientName);
+		(new LocatorService()).start(clientName);
 
 		Images.loadCache(this);
 		setContentView(R.layout.games);
@@ -97,14 +75,15 @@ public class MainActivity extends Activity {
 			var dealerName = dealerAdapter.getItem(pos);
 
 			new Thread(() -> {
-				//network on main thread exception!!!!!!!!!!!!!!!
+
 				var tun = service.getTunnel();
 				var cmd = new CreateGameCmd(dealerName);
 				try {
 					cmd.execute(IxAddress.parse("ixcpp.lobby"), tun);
 				} catch (ParseError e) {
 					throw new RuntimeException(e);
-				}}).start();
+				}
+			}).start();
 
 		});
 
@@ -117,46 +96,35 @@ public class MainActivity extends Activity {
 
 		games.setAdapter(adapter);
 
-
-
 		var rm = new DefaultRoomModel();
-		rm.addListener(new RoomModelListener() {
-			@Override
-			public void gameAdded(Game game) {
-				MainActivity.this.runOnUiThread(() -> {
-					adapter.add(game);
-				});
 
-			}
+		rm.gameAdded.add((game) -> {
+			runOnUiThread(() -> {
+				adapter.add(game);
+			});
+		});
 
-			@Override
-			public void gameRemoved(int gameId) {
-				MainActivity.this.runOnUiThread(() -> {
+		rm.gameRemoved.add((gameId) -> {
+			runOnUiThread(() -> {
 
-					var x = gameList.stream()
+				var x = gameList.stream()
 						.filter((g)-> g.getId() == gameId)
 						.findFirst();
 
-					x.ifPresent((game) -> adapter.remove(game));
+				x.ifPresent((game) -> adapter.remove(game));
+			});
+		});
 
+		rm.playerAdded.add((game,  player) -> {
+			runOnUiThread(() -> {
+				adapter.notifyDataSetChanged();
+			});
+		});
 
-
-				});
-			}
-
-			@Override
-			public void playerAdded(Game game, Player player) {
-				MainActivity.this.runOnUiThread(() -> {
-					adapter.notifyDataSetChanged();
-				});
-			}
-
-			@Override
-			public void playerRemoved(Game game, int seat) {
-				MainActivity.this.runOnUiThread(() -> {
-					adapter.notifyDataSetChanged();
-				});
-			}
+		rm.playerRemoved.add((game, seat) -> {
+			runOnUiThread(() -> {
+				adapter.notifyDataSetChanged();
+			});
 		});
 
 		service = new NetworkService(this, connectTo, rm, clientName);
@@ -173,38 +141,7 @@ public class MainActivity extends Activity {
 		createGame.setOnClickListener((view) -> {
 
 			dealerChoice.setVisibility(View.VISIBLE);
-
 		});
-
-
-//		service.addOnConnectListener(new OnConnectListener() {
-//
-//			@Override
-//			public void connected(NetworkService service) {
-//				chatWindow.addMessage("Network", "Connected");
-//				chatWindow.setNetworkService(service);
-//				gameWindow.setNetworkService(service);
-//			}
-//
-//			@Override
-//			public void ModelsCreated(
-//					MessageReceiverModel receiver) {
-//
-//				chatWindow.setReceiverModel(receiver);
-//
-//			}
-//
-//
-//
-//			@Override
-//			public void failed(NetworkService service, String message) {
-//				chatWindow.addMessage("Network", message);
-//
-//			}
-//
-//
-//		});
-
 
 		service.start();
 	}

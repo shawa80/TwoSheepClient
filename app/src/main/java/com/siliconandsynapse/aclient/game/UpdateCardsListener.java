@@ -62,8 +62,8 @@ public class UpdateCardsListener implements UpdateCards {
 				//int resourceNum = Images.getPokerImageResource(card);
 				//Drawable image = act.getResources().getDrawable(resourceNum);
 				
-				boolean isHorz = isPlayerHorz(playerId);
-				Drawable image = Images.getPokerImage(act, card, isHorz);
+				var isHorz = isPlayerHorz(playerId);
+				var image = Images.getPokerImage(act, card, isHorz);
 								
 				if (level == 1)
 					layer.setDrawableByLayerId(R.id.top, image);

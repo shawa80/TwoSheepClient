@@ -1,27 +1,20 @@
 package com.siliconandsynapse.ixcpp.protocol.lobby;
 
 
-import org.w3c.dom.*;
-
 //import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
-import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfoObj;
-import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
+        import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
-import java.util.List;
+        import java.util.List;
 
-import javax.xml.parsers.*;
-import javax.xml.xpath.*;
-
-public class ListGames implements IxReciever
+public class ListGames implements IxReceiver
 {
 	private AcceptedAddresses events;
 	private RoomModel model;

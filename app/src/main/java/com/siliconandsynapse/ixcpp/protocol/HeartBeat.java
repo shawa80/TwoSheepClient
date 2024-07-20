@@ -1,15 +1,13 @@
 package com.siliconandsynapse.ixcpp.protocol;
 
-import org.w3c.dom.*;
-
 import com.siliconandsynapse.net.ixtunnel.AcceptedAddresses;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-import com.siliconandsynapse.net.ixtunnel.IxReciever;
+import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 import com.siliconandsynapse.net.ixtunnel.ParseError;
 
 
-public class HeartBeat implements IxReciever
+public class HeartBeat implements IxReceiver
 {
 	private AcceptedAddresses events;
 	private IxAddress addr;

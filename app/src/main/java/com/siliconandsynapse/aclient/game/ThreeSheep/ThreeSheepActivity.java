@@ -198,7 +198,7 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
             turnUpdater.add(updateUserEast, eastTurn);
             turnUpdater.add(updateUserSouth, southTurn);
 
-            TwoSheepUser user = new TwoSheepUser(this, updateUserSouth, service);
+            var user = new TwoSheepUser(this, updateUserSouth, service);
 
             service.getModel().addChoiceListener(user);
             service.getModel().addDiscardListener(user);
@@ -258,22 +258,22 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.game, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.game, menu);
+//        return true;
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        //int id = item.getItemId();
-
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        //int id = item.getItemId();
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     @Override
@@ -332,36 +332,33 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
 			names.add(c);
 		}
 
-		var namesAA = new ArrayAdapter<Card> (this, android.R.layout.simple_list_item_1, names );
-	    ListView choiceList = (ListView)this.findViewById(R.id.choiceOptions);
+		var namesAA = new DiscardAdapter (this, names );
+	    var choiceList = (ListView)this.findViewById(R.id.choiceOptions);
 	    choiceList.setAdapter(namesAA);
 
 
         final int[] count = {0};
         final ArrayList<Card> pickedCards = new ArrayList<>();
-	    choiceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	    	@Override
-	    	public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+	    choiceList.setOnItemClickListener((arg0, arg1, position, arg3) -> {
 
-                count[0]++;
+            count[0]++;
 
-                var card = namesAA.getItem(position);
-                pickedCards.add(card);
-                namesAA.remove(card);
+            var card = namesAA.getItem(position);
+            pickedCards.add(card);
+            namesAA.remove(card);
 
-                if (count[0] == 2)
-                {
-                    ThreeSheepActivity.this.hideChoice();
+            if (count[0] == 2)
+            {
+                this.hideChoice();
 
-                    Discard response = new Discard();
-                    response.addCard(pickedCards.get(0));
-                    response.addCard(pickedCards.get(1));
-                    service.setDiscardResponse(response);
-                    service.getDiscardBlock().sendNotice();
-                }
+                Discard response = new Discard();
+                response.addCard(pickedCards.get(0));
+                response.addCard(pickedCards.get(1));
+                service.setDiscardResponse(response);
+                service.getDiscardBlock().sendNotice();
+            }
 
-	        }
-	    });
+        });
 
 	    choice.setVisibility(View.VISIBLE);
 	    choice.bringToFront();
