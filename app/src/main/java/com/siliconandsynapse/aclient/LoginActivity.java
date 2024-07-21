@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class LoginActivity extends Activity {
 
 	private ArrayAdapter<ServerConnection> servers;
+	private ServerListener listener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class LoginActivity extends Activity {
 		final var user = (EditText)findViewById(R.id.userInput);
 		final var serverList = (Spinner)findViewById(R.id.server);
 
-		final String[] connectTo = {"twosheep.shawtonabbey.com"};
+		//final String[] connectTo = {"twosheep.shawtonabbey.com"};
 
 		final var s = new ArrayList<ServerConnection>();
 		s.add(new ServerConnection("Internet Server", "twosheep.shawtonabbey.com"));
@@ -39,45 +40,64 @@ public class LoginActivity extends Activity {
 				android.R.layout.simple_list_item_1, s);
 		serverList.setAdapter(servers);
 
-		serverList.setOnItemSelectedListener((SelectedListener)(selector, view, pos, id) -> {
-			var serverChoice = (ServerConnection)selector.getItemAtPosition(pos);
-			connectTo[0] = serverChoice.address();
-		});
+//		serverList.setOnItemSelectedListener((SelectedListener)(selector, view, pos, id) -> {
+//			var serverChoice = (ServerConnection)selector.getItemAtPosition(pos);
+//			connectTo[0] = serverChoice.address();
+//		});
 
 		var loginBtn = (Button)findViewById(R.id.loginBtn);
 
         loginBtn.setOnClickListener((e) -> {
-				
+
+			var connectTo = (ServerConnection)serverList.getSelectedItem();
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.putExtra("user", user.getText().toString());
-			intent.putExtra("server", connectTo[0]);
+			intent.putExtra("server", connectTo.address());
 
 			this.startActivity(intent);
         });
 
-		new Thread(() -> {
 
-			try {
-				var localServer = new com.siliconandsynapse.server.IxcppServ();
-				localServer.start();
-
-			} catch (Exception ex) {
-				System.out.println("here");
-			}
-		}).start();
-
-		new Thread(() -> {
-			new ServerListener().listen(this);
-		}).start();
+		listener = new ServerListener();
+		listener.listen(this);
 
 	}
 	public void addServer(String name, String address) {
 		this.runOnUiThread(() -> {
 
+			var alreadyExists = false;
 			var conn = new ServerConnection(name, address);
-			servers.remove(conn);
-			servers.add(conn);
+			for(var i = 0; i < servers.getCount(); i++)
+			{
+				var exConn = servers.getItem(i);
+				if (exConn.address().equals(address)) {
+					alreadyExists = true;
+					break;
+				}
+			}
+			if (!alreadyExists)
+				servers.add(conn);
+
+
 		});
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		//service.start();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		listener.stop();
 	}
 
 }

@@ -12,7 +12,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/poker_clubs_queen"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
          android:hardwareAccelerated="false">
@@ -21,7 +21,10 @@
             android:name=".LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:exported="true">
+            android:launchMode="singleInstance"
+            android:exported="true"
+            android:clearTaskOnLaunch="true"
+            android:alwaysRetainTaskState="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,33 +34,36 @@
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
             android:name=".MainActivity"
             android:label="@string/app_name"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            android:exported="false"
+            android:alwaysRetainTaskState="true">
         </activity>
         <activity
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepActivity"
             android:label="@string/title_activity_game"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:alwaysRetainTaskState="true">
         </activity>
         <activity
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.siliconandsynapse.aclient.game.ThreeSheep.ThreeSheepActivity"
             android:label="@string/title_activity_game"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:exported="false"
+            android:alwaysRetainTaskState="true">
         </activity>
         <activity
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name="com.siliconandsynapse.aclient.game.Euchre.EuchreActivity"
             android:label="@string/title_activity_game"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:alwaysRetainTaskState="true">
         </activity>
 <!--        <activity-->
 <!--            android:name=".LoginActivity"-->

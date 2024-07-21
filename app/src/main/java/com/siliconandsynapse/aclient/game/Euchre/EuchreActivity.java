@@ -266,21 +266,8 @@ public class EuchreActivity extends Activity implements GameActivity {
 
 	}
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
 
-	@Override
-	protected void onStop() {
 
-		super.onStop();
-
-		new Thread(() -> {
-			service.stop();
-		}).start();
-
-	}
 
 
 	private void mapCards() {
@@ -409,5 +396,15 @@ public class EuchreActivity extends Activity implements GameActivity {
 		table.invalidate();
 	}
 
+	@Override
+	protected void onStop() {
 
+		super.onStop();
+
+		new Thread(() -> {
+			service.stop();
+		}).start();
+
+		this.finish();
+	}
 }

@@ -202,18 +202,13 @@ public class NetworkService implements Runnable {
 		//bootStrap.add(dealerJavaHint);
 
 		Socket connection = null;
-        try {
-			connection = new Socket(server, 1077);
-
-        } catch (UnknownHostException e) {
-        	e.printStackTrace();
-        	onConnect.getDispatcher().failed(this, e.getMessage());
-        	return;
+		try {
+			connection = tryConnection(server);
 		} catch (IOException e) {
-			e.printStackTrace();
 			onConnect.getDispatcher().failed(this, e.getMessage());
 			return;
 		}
+
 
 		try {
 
@@ -233,6 +228,25 @@ public class NetworkService implements Runnable {
 		//onConnect.getDispatcher().ModelsCreated(lobbyMessageReceiver);
 	}
 
+	private Socket tryConnection(String server) throws IOException {
+		Socket connection = null;
+		int times = 10;
+		while (times > 0) {
+			try {
+				connection = new Socket(server, 1077);
+				return connection;
+			} catch (Exception e) {
+
+			}
+			times--;
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				throw new IOException("Connection interrupted");
+			}
+		}
+		throw new IOException("unable to connect to " + server);
+	}
 
 //	public void executeLobby(Cmd cmd) {
 //

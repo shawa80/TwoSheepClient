@@ -225,16 +225,7 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
         super.onPause();
     }
 
-    @Override
-    protected void onStop() {
 
-        super.onStop();
-
-        new Thread(() -> {
-            service.stop();
-        }).start();
-
-    }
 
 
     private void mapCards() {
@@ -365,5 +356,17 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
 
 		table.invalidate();
 	}
+
+    @Override
+    protected void onStop() {
+
+        super.onStop();
+
+        new Thread(() -> {
+            service.stop();
+        }).start();
+
+        this.finish();
+    }
 }
 

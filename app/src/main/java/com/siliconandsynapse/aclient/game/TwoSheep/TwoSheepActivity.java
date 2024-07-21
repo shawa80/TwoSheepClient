@@ -190,6 +190,7 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 		new Thread(() -> {
 			service.stop();
 		}).start();
+		this.finish();
 
 	}
 
@@ -248,4 +249,5 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 	public void showDiscard(Discard d) {
 
 	}
+
 }

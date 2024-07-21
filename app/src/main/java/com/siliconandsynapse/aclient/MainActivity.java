@@ -10,6 +10,7 @@ import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.ParseError;
+import com.siliconandsynapse.server.IxcppServ;
 import com.siliconandsynapse.server.locator.LocatorService;
 
 import android.app.Activity;
@@ -33,7 +34,10 @@ public class MainActivity extends Activity {
 	
 	private RoomModel rooms;
 	//private LobbyUserList lobbyModel;
-	
+
+	private LocatorService loc;
+	private IxcppServ localServer;
+	private String connectTo = "";
 	public MainActivity() {
 
 	}
@@ -47,12 +51,16 @@ public class MainActivity extends Activity {
 		var clientName = "";
 		if (extras != null)
 			clientName = extras.getString("user");
-		var connectTo = "";
 		if (extras != null)
 			connectTo = extras.getString("server");
 
+		if ("localhost".equals(connectTo)) {
+			loc = new LocatorService();
+			loc.start(clientName);
 
-		(new LocatorService()).start(clientName);
+			localServer = new com.siliconandsynapse.server.IxcppServ();
+			localServer.start();
+		}
 
 		Images.loadCache(this);
 		setContentView(R.layout.games);
@@ -151,6 +159,23 @@ public class MainActivity extends Activity {
 	protected void onStart() {
 		super.onStart();
 		//service.start();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+
+		service.stop();
+		if ("localhost".equals(connectTo)) {
+			loc.stop();
+			localServer.stop();
+		}
 	}
 
 	private Mutex logonBlock = new Mutex();;
