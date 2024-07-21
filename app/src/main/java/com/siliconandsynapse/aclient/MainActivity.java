@@ -61,16 +61,13 @@ public class MainActivity extends FragmentActivity {
 
 		Images.loadCache(this);
 
-		try {
-			getSupportFragmentManager().beginTransaction()
-					.setReorderingAllowed(true)
-					.add(id.fragment_container_view, LoginFragment.class, null)
-					.commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		getSupportFragmentManager().beginTransaction()
+				.setReorderingAllowed(true)
+				.add(id.fragment_container_view, LoginFragment.class, null)
+				.commit();
 
-		getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+		getOnBackPressedDispatcher().addCallback(this,
+				new OnBackPressedCallback(true) {
 			@Override
 			public void handleOnBackPressed() {
 				switch (currentState) {

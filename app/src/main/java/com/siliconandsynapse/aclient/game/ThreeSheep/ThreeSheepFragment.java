@@ -197,6 +197,7 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
             service.getModel().addChoiceListener(user);
             service.getModel().addDiscardListener(user);
 
+            hideChoice();
             service.start();
 
         } catch (Exception ex) {
@@ -207,11 +208,11 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
 
     }
 
-    @Override
-    public  void onStart() {
-        super.onStart();
-        hideChoice();
-    }
+//    @Override
+//    public  void onStart() {
+//        super.onStart();
+//        hideChoice();
+//    }
 
 
 
