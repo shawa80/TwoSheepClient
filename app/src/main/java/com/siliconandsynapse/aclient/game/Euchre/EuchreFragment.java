@@ -373,13 +373,11 @@ public class EuchreFragment  extends Fragment implements GameActivity {
     }
 
     @Override
-    public void onStop() {
-
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
 
         new Thread(() -> {
             service.stop();
         }).start();
-
     }
 }

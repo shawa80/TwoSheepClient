@@ -343,15 +343,14 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
         table.invalidate();
     }
 
-    @Override
-    public void onStop() {
 
-        super.onStop();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
         new Thread(() -> {
             service.stop();
         }).start();
-
     }
 
     @Override
