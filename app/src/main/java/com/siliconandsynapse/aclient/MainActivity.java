@@ -1,6 +1,11 @@
 package com.siliconandsynapse.aclient;
 
+import static com.siliconandsynapse.aclient.R.*;
+
 import com.siliconandsynapse.aclient.game.Images;
+import com.siliconandsynapse.aclient.game.ThreeSheep.ThreeSheepFragment;
+import com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepFragment;
+import com.siliconandsynapse.aclient.game.Euchre.EuchreFragment;
 import com.siliconandsynapse.aclient.lobbyModels.DefaultRoomModel;
 import com.siliconandsynapse.aclient.lobbyModels.Game;
 import com.siliconandsynapse.aclient.lobbyModels.Player;
@@ -20,140 +25,115 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentContainerView;
+
+import java.sql.Connection;
 import java.util.ArrayList;
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 
-	private NetworkService service;
-	private Button createGame;
-	private ListView games;
-	private ArrayList<Game> gameList;
-
-	private ListView dealers;
-	private View dealerChoice;
-	
-	private RoomModel rooms;
-	//private LobbyUserList lobbyModel;
 
 	private LocatorService loc;
 	private IxcppServ localServer;
-	private String connectTo = "";
-	public MainActivity() {
+	private ServerConnection connectTo = null;
+	private NetworkService networkService = null;
 
+	private FragmentContainerView container;
+	public MainActivity() {
+		super(layout.main_fragment);
 	}
 
+	private enum AppState {
+		Login,
+		GameList,
+		Game
+	}
+
+	private AppState currentState = AppState.Login;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Bundle extras = getIntent().getExtras();
-		var clientName = "";
-		if (extras != null)
-			clientName = extras.getString("user");
-		if (extras != null)
-			connectTo = extras.getString("server");
+		Images.loadCache(this);
 
-		if ("localhost".equals(connectTo)) {
-			loc = new LocatorService();
-			loc.start(clientName);
-
-			localServer = new com.siliconandsynapse.server.IxcppServ();
-			localServer.start();
+		try {
+			getSupportFragmentManager().beginTransaction()
+					.setReorderingAllowed(true)
+					.add(id.fragment_container_view, LoginFragment.class, null)
+					.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
-		Images.loadCache(this);
-		setContentView(R.layout.games);
-
-		dealerChoice = (View)findViewById(R.id.dealers);
-		dealers = (ListView)findViewById(R.id.dealersOptions);
-		var dealersList = new ArrayList<String>();
-		dealersList.add("Two Sheep");
-		dealersList.add("Three Sheep");
-		dealersList.add("Euchre");
-
-		var dealerAdapter = new ArrayAdapter<>(getApplicationContext(),
-				android.R.layout.simple_list_item_1, dealersList);
-		dealers.setAdapter(dealerAdapter);
-		dealerChoice.setVisibility(View.GONE);
-
-		dealers.setOnItemClickListener((adpt, view, pos, arg) -> {
-			dealerChoice.setVisibility(View.GONE);
-
-			var dealerName = dealerAdapter.getItem(pos);
-
-			new Thread(() -> {
-
-				var tun = service.getTunnel();
-				var cmd = new CreateGameCmd(dealerName);
-				try {
-					cmd.execute(IxAddress.parse("ixcpp.lobby"), tun);
-				} catch (ParseError e) {
-					throw new RuntimeException(e);
+		getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+			@Override
+			public void handleOnBackPressed() {
+				switch (currentState) {
+					case Game -> showGameList();
+					case Login -> finish();
+					case GameList -> finish();
 				}
-			}).start();
-
+			}
 		});
-
-
-		createGame = (Button)findViewById(R.id.addGame);
-		games = (ListView)findViewById(R.id.gameList);
-		gameList = new ArrayList<Game>();
-		var adapter = new ArrayAdapter<>(getApplicationContext(),
-				android.R.layout.simple_list_item_1, gameList);
-
-		games.setAdapter(adapter);
-
-		var rm = new DefaultRoomModel();
-
-		rm.gameAdded.add((game) -> {
-			runOnUiThread(() -> {
-				adapter.add(game);
-			});
-		});
-
-		rm.gameRemoved.add((gameId) -> {
-			runOnUiThread(() -> {
-
-				var x = gameList.stream()
-						.filter((g)-> g.getId() == gameId)
-						.findFirst();
-
-				x.ifPresent((game) -> adapter.remove(game));
-			});
-		});
-
-		rm.playerAdded.add((game,  player) -> {
-			runOnUiThread(() -> {
-				adapter.notifyDataSetChanged();
-			});
-		});
-
-		rm.playerRemoved.add((game, seat) -> {
-			runOnUiThread(() -> {
-				adapter.notifyDataSetChanged();
-			});
-		});
-
-		service = new NetworkService(this, connectTo, rm, clientName);
-
-		games.setOnItemClickListener((parent, view, pos, id)-> {
-			new Thread(() -> {
-				var gi = (GameInfo)parent.getItemAtPosition(pos);
-
-				service.joinGame(gi);
-			}).start();
-
-		});
-
-		createGame.setOnClickListener((view) -> {
-
-			dealerChoice.setVisibility(View.VISIBLE);
-		});
-
-		service.start();
 	}
 
+
+	public void login(String name, ServerConnection connectTo) {
+
+		setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+		this.connectTo = connectTo;
+		if ("localhost".equals(connectTo.address())) {
+            loc = new LocatorService();
+            loc.start(name);
+
+            localServer = new com.siliconandsynapse.server.IxcppServ();
+            localServer.start();
+        }
+
+		networkService = new NetworkService(this, connectTo.address(), name);
+
+		showGameList();
+
+	}
+
+	public void startGame(GameInfo gi) {
+
+		setTheme(android.R.style.Theme_NoTitleBar_Fullscreen);
+		var bundle = new Bundle();
+		bundle.putInt("GAME_ID", gi.getId());
+
+		currentState = AppState.Game;
+		Class<? extends Fragment> type = TwoSheepFragment.class;
+		if ("Two Sheep".equals(gi.getName()))
+			type = TwoSheepFragment.class;
+		else if ("Euchre".equals(gi.getName()))
+			type = EuchreFragment.class;
+		else
+			type = ThreeSheepFragment.class;
+
+		getSupportFragmentManager().beginTransaction()
+				.setReorderingAllowed(true)
+				.replace(id.fragment_container_view, type, bundle)
+				.commit();
+	}
+
+	public void showGameList() {
+		setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+		currentState = AppState.GameList;
+		getSupportFragmentManager().beginTransaction()
+				.setReorderingAllowed(true)
+				.replace(id.fragment_container_view, MainFragment.class, null)
+				.commit();
+	}
+
+	public NetworkService getNetworkService() {
+		return networkService;
+	}
 
 	@Override
 	protected void onStart() {
@@ -161,22 +141,22 @@ public class MainActivity extends Activity {
 		//service.start();
 	}
 
-	@Override
-	protected void onStop() {
-		super.onStop();
-
-	}
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-
-		service.stop();
-		if ("localhost".equals(connectTo)) {
-			loc.stop();
-			localServer.stop();
-		}
-	}
+//	@Override
+//	protected void onStop() {
+//		super.onStop();
+//
+//	}
+//
+//	@Override
+//	protected void onDestroy() {
+//		super.onDestroy();
+//
+//		service.stop();
+//		if ("localhost".equals(connectTo)) {
+//			loc.stop();
+//			localServer.stop();
+//		}
+//	}
 
 	private Mutex logonBlock = new Mutex();;
 

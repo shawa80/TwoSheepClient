@@ -3,9 +3,7 @@ package com.siliconandsynapse.aclient.lobbyModels;
 import android.content.Intent;
 
 import com.siliconandsynapse.aclient.MainActivity;
-import com.siliconandsynapse.aclient.game.Euchre.EuchreActivity;
-import com.siliconandsynapse.aclient.game.ThreeSheep.ThreeSheepActivity;
-import com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepActivity;
+
 import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInstance;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
@@ -30,18 +28,18 @@ public class GameModel implements GameController {
 	@Override
 	public void startGame(IxManager arg0, int gameId, String gameType) {
 
-		Intent intent;
-
-		if ("Two Sheep".equals(gameType))
-			intent = new Intent(act, TwoSheepActivity.class);
-		else if ("Euchre".equals(gameType))
-			intent = new Intent(act, EuchreActivity.class);
-		else
-			intent = new Intent(act, ThreeSheepActivity.class);
-
-		intent.putExtra("GAME_NAME", gameId);
-
-		act.startActivity(intent);
+//		Intent intent;
+//
+//		if ("Two Sheep".equals(gameType))
+//			intent = new Intent(act, TwoSheepActivity.class);
+//		else if ("Euchre".equals(gameType))
+//			intent = new Intent(act, EuchreActivity.class);
+//		else
+//			intent = new Intent(act, ThreeSheepActivity.class);
+//
+//		intent.putExtra("GAME_NAME", gameId);
+//
+//		act.startActivity(intent);
 	}
 
 }

@@ -11,7 +11,7 @@ import com.siliconandsynapse.aclient.gameModels.models.UpdateUser;
 
 public class EuchrePlayer implements UpdateUser {
 
-	private EuchreActivity act;
+	private EuchreFragment act;
 
 	private TextView nameGui;
 	private TextView descGui;
@@ -22,7 +22,7 @@ public class EuchrePlayer implements UpdateUser {
 
 	private PlayerScoreUpdater scoreGui;
 
-	public EuchrePlayer(EuchreActivity act, TextView nameGui, TextView descGui, ImageView[] cards,
+	public EuchrePlayer(EuchreFragment act, TextView nameGui, TextView descGui, ImageView[] cards,
 			ImageView trick, PlayerTurnUpdater turnGui, PlayerScoreUpdater scoreGui) {
 		this.act = act;
 		this.nameGui = nameGui;

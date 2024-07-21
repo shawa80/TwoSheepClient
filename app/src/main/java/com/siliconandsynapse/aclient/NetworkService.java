@@ -102,8 +102,9 @@ public class NetworkService implements Runnable {
 	}
 
 
-	public NetworkService(MainActivity act, String server,
-						  RoomModel roomModel, String clientName
+	public NetworkService(MainActivity act,
+						  String server,
+						  String clientName
     ) {
 
 		this.server = server;
@@ -114,7 +115,7 @@ public class NetworkService implements Runnable {
 		onConnect = new ObserverPool<OnConnectListener>(OnConnectListener.class);
 
 //		this.lobbyModel = lobbyModel;
-		this.roomModel = roomModel;
+
 		gameManager = new GameModel(act);
 
         rootAddr = IxAddress.createRoot("ixcpp");
@@ -122,6 +123,9 @@ public class NetworkService implements Runnable {
         gamesAddr = rootAddr.append("games");
 		//extnAddr = rootAddr.append("extn");
 
+	}
+	public void setRoomModel(RoomModel roomModel) {
+		this.roomModel = roomModel;
 	}
 
 	public IxAddress getGameAddr() {

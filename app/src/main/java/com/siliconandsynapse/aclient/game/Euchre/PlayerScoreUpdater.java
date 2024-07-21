@@ -7,13 +7,13 @@ import android.widget.TextView;
 public class PlayerScoreUpdater {
 
 
-	private EuchreActivity act;
+	private EuchreFragment act;
 	private TextView scoreText;
 
 	private int teamNS;
 	private int teamEW;
 
-	public PlayerScoreUpdater(EuchreActivity act, TextView scoreText) {
+	public PlayerScoreUpdater(EuchreFragment act, TextView scoreText) {
 		this.act = act;
 		this.scoreText = scoreText;
 
@@ -21,12 +21,12 @@ public class PlayerScoreUpdater {
 
 	public void setScore(EuchrePlayer player, final int score) {
 
-		EuchreActivity.SeatLocation loc = act.getSeat(player);
+		EuchreFragment.SeatLocation loc = act.getSeat(player);
 
-		if (loc == EuchreActivity.SeatLocation.NORTH)
+		if (loc == EuchreFragment.SeatLocation.NORTH)
 			teamNS = score;
 
-		if (loc == EuchreActivity.SeatLocation.EAST)
+		if (loc == EuchreFragment.SeatLocation.EAST)
 			teamEW = score;
 
 

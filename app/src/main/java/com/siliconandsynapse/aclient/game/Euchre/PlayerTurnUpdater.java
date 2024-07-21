@@ -6,10 +6,10 @@ import android.widget.TextView;
 
 public class PlayerTurnUpdater {
 
-	private EuchreActivity act;
+	private EuchreFragment act;
 	private Hashtable<EuchrePlayer, TextView> mapping = new Hashtable<EuchrePlayer, TextView>();
 
-	public PlayerTurnUpdater(EuchreActivity act) {
+	public PlayerTurnUpdater(EuchreFragment act) {
 		this.act = act;
 
 	}
@@ -23,19 +23,15 @@ public class PlayerTurnUpdater {
 
 	public void indicate(final EuchrePlayer player) {
 
-		act.runOnUiThread(new Runnable() {
+		act.runOnUiThread(() -> {
+            for (TextView views : mapping.values()) {
+                views.setText("");
+            }
 
-			@Override
-			public void run() {
-				for (TextView views : mapping.values()) {
-					views.setText("");
-				}
-
-				if (mapping.containsKey(player)) {
-					mapping.get(player).setText("*");
-				}
-			}
-		});
+            if (mapping.containsKey(player)) {
+                mapping.get(player).setText("*");
+            }
+        });
 	}
 
 }

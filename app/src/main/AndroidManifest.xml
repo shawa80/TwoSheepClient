@@ -18,7 +18,7 @@
          android:hardwareAccelerated="false">
         <activity
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:launchMode="singleInstance"
@@ -29,41 +29,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:exported="false"
-            android:alwaysRetainTaskState="true">
-        </activity>
-        <activity
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:name="com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepActivity"
-            android:label="@string/title_activity_game"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:exported="false"
-            android:alwaysRetainTaskState="true">
-        </activity>
-        <activity
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:name="com.siliconandsynapse.aclient.game.ThreeSheep.ThreeSheepActivity"
-            android:label="@string/title_activity_game"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:exported="false"
-            android:alwaysRetainTaskState="true">
-        </activity>
-        <activity
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:name="com.siliconandsynapse.aclient.game.Euchre.EuchreActivity"
-            android:label="@string/title_activity_game"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:alwaysRetainTaskState="true">
-        </activity>
+<!--        <activity-->
+<!--            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"-->
+<!--            android:name=".MainActivity"-->
+<!--            android:label="@string/app_name"-->
+<!--            android:launchMode="singleInstance"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:exported="false"-->
+<!--            android:alwaysRetainTaskState="true">-->
+<!--        </activity>-->
+<!--        <activity-->
+<!--            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
+<!--            android:name="com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepActivity"-->
+<!--            android:label="@string/title_activity_game"-->
+<!--            android:launchMode="singleInstance"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:exported="false"-->
+<!--            android:alwaysRetainTaskState="true">-->
+<!--        </activity>-->
+<!--        <activity-->
+<!--            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
+<!--            android:name="com.siliconandsynapse.aclient.game.ThreeSheep.ThreeSheepActivity"-->
+<!--            android:label="@string/title_activity_game"-->
+<!--            android:launchMode="singleInstance"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:exported="false"-->
+<!--            android:alwaysRetainTaskState="true">-->
+<!--        </activity>-->
+<!--        <activity-->
+<!--            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
+<!--            android:name="com.siliconandsynapse.aclient.game.Euchre.EuchreActivity"-->
+<!--            android:label="@string/title_activity_game"-->
+<!--            android:launchMode="singleInstance"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:alwaysRetainTaskState="true">-->
+<!--        </activity>-->
 <!--        <activity-->
 <!--            android:name=".LoginActivity"-->
 <!--            android:label="@string/title_activity_login"-->

@@ -11,16 +11,19 @@ public class ServerListener {
     private Thread run;
     private volatile boolean keepRunning;
 
+    public interface ServerListenerEvent {
+        public void serverFound(String name, String address);
+    }
+
     public void stop() {
         keepRunning = false;
         run.interrupt();
     }
-    public void listen(LoginActivity act) {
+    public void listen(ServerListenerEvent listener) {
         keepRunning = true;
 
         run = new Thread(() -> {
-            try {
-                var socket = new DatagramSocket(1077);
+            try(var socket = new DatagramSocket(1077)) {
                 socket.setBroadcast(true);
 
                 byte[] recvBuf = new byte[1000];
@@ -31,7 +34,7 @@ public class ServerListener {
                     byte[] data = Arrays.copyOfRange(packet.getData(), 0, packet.getLength());
                     var name = new String(data, StandardCharsets.UTF_8);
 
-                    act.addServer(name, packet.getAddress().getHostAddress());
+                    listener.serverFound(name, packet.getAddress().getHostAddress());
                 }
             } catch (IOException e) {
                 System.out.print("");

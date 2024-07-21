@@ -9,10 +9,10 @@ import com.siliconandsynapse.ixcpp.common.Discard;
 
 public class EuchreUser implements DiscardRequest, ChoiceRequest {
 
-	private EuchreActivity act;
+	private EuchreFragment act;
 	private EuchrePlayer player;
 
-	public EuchreUser(EuchreActivity act, EuchrePlayer player, GameService service) {
+	public EuchreUser(EuchreFragment act, EuchrePlayer player, GameService service) {
 		this.act = act;
 		this.player = player;
 
