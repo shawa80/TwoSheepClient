@@ -366,7 +366,6 @@ public class ThreeSheepActivity extends Activity implements GameActivity {
             service.stop();
         }).start();
 
-        this.finish();
     }
 }
 

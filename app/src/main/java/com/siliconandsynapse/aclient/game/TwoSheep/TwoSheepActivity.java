@@ -187,11 +187,17 @@ public class TwoSheepActivity extends Activity implements GameActivity {
 
 		super.onStop();
 
+
+
+	}
+
+	@Override
+	protected  void onDestroy() {
+		super.onDestroy();
+
 		new Thread(() -> {
 			service.stop();
 		}).start();
-		this.finish();
-
 	}
 
 
