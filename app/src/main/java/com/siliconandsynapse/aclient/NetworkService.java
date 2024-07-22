@@ -47,36 +47,22 @@ public class NetworkService implements Runnable {
 	private Thread t;
 
 	private IxManager tunnel;
-	//private MessageDisplay messageDisplay;
 	private CreateGame createGame;
 	private DeleteGame deleteGame;
 	private JoinGame joinGame;
 	private GameController gameManager;
 	private ListGames listGames;
-	//private AccessControl accessControl;
-	//private UserAdd userAdd;
-	//private UserDel userDel;
-	//private UserList userList;
 	private PlayerJoinedGame playerJoinedGame;
 	private PlayerLeftGame playerLeftGame;
 	private HeartBeat beat;
-	//private ListDealers listDealer;
 	private Welcome welcome;
-	//private DealerJavaHint dealerJavaHint;
 
-	private IxAddress rootAddr;
-	private IxAddress gamesAddr;
-	private IxAddress lobbyAddr;
-	//private IxAddress extnAddr;
-
-	private MainActivity act;
-
-	//game objects
-	//private LobbyModel lobbyModel;
-	//private DefaultMessageModel lobbyMessageReceiver;
+	private final IxAddress rootAddr;
+	private final IxAddress gamesAddr;
+	private final IxAddress lobbyAddr;
+	private final MainActivity act;
 	private RoomModel roomModel;
-	//private MessageSenderModel lobbyMessageSend;
-	private String clientName;
+	private final String clientName;
 
 	private ObserverPool<OnConnectListener> onConnect;
 
@@ -112,16 +98,13 @@ public class NetworkService implements Runnable {
 		this.clientName = clientName;
 
 		this.act = act;
-		onConnect = new ObserverPool<OnConnectListener>(OnConnectListener.class);
-
-//		this.lobbyModel = lobbyModel;
+		onConnect = new ObserverPool<>(OnConnectListener.class);
 
 		gameManager = new GameModel(act);
 
         rootAddr = IxAddress.createRoot("ixcpp");
         lobbyAddr = rootAddr.append("lobby");
         gamesAddr = rootAddr.append("games");
-		//extnAddr = rootAddr.append("extn");
 
 	}
 	public void setRoomModel(RoomModel roomModel) {
@@ -151,65 +134,35 @@ public class NetworkService implements Runnable {
 
 	public void run() {
 
-		Vector<IxReceiver> bootStrap = new Vector<IxReceiver>();
+		var bootStrap = new Vector<IxReceiver>();
 
-		//dealerJavaHint = new DealerJavaHint(extnAddr);
-
-		//gameList = new GameList(dealerJavaHint);
 		gameManager = new GameModel(act);
 
-//		accessControl = new AccessControl(lobbyAddr, new PasswordPrompt() {
-//
-//			@Override
-//			public UserPassword prompt() {
-//
-//
-//				Credentials creds = act.getUserPass();
-//
-//				return new UserPassword(creds.getUser(), creds.getPass());
-//			}
-//		});
-
-//		this.lobbyMessageReceiver = new DefaultMessageModel();
-//
-//		messageDisplay = new MessageDisplay(lobbyAddr, lobbyMessageReceiver);
-//
 		createGame = new CreateGame(lobbyAddr, roomModel, gameManager);
 		deleteGame = new DeleteGame(lobbyAddr, roomModel);
 		joinGame = new JoinGame(lobbyAddr, gameManager);
 		listGames = new ListGames(lobbyAddr, roomModel, gameManager);
-		//userAdd = new UserAdd(lobbyAddr, lobbyModel);
-		//userDel = new UserDel(lobbyAddr, lobbyModel);
-//		userList = new UserList(lobbyAddr, lobbyModel);
 		playerJoinedGame = new PlayerJoinedGame(lobbyAddr, roomModel);
 		playerLeftGame = new PlayerLeftGame(lobbyAddr, roomModel);
-		//listDealer = new ListDealers(lobbyAddr, gameList);
 		welcome = new Welcome(lobbyAddr, act);
 
 		beat = new HeartBeat();
 
-//		bootStrap.add(accessControl);
-//
-//		bootStrap.add(messageDisplay);
 		bootStrap.add(createGame);
 		bootStrap.add(deleteGame);
 		bootStrap.add(joinGame);
 		bootStrap.add(listGames);
-		//bootStrap.add(userAdd);
-		//bootStrap.add(userDel);
-//		bootStrap.add(userList);
 		bootStrap.add(playerJoinedGame);
 		bootStrap.add(playerLeftGame);
 		bootStrap.add(beat);
-		//bootStrap.add(listDealer);
 		bootStrap.add(welcome);
-		//bootStrap.add(dealerJavaHint);
 
 		Socket connection = null;
 		try {
 			connection = tryConnection(server);
 		} catch (IOException e) {
-			onConnect.getDispatcher().failed(this, e.getMessage());
+			//TODO bring back
+			//onConnect.getDispatcher().failed(this, e.getMessage());
 			return;
 		}
 
@@ -223,13 +176,10 @@ public class NetworkService implements Runnable {
 			sn.execute(lobbyAddr, tunnel, clientName);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 
 
-		//onConnect.getDispatcher().connected(this);
-
-		//onConnect.getDispatcher().ModelsCreated(lobbyMessageReceiver);
 	}
 
 	private Socket tryConnection(String server) throws IOException {
@@ -252,11 +202,6 @@ public class NetworkService implements Runnable {
 		throw new IOException("unable to connect to " + server);
 	}
 
-//	public void executeLobby(Cmd cmd) {
-//
-//		cmd.execute(lobbyAddr, tunnel);
-//
-//	}
 
 	public void stop() {
 

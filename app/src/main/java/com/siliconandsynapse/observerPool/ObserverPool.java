@@ -14,7 +14,10 @@ public class ObserverPool<T> {
 		public ObserverPool(Class<?> observerClass) {
                 observers = new ArrayList<T>();  
                 dispatcher = (T) Proxy.newProxyInstance(
-                		observerClass.getClassLoader(), new Class[] { observerClass }, new Dispatcher());
+                		observerClass.getClassLoader(),
+                        new Class[] { observerClass },
+                        new Dispatcher()
+                );
         }
  
         public void add(T observer) {

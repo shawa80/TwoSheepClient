@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import com.siliconandsynapse.aclient.lobbyModels.Game;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGameCmd;
+import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.ParseError;
@@ -125,6 +127,18 @@ public class MainFragment extends Fragment {
         });
 
         service = NetworkService.getService();
+
+        service.addOnConnectListener(new NetworkService.OnConnectListener() {
+            @Override
+            public void connected(NetworkService service) {}
+            @Override
+            public void ModelsCreated(MessageReceiverModel message) {}
+            @Override
+            public void failed(NetworkService service, String message) {
+                var toast = Toast.makeText(act , message, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
 
         games.setOnItemClickListener((parent, viewx, pos, id)-> {
             new Thread(() -> {

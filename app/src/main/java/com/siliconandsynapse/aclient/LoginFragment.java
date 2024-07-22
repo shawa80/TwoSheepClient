@@ -36,8 +36,8 @@ public class LoginFragment extends Fragment {
         final var serverList = (Spinner)act.findViewById(R.id.server);
 
         final var s = new ArrayList<ServerConnection>();
-        s.add(new ServerConnection("Internet Server", "twosheep.shawtonabbey.com"));
-        s.add(new ServerConnection("Local Server", "localhost"));
+        s.add(new ServerConnection("Internet Server", "twosheep.shawtonabbey.com", -1));
+        s.add(new ServerConnection("Local Server", "localhost",-1));
         servers = new ArrayAdapter<ServerConnection>(act,
                 android.R.layout.simple_list_item_1, s);
         serverList.setAdapter(servers);
@@ -51,19 +51,36 @@ public class LoginFragment extends Fragment {
         });
 
         listener = new ServerListener();
-        listener.listen(this::addServer);
+        listener.listen(this::addServer, this::tickServer);
 
     }
+
+    public void tickServer() {
+        act.runOnUiThread(() -> {
+
+            var toRemove = new ArrayList<ServerConnection>();
+            for(var i = 0; i < servers.getCount(); i++)
+            {
+                var exConn = servers.getItem(i);
+                exConn.increment();
+                if (exConn.expired())
+                    toRemove.add(exConn);
+            }
+            toRemove.forEach((c) -> servers.remove(c));
+        });
+    }
+
     public void addServer(String name, String address) {
         act.runOnUiThread(() -> {
 
             var alreadyExists = false;
-            var conn = new ServerConnection(name, address);
+            var conn = new ServerConnection(name, address, 0);
             for(var i = 0; i < servers.getCount(); i++)
             {
                 var exConn = servers.getItem(i);
                 if (exConn.address().equals(address)) {
                     alreadyExists = true;
+                    exConn.reset();
                     break;
                 }
             }
