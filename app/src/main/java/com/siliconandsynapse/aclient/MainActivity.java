@@ -46,6 +46,7 @@ public class MainActivity extends FragmentActivity {
 	public MainActivity() {
 		super(layout.main_fragment);
 	}
+	public boolean localStarted = false;
 
 	private enum AppState {
 		Login,
@@ -73,7 +74,7 @@ public class MainActivity extends FragmentActivity {
 				switch (currentState) {
 					case Game -> showGameList();
 					case Login -> finish();
-					case GameList -> finish();
+					case GameList -> { logoff(); finish();}
 				}
 			}
 		});
@@ -84,18 +85,28 @@ public class MainActivity extends FragmentActivity {
 
 		setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
 		this.connectTo = connectTo;
+		localStarted = false;
 		if ("localhost".equals(connectTo.address())) {
             loc = new LocatorService();
             loc.start(name);
 
             localServer = new com.siliconandsynapse.server.IxcppServ();
             localServer.start();
+			localStarted = true;
         }
 
 		networkService = new NetworkService(this, connectTo.address(), name);
 
 		showGameList();
 
+	}
+	public void logoff()
+	{
+		networkService.stop();
+		if (localStarted) {
+			loc.stop();
+			localServer.stop();
+		}
 	}
 
 	public void startGame(GameInfo gi) {
@@ -132,28 +143,6 @@ public class MainActivity extends FragmentActivity {
 		return networkService;
 	}
 
-	@Override
-	protected void onStart() {
-		super.onStart();
-		//service.start();
-	}
-
-//	@Override
-//	protected void onStop() {
-//		super.onStop();
-//
-//	}
-//
-//	@Override
-//	protected void onDestroy() {
-//		super.onDestroy();
-//
-//		service.stop();
-//		if ("localhost".equals(connectTo)) {
-//			loc.stop();
-//			localServer.stop();
-//		}
-//	}
 
 	private Mutex logonBlock = new Mutex();;
 

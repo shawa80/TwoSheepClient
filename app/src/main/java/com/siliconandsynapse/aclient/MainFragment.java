@@ -95,7 +95,13 @@ public class MainFragment extends Fragment {
 
         games.setAdapter(adapter);
 
-        var rm = new DefaultRoomModel();
+        var rm = act.getNetworkService().getRoomModel();
+
+        for (var g : rm) {
+            act.runOnUiThread(() -> {
+                adapter.add(g);
+            });
+        }
 
         rm.gameAdded.add((game) -> {
             act.runOnUiThread(() -> {
@@ -144,22 +150,15 @@ public class MainFragment extends Fragment {
             dealerChoice.setVisibility(View.VISIBLE);
         });
 
-        act.getNetworkService().setRoomModel(rm);
-
-        act.getNetworkService().start();
+        act.getNetworkService().connect();
     }
 
 
-//    @Override
-//    public void onDestroy() {
-//        super.onDestroy();
-//
-//        service.stop();
-//        if ("localhost".equals(connectTo)) {
-//            loc.stop();
-//            localServer.stop();
-//        }
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+    }
 
 
 }

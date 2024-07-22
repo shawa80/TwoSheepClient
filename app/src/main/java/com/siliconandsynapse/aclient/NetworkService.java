@@ -8,6 +8,7 @@ import java.util.Vector;
 
 //import com.siliconandsynapse.aclient.lobbyModels.Credentials;
 //import com.siliconandsynapse.aclient.lobbyModels.DefaultMessageModel;
+import com.siliconandsynapse.aclient.lobbyModels.DefaultRoomModel;
 import com.siliconandsynapse.aclient.lobbyModels.GameModel;
 //import com.siliconandsynapse.ixcpp.Cmd;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
@@ -61,7 +62,7 @@ public class NetworkService implements Runnable {
 	private final IxAddress gamesAddr;
 	private final IxAddress lobbyAddr;
 	private final MainActivity act;
-	private RoomModel roomModel;
+	private DefaultRoomModel roomModel;
 	private final String clientName;
 
 	public ObserverPool<OnConnectSuccessListener> onConnectSuccess;
@@ -75,6 +76,7 @@ public class NetworkService implements Runnable {
 	}
 
 	private static NetworkService service;
+	private boolean isRunning;
 
 	public static NetworkService getService() {
 		return service;
@@ -86,6 +88,7 @@ public class NetworkService implements Runnable {
 						  String clientName
     ) {
 
+		roomModel = new DefaultRoomModel();
 		this.server = server;
 		service = this;
 		this.clientName = clientName;
@@ -99,10 +102,8 @@ public class NetworkService implements Runnable {
         rootAddr = IxAddress.createRoot("ixcpp");
         lobbyAddr = rootAddr.append("lobby");
         gamesAddr = rootAddr.append("games");
+		isRunning = false;
 
-	}
-	public void setRoomModel(RoomModel roomModel) {
-		this.roomModel = roomModel;
 	}
 
 	public IxAddress getGameAddr() {
@@ -110,11 +111,24 @@ public class NetworkService implements Runnable {
 		return gamesAddr;
 	}
 
-	public void start() {
+	private void start() {
 
+		isRunning = true;
 		t = new Thread(this);
 		t.setDaemon(true);
 		t.start();
+	}
+
+	public DefaultRoomModel getRoomModel()
+	{
+		return roomModel;
+	}
+
+	public void connect() {
+
+		if (!isRunning)
+			start();
+
 	}
 
 	public void joinGame(GameInfo gi) {

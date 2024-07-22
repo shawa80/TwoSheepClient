@@ -1,11 +1,12 @@
 package com.siliconandsynapse.ixcpp.gameInteraction;
 
+import com.siliconandsynapse.aclient.lobbyModels.Game;
 import com.siliconandsynapse.ixcpp.protocol.lobby.ListGamesPlayersObj;
 
 import java.util.List;
 
 //TODO rename to gameModel...
-public interface RoomModel extends Iterable<GameInfo>
+public interface RoomModel extends Iterable<Game>
 {
 	public void addGame(GameInfo game, List<ListGamesPlayersObj> players);
 	public void removeGame(int id);

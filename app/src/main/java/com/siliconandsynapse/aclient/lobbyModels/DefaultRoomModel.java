@@ -18,7 +18,7 @@ public class DefaultRoomModel implements RoomModel {
 	public ObserverPool<GameAddedListener> gameAdded;
 	public ObserverPool<GameRemovedListener> gameRemoved;
 
-	private Hashtable<Integer, GameInfo> games;
+	private Hashtable<Integer, Game> games;
 
 	public DefaultRoomModel() {
 
@@ -26,11 +26,11 @@ public class DefaultRoomModel implements RoomModel {
 		playerRemoved = new ObserverPool<>(PlayerRemovedListener.class);
 		gameAdded = new ObserverPool<>(GameAddedListener.class);
 		gameRemoved = new ObserverPool<>(GameRemovedListener.class);
-		games = new Hashtable<Integer, GameInfo>();
+		games = new Hashtable<Integer, Game>();
 
 	}
 
-	public Iterator<GameInfo> iterator()
+	public Iterator<Game> iterator()
 	{
 		return games.values().iterator();
 	}
