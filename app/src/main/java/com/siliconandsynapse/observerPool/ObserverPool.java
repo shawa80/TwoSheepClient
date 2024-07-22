@@ -33,6 +33,7 @@ public class ObserverPool<T> {
         }
        
         public T getDispatcher() {
+
                 return dispatcher;
         }              
                

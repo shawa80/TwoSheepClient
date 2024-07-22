@@ -41,9 +41,6 @@ public class TwoSheepFragment extends Fragment implements GameActivity {
     private TextView yourTurn;
     private TextView myTurn;
 
-    //private TextView myScore;
-    //private TextView yourScore;
-
 
     private final int PRIVATE_TOTAL = 4;
     private final int PUBLIC_TOTAL = 6;
@@ -93,9 +90,6 @@ public class TwoSheepFragment extends Fragment implements GameActivity {
             myTurn = (TextView)act.findViewById(R.id.myTurn);
             yourTurn = (TextView)act.findViewById(R.id.yourTurn);
 
-
-            //myScore = (TextView)this.findViewById(R.id.myScore);
-            //yourScore = (TextView)this.findViewById(R.id.yourScore);
 
             yourPrivate[0] = (ImageView)act.findViewById(R.id.yourPrivate1);
             yourPrivate[1] = (ImageView)act.findViewById(R.id.yourPrivate2);
@@ -170,23 +164,6 @@ public class TwoSheepFragment extends Fragment implements GameActivity {
 
     }
 
-
-//    @Override
-//    protected void onPause() {
-//
-//        super.onPause();
-//        Log.d("DebugPrint", "GameActivity pause");
-//
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//
-//        super.onStop();
-//
-//
-//
-//    }
 
     @Override
     public void onDestroy() {

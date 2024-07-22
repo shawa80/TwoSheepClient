@@ -4,7 +4,6 @@ import java.util.Hashtable;
 
 import android.app.Activity;
 
-//import com.siliconandsynapse.aclient.NetworkService;
 import com.siliconandsynapse.aclient.NetworkService;
 import com.siliconandsynapse.aclient.gameModels.TableModel;
 import com.siliconandsynapse.ixcpp.common.ChoiceResponse;
@@ -25,36 +24,14 @@ import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGameCmd;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
-//import com.siliconandsynapse.ixcpp.protocol.Pause;
-//import com.siliconandsynapse.ixcpp.protocol.game.GameChat;
-//import com.siliconandsynapse.ixcpp.protocol.game.GameMessage;
-//import com.siliconandsynapse.ixcpp.protocol.game.GameStart;
-//import com.siliconandsynapse.ixcpp.protocol.game.PlayerChoice;
-//import com.siliconandsynapse.ixcpp.protocol.game.PlayerDiscard;
-//import com.siliconandsynapse.ixcpp.protocol.game.PlayerChoice;
-//import com.siliconandsynapse.ixcpp.protocol.game.PlayerDiscard;
-//import com.siliconandsynapse.ixcpp.protocol.game.PlayerId;
-//import com.siliconandsynapse.ixcpp.protocol.game.PlayerInfo;
-//import com.siliconandsynapse.ixcpp.protocol.game.PlayerPickACard;
-//import com.siliconandsynapse.ixcpp.protocol.game.QuitGame;
-//import com.siliconandsynapse.ixcpp.protocol.game.TableChange;
 import com.siliconandsynapse.ixcpp.protocol.game.TrickChange;
-//import com.siliconandsynapse.ixcpp.protocol.game.TurnChange;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGameCmd;
-//import com.siliconandsynapse.ixcpp.util.Mutex;
-//import com.siliconandsynapse.net.ixtunnel.IxAddress;
-//import com.siliconandsynapse.net.ixtunnel.IxManager;
-//import com.siliconandsynapse.net.ixtunnel.ParseError;
-//import com.siliconandsynapse.net.ixtunnel.RecieverExists;
 
 public class GameService implements Runnable {
 
-//	private GameStart gameStart;
 	private PlayerInfo playerInfo;
 	private PlayerId playerId;
 	private PlayerPickACard playerPickACard;
 	private GameMessage gameMessage;
-//	private GameChat gameChat;
 	private TableChange tableChange;
 	private TrickChange trickChange;
 	private TurnChange turnChange;
@@ -65,13 +42,10 @@ public class GameService implements Runnable {
 	private Thread t;
 
 	private IxManager home;
-//
-//	private IxAddress baseAddr;
 	private int gameId;
 	private IxAddress addr;
 
 	private NetworkService service;
-	//private FakeServer service;
 
 	private CardFactory cache;
 	private TableModel table;

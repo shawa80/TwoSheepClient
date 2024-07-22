@@ -64,22 +64,15 @@ public class NetworkService implements Runnable {
 	private RoomModel roomModel;
 	private final String clientName;
 
-	private ObserverPool<OnConnectListener> onConnect;
+	public ObserverPool<OnConnectSuccessListener> onConnectSuccess;
+	public ObserverPool<OnConnectFailureListener> onConnectFailure;
 
-	public interface OnConnectListener {
-
-		public void connected(NetworkService service);
-		public void ModelsCreated(MessageReceiverModel message);
+	public interface OnConnectFailureListener {
 		public void failed(NetworkService service, String message);
 	}
-
-	public void addOnConnectListener(OnConnectListener listener) {
-		onConnect.add(listener);
+	public interface OnConnectSuccessListener {
+		public void connected(NetworkService service);
 	}
-	public void removeOnConnectListener(OnConnectListener listener) {
-		onConnect.remove(listener);
-	}
-
 
 	private static NetworkService service;
 
@@ -98,7 +91,8 @@ public class NetworkService implements Runnable {
 		this.clientName = clientName;
 
 		this.act = act;
-		onConnect = new ObserverPool<>(OnConnectListener.class);
+		onConnectSuccess = new ObserverPool<>(OnConnectSuccessListener.class);
+		onConnectFailure = new ObserverPool<>(OnConnectFailureListener.class);
 
 		gameManager = new GameModel(act);
 
@@ -124,6 +118,7 @@ public class NetworkService implements Runnable {
 	}
 
 	public void joinGame(GameInfo gi) {
+
 		gameManager.startGame(getTunnel(), gi.getId(), gi.getName());
 	}
 
@@ -161,11 +156,10 @@ public class NetworkService implements Runnable {
 		try {
 			connection = tryConnection(server);
 		} catch (IOException e) {
-			//TODO bring back
-			//onConnect.getDispatcher().failed(this, e.getMessage());
+			onConnectFailure.getDispatcher().failed(this, e.getMessage());
 			return;
 		}
-
+		onConnectSuccess.getDispatcher().connected(this);
 
 		try {
 

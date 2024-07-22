@@ -208,13 +208,6 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
 
     }
 
-//    @Override
-//    public  void onStart() {
-//        super.onStart();
-//        hideChoice();
-//    }
-
-
 
     private void mapCards() {
 

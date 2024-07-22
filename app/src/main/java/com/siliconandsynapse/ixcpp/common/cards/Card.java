@@ -7,10 +7,6 @@ public abstract class Card
 		DOWN
 	}
 
-//	public static final int UP = 1;
-//	public static final int DOWN = 2;
-
-
 	protected int suit;
 	protected int value;
 	private Facing facing;

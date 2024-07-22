@@ -115,30 +115,19 @@ public class MainFragment extends Fragment {
         });
 
         rm.playerAdded.add((game,  player) -> {
-            act.runOnUiThread(() -> {
-                adapter.notifyDataSetChanged();
-            });
+            act.runOnUiThread(adapter::notifyDataSetChanged);
         });
 
         rm.playerRemoved.add((game, seat) -> {
-            act.runOnUiThread(() -> {
-                adapter.notifyDataSetChanged();
-            });
+            act.runOnUiThread(adapter::notifyDataSetChanged);
         });
 
         service = NetworkService.getService();
 
-        service.addOnConnectListener(new NetworkService.OnConnectListener() {
-            @Override
-            public void connected(NetworkService service) {}
-            @Override
-            public void ModelsCreated(MessageReceiverModel message) {}
-            @Override
-            public void failed(NetworkService service, String message) {
-                var toast = Toast.makeText(act , message, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
+        service.onConnectFailure.add((service, message) -> act.runOnUiThread(() -> {
+            var toast = Toast.makeText(act , message, Toast.LENGTH_LONG);
+            toast.show();
+        }));
 
         games.setOnItemClickListener((parent, viewx, pos, id)-> {
             new Thread(() -> {
@@ -162,18 +151,6 @@ public class MainFragment extends Fragment {
 
 
 //    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        //service.start();
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//    }
-
-//    @Override
 //    public void onDestroy() {
 //        super.onDestroy();
 //
@@ -184,7 +161,6 @@ public class MainFragment extends Fragment {
 //        }
 //    }
 
-    //private Mutex logonBlock = new Mutex();;
 
 }
 

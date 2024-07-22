@@ -9,23 +9,9 @@ import java.util.*;
 
 public class IxManager extends IxTunnel
 {
-	//private DocumentBuilder documentBuilder;
-	//private IxManager self;
-
 	private Thread reciever;
-	//private Thread sender;
-
 	private Hashtable<IxAddress, IxReceiver> handlers;
-	//private IxReciever defaultHandler;
 	private IxReceiver allHandler;
-
-	//object that want to be notified when the connection closes
-	//private Vector<ConnectionNotifier> closed;
-
-	//Session information
-	//private Hashtable<String, Object> session;
-
-
 
 	public IxManager(Socket client) throws IOException
 	{
@@ -34,13 +20,8 @@ public class IxManager extends IxTunnel
 	public IxManager(Socket client, Vector<IxReceiver> bootRecievers) throws IOException
 	{
 		super(client);
-		//self = this;
 
 		handlers = new Hashtable<IxAddress, IxReceiver>();
-		//defaultHandler = null;
-		//closed = new Vector<ConnectionNotifier>();
-
-		//session = new Hashtable<String, Object>();
 
 		IxReceiver bootStrap;
 
@@ -51,21 +32,7 @@ public class IxManager extends IxTunnel
 		reciever.setDaemon(true);
 		reciever.start();
 
-//		sender = new Thread(new HandleSends(this));
-//		sender.setName("IxManager.sender.");
-//		sender.setDaemon(true);
-//		sender.start();
 	}
-
-
-//	public void putSession(String key, Object value)
-//	{
-//		session.put(key, value);
-//	}
-//	public Object getSession(String key)
-//	{
-//		return session.get(key);
-//	}
 
 	public void sendDocument(String doc) throws IOException
 	{
@@ -78,27 +45,12 @@ public class IxManager extends IxTunnel
 	}
 
 
-//	public synchronized void registerConnectionNotifier(ConnectionNotifier c)
-//	{
-//		closed.add(c);
-//	}
-//	public synchronized void unregisterConnectionNotifier(ConnectionNotifier c)
-//	{
-//		closed.remove(c);
-//	}
-
-	//runs only when a register event is not found.
-//	public synchronized void registerDefaultReciever(IxReciever handle)
-//	{
-//		defaultHandler = handle;
-//	}
-//
 
 	public synchronized void registerAllReciever(IxReceiver handle)
 	{
 		allHandler = handle;
 	}
-	//runs for registered event
+
 	public synchronized void registerReceiver(IxReceiver handle)
 	{
 		AcceptedAddresses keys;
@@ -129,49 +81,6 @@ public class IxManager extends IxTunnel
 		}
 
 	}
-//	public synchronized void unregisterReciever(IxAddress key)
-//	{
-//		handlers.remove(key);
-//	}
-//
-//	private class HandleSends implements Runnable
-//	{
-//		IxManager connection;
-//		public HandleSends(IxManager connection)
-//		{
-//			this.connection = connection;
-//		}
-//
-//		public void run()
-//		{
-//			KeyDocPair pair;
-//			IxAddress key;
-//			Message sendDoc;
-//
-//			while (true)
-//			{
-//				pair = null;
-//				try {
-//					pair = sendQ.take();
-//
-//				} catch (InterruptedException ie) {
-//					break;
-//				} catch (Exception e) {
-//					continue;
-//				}
-//				key = pair.getKey();
-//				sendDoc = pair.getDoc();
-//
-//
-//				try {
-//					connection.sendDocumentSuper(sendDoc);
-//				} catch (Exception e) {
-//					break;
-//				}
-//			}
-//		}
-//
-//	}
 
 
 	private class HandleEvents implements Runnable

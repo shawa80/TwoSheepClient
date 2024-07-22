@@ -39,16 +39,12 @@ public abstract class CardFactory {
 	protected CardFactory() {
 		clearCache();
 	}
-	
-	///////////////////////////////////////////////////
-	//clearing cards
-	///////////////////////////////////////////////////
+
 	public synchronized void clearCache()
 	{
 		codes = new Hashtable<Integer, Card>();		
 	}	
-	
-	//privates
+
 	protected int generateCode()
 	{
 
