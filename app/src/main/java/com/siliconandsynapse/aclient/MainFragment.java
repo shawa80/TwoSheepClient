@@ -132,10 +132,13 @@ public class MainFragment extends Fragment {
 
         service = NetworkService.getService();
 
-        act.runOnUiThread(() -> {
-            var toast = Toast.makeText(act , "Connecting...", Toast.LENGTH_SHORT);
-            toast.show();
-        });
+        if (!service.isConnected())
+            act.runOnUiThread(() -> {
+                var toast = Toast.makeText(act , "Connecting...", Toast.LENGTH_SHORT);
+                toast.show();
+            });
+        if (service.isConnected())
+            createGame.setEnabled(true);
 
         service.onConnectSuccess.add((service) -> act.runOnUiThread(() -> {
             var toast = Toast.makeText(act , "Connected", Toast.LENGTH_LONG);

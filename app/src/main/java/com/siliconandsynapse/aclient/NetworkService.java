@@ -128,9 +128,11 @@ public class NetworkService {
 
 		if (!isRunning)
 			start();
-
 	}
 
+	public boolean isConnected() {
+		return isRunning;
+	}
 
 
 	public IxManager getTunnel() {
