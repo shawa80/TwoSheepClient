@@ -42,7 +42,7 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 import com.siliconandsynapse.observerPool.ObserverPool;
 
-public class NetworkService implements Runnable {
+public class NetworkService {
 
 	private String server;
 	private Thread t;
@@ -114,7 +114,7 @@ public class NetworkService implements Runnable {
 	private void start() {
 
 		isRunning = true;
-		t = new Thread(this);
+		t = new Thread(this::run);
 		t.setDaemon(true);
 		t.start();
 	}
@@ -131,10 +131,6 @@ public class NetworkService implements Runnable {
 
 	}
 
-	public void joinGame(GameInfo gi) {
-
-		gameManager.startGame(getTunnel(), gi.getId(), gi.getName());
-	}
 
 
 	public IxManager getTunnel() {
@@ -169,6 +165,7 @@ public class NetworkService implements Runnable {
 		Socket connection = null;
 		try {
 			connection = tryConnection(server);
+
 		} catch (IOException e) {
 			onConnectFailure.getDispatcher().failed(this, e.getMessage());
 			return;
@@ -178,6 +175,11 @@ public class NetworkService implements Runnable {
 		try {
 
 			tunnel = new IxManager(connection, bootStrap);
+			tunnel.connectionClosedListner.add((t) -> {
+				stop();
+				onConnectFailure.getDispatcher()
+						.failed(this, "Disconnected");
+			});
 			tunnel.registerAllReciever(new Debug(act));
 
 			var sn = new SetName();
@@ -213,6 +215,7 @@ public class NetworkService implements Runnable {
 
 	public void stop() {
 
+		isRunning = false;
 		tunnel.close();
 	}
 

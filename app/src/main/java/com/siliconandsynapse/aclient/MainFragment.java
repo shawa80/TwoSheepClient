@@ -130,9 +130,14 @@ public class MainFragment extends Fragment {
 
         service = NetworkService.getService();
 
+        service.onConnectSuccess.add((service) -> act.runOnUiThread(() -> {
+            var toast = Toast.makeText(act , "Connected", Toast.LENGTH_LONG);
+            toast.show();
+        }));
         service.onConnectFailure.add((service, message) -> act.runOnUiThread(() -> {
             var toast = Toast.makeText(act , message, Toast.LENGTH_LONG);
             toast.show();
+            act.showlogin();
         }));
 
         games.setOnItemClickListener((parent, viewx, pos, id)-> {

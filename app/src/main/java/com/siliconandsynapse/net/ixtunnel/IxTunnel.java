@@ -27,7 +27,7 @@ public class IxTunnel
 
 
 
-	public void sendDocument(KeyDocPair doc)
+	protected void sendDocument(KeyDocPair doc)
 	{
 		String key = "";
 		String json = null;
@@ -71,8 +71,7 @@ public class IxTunnel
 	}
 
 
-	public KeyDocPair recieveDocument()
-	{
+	public KeyDocPair receiveDocument() throws IOException {
 
 		int keySize = -1;
 		byte keyBuffer[] = new byte[0];
@@ -102,10 +101,10 @@ public class IxTunnel
 
 				return new KeyDocPair(IxAddress.parse(key), doc);
 
-			} catch (IOException e) {
-			} catch (ParseError e) {
+			} catch (IOException | ParseError e) {
+				close();
+				throw new IOException("Connection error");
 			}
-			return null;
 		}
 
 	}

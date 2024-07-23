@@ -1,6 +1,8 @@
 package com.siliconandsynapse.net.ixtunnel;
 
 
+import com.siliconandsynapse.observerPool.ObserverPool;
+
 import java.net.*;
 import java.io.*;
 
@@ -13,11 +15,16 @@ public class IxManager extends IxTunnel
 	private Hashtable<IxAddress, IxReceiver> handlers;
 	private IxReceiver allHandler;
 
+	public interface ConnectionCloseEvent { void closed(IxManager mng);}
+
+	public ObserverPool<ConnectionCloseEvent> connectionClosedListner
+			= new ObserverPool(ConnectionCloseEvent.class);
+
 	public IxManager(Socket client) throws IOException
 	{
 		this(client, new Vector<IxReceiver>());
 	}
-	public IxManager(Socket client, Vector<IxReceiver> bootRecievers) throws IOException
+	public IxManager(Socket client, Vector<IxReceiver> bootReceivers) throws IOException
 	{
 		super(client);
 
@@ -25,18 +32,13 @@ public class IxManager extends IxTunnel
 
 		IxReceiver bootStrap;
 
-		bootRecievers.forEach(this::registerReceiver);
+		bootReceivers.forEach(this::registerReceiver);
 
 		reciever = new Thread(new HandleEvents(this));
 		reciever.setName("IxManager.reciever.");
 		reciever.setDaemon(true);
 		reciever.start();
 
-	}
-
-	public void sendDocument(String doc) throws IOException
-	{
-		throw new IOException("IxManager does not support direct tunnel writing");
 	}
 
 	public void sendDocument(IxAddress key, String sendDoc)
@@ -100,7 +102,7 @@ public class IxManager extends IxTunnel
 			{
 
 				try {
-					KeyDocPair pair = tunnel.recieveDocument();
+					KeyDocPair pair = tunnel.receiveDocument();
 
 					key = pair.getKey();
 					doc = pair.getDoc();
@@ -114,10 +116,10 @@ public class IxManager extends IxTunnel
 
 					recv.accept(key, tunnel, doc);
 				} catch (Exception ex) {
-					System.out.println(key.getFullPath());
+					break;
 				}
 			}
-
+			connectionClosedListner.getDispatcher().closed(tunnel);
 		}
 	}
 

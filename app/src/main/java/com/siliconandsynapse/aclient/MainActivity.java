@@ -62,10 +62,7 @@ public class MainActivity extends FragmentActivity {
 
 		Images.loadCache(this);
 
-		getSupportFragmentManager().beginTransaction()
-				.setReorderingAllowed(true)
-				.add(id.fragment_container_view, LoginFragment.class, null)
-				.commit();
+		showlogin();
 
 		getOnBackPressedDispatcher().addCallback(this,
 				new OnBackPressedCallback(true) {
@@ -80,6 +77,13 @@ public class MainActivity extends FragmentActivity {
 		});
 	}
 
+	public void showlogin() {
+		setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
+		getSupportFragmentManager().beginTransaction()
+				.setReorderingAllowed(true)
+				.replace(id.fragment_container_view, LoginFragment.class, null)
+				.commit();
+	}
 
 	public void login(String name, ServerConnection connectTo) {
 
