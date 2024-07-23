@@ -68,6 +68,7 @@ public class MainFragment extends Fragment {
         dealers.setAdapter(dealerAdapter);
         dealerChoice.setVisibility(View.GONE);
 
+
         dealers.setOnItemClickListener((adpt, viewx, pos, arg) -> {
             dealerChoice.setVisibility(View.GONE);
 
@@ -88,6 +89,7 @@ public class MainFragment extends Fragment {
 
 
         createGame = (Button)act.findViewById(R.id.addGame);
+        createGame.setEnabled(false);
         games = (ListView)act.findViewById(R.id.gameList);
         gameList = new ArrayList<Game>();
         var adapter = new ArrayAdapter<>(act.getApplicationContext(),
@@ -133,6 +135,7 @@ public class MainFragment extends Fragment {
         service.onConnectSuccess.add((service) -> act.runOnUiThread(() -> {
             var toast = Toast.makeText(act , "Connected", Toast.LENGTH_LONG);
             toast.show();
+            createGame.setEnabled(true);
         }));
         service.onConnectFailure.add((service, message) -> act.runOnUiThread(() -> {
             var toast = Toast.makeText(act , message, Toast.LENGTH_LONG);

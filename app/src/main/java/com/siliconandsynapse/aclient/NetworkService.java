@@ -194,7 +194,7 @@ public class NetworkService {
 
 	private Socket tryConnection(String server) throws IOException {
 		Socket connection = null;
-		int times = 10;
+		int times = 3;
 		while (times > 0) {
 			try {
 				connection = new Socket(server, 1077);
