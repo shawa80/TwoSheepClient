@@ -2,6 +2,7 @@ package com.siliconandsynapse.aclient;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -32,7 +33,12 @@ public class LoginFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         act = (MainActivity)getActivity();
+
+        var settings = act.getSharedPreferences("loginSettings", 0);
+        var savedName = settings.getString("name", "");
+
         final var user = (EditText)act.findViewById(R.id.userInput);
+        user.setText(savedName);
         final var serverList = (Spinner)act.findViewById(R.id.server);
 
         final var s = new ArrayList<ServerConnection>();
@@ -47,6 +53,11 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener((e) -> {
             var name = user.getText().toString();
             var connectTo = (ServerConnection)serverList.getSelectedItem();
+
+            var editor = settings.edit();
+            editor.putString("name", name);
+            editor.apply();
+
             act.login(name, connectTo);
         });
 
