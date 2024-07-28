@@ -16,19 +16,20 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 public class ListGames implements IxReceiver
 {
-	private AcceptedAddresses events;
-	private RoomModel model;
-	private IxAddress baseAddr;
-	private IxAddress addr;
-	private GameController gameManager;
+	private final AcceptedAddresses events;
+	private final RoomModel model;
+	private final IxAddress baseAddr;
+
+	public record ListGamesDto(int gameId, String type,
+							   int freeSeats, List<ListGamesPlayersObj> players) {}
+	public record ListGamesPlayersObj(int seat, String name) {}
 
 	public ListGames(IxAddress baseAddr, RoomModel model, GameController gameManager)
 	{
 		this.baseAddr = baseAddr;
-		this.gameManager = gameManager;
 		this.model = model;
 
-        addr = baseAddr.append("ListGames");
+		var addr = baseAddr.append("ListGames");
 
 		events = new AcceptedAddresses(addr);
 	}
@@ -36,7 +37,7 @@ public class ListGames implements IxReceiver
 	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
         var gson = new Gson();
-        var t = new TypeToken<List<ListGamesObj>>(){};
+        var t = new TypeToken<List<ListGamesDto>>(){};
         var games = gson.fromJson(doc, t);
 
 		for (var g: games) {
@@ -44,24 +45,6 @@ public class ListGames implements IxReceiver
 			model.addGame(new GameInfo(id, g.type()), g.players());
 		}
 
-//		String gameId = null;
-//		String type = null;
-//		for (var g: games) {
-//			if (g.freeSeats() > 0)
-//			{
-//				gameId = g.gameId();
-//				type = g.type();
-//				break;
-//			}
-//		}
-//
-//		if (gameId == null) {
-//
-//			var cmd = new CreateGameCmd("Two Sheep");
-//			cmd.execute(key.getParent(), returnTunnel);
-//		} else {
-//			gameManager.startGame(returnTunnel, gameId, type);
-//		}
 	}
 	public String placeInThread()
 	{

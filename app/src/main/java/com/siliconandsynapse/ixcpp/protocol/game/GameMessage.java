@@ -10,18 +10,18 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 public class GameMessage implements IxReceiver
 {
 
-	private AcceptedAddresses events;
-	private ITableDisplay table;
-	private IxAddress baseAddr;
-	private IxAddress addr;
+	private final AcceptedAddresses events;
+	private final ITableDisplay table;
+	private final IxAddress baseAddr;
 
+	public record GameMessageDto(String msg) {}
 
 	public GameMessage(IxAddress baseAddr, ITableDisplay table)
 	{
 
 		this.table = table;
 		this.baseAddr = baseAddr;
-        addr = baseAddr.append("GameMessage");
+		var addr = baseAddr.append("GameMessage");
 		events = new AcceptedAddresses(addr);
 
 	}
@@ -29,7 +29,7 @@ public class GameMessage implements IxReceiver
 	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
         var gson = new Gson();
-        var message = gson.fromJson(doc, GameMessageObj.class);
+        var message = gson.fromJson(doc, GameMessageDto.class);
 
 		table.writeNotice(message.msg());
 

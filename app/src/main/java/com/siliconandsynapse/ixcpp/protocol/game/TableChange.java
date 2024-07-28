@@ -26,6 +26,12 @@ public class TableChange implements IxReceiver
 
     private CardFactory cache;
 
+	public record TableChangeObj(List<TableChangeObjSeat> seats) { }
+	public record TableChangeObjCard(int level, Card card) { }
+	public record TableChangeObjSeat(int playerId, List<TableChangeObjStack> stacks) { }
+	public record TableChangeObjStack(int id, String stackType, List<TableChangeObjCard> cards) {}
+
+
 	public TableChange(IxAddress baseAddr,
 		TableCardEventHandler table,
 		CardFactory cache)

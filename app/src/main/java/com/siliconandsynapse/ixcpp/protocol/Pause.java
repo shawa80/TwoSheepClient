@@ -9,17 +9,16 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 public class Pause implements IxReceiver
 {
-	private AcceptedAddresses events;
-
-	private IxAddress addr;
-	private IxAddress baseAddr;
+	private final AcceptedAddresses events;
+	private final IxAddress baseAddr;
+	private record PauseDto (int seconds){};
 
 	public Pause(IxAddress baseAddr)
 	{
 		super();
 
 		this.baseAddr = baseAddr;
-        addr = baseAddr.append("pause");
+		var addr = baseAddr.append("pause");
 
 		events = new AcceptedAddresses(addr);
 
@@ -29,13 +28,11 @@ public class Pause implements IxReceiver
 	{
 
 		var gson = new Gson();
-		var x = gson.fromJson(doc, PauseObj.class);
-
+		var x = gson.fromJson(doc, PauseDto.class);
 
 		try {
-			Thread.sleep(x.seconds() * 1000);
+			Thread.sleep(x.seconds() * 1000L);
 		} catch (InterruptedException ignored) {
-			System.out.println("");
 		}
 	}
 	public String placeInThread()

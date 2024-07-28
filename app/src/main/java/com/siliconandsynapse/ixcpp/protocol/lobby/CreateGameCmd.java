@@ -7,6 +7,7 @@ import com.siliconandsynapse.net.ixtunnel.IxManager;
 public class CreateGameCmd {
 
 	private String type;
+	public record CreateGameRequestObj(String type) {}
 
 	public CreateGameCmd(String type) {
 		this.type = type;
@@ -19,11 +20,8 @@ public class CreateGameCmd {
         var gson = new Gson();
         var doc = gson.toJson(new CreateGameRequestObj(type));
 
-		try {
-			tunnel.sendDocument(addr, doc);
-		} catch (Exception e) {
-			return;
-		}
+		tunnel.sendDocument(addr, doc);
+
 	}
 
 

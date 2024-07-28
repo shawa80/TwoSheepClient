@@ -15,6 +15,7 @@ public class TurnChange implements IxReceiver
 	private final ITableDisplay table;
 	private final IxAddress baseAddr;
 
+	public record TurnChangeDto(int playerId) { }
 
 	public TurnChange(IxAddress baseAddr, ITableDisplay table)
 	{
@@ -30,7 +31,7 @@ public class TurnChange implements IxReceiver
 	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
 		var gson = new Gson();
-		var x = gson.fromJson(doc, TurnChangeObj.class);
+		var x = gson.fromJson(doc, TurnChangeDto.class);
 
 		table.indicatePlayer(x.playerId());
 	}

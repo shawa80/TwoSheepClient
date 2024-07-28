@@ -19,11 +19,12 @@ import java.util.List;
 public class TrickChange implements IxReceiver
 {
 
-    private AcceptedAddresses events;
-    private TableCardEventHandler table;
-    private IxAddress baseAddr;
-    private IxAddress addr;
-    private CardFactory cache;
+    private final AcceptedAddresses events;
+    private final TableCardEventHandler table;
+    private final IxAddress baseAddr;
+    private final CardFactory cache;
+
+    public record TrickChangeDto(int playerId, Card card) {}
 
     public TrickChange(IxAddress baseAddr, TableCardEventHandler table, CardFactory cache)
     {
@@ -31,7 +32,7 @@ public class TrickChange implements IxReceiver
         this.baseAddr = baseAddr;
         this.cache = cache;
 
-        addr = baseAddr.append("TrickChange");
+        IxAddress addr = baseAddr.append("TrickChange");
         events = new AcceptedAddresses(addr);
     }
 
@@ -50,7 +51,7 @@ public class TrickChange implements IxReceiver
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Card.class,  new CardCreator());
         Gson gson = gsonBuilder.create();
-        var t = new TypeToken<List<TrickChangeObj>>() {};
+        var t = new TypeToken<List<TrickChangeDto>>() {};
         var trickChanges = gson.fromJson(doc, t);
 
         trickChanges.forEach((change) -> {

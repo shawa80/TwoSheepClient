@@ -8,10 +8,11 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 public class QuitGame implements IxReceiver
 {
-	private AcceptedAddresses events;
-	private IxAddress baseAddr;
-	private IxAddress addr;
+	private final AcceptedAddresses events;
+	private final IxAddress baseAddr;
+	private final IxAddress addr;
 
+	public record QuitGameDto(int gameId) { }
 	public QuitGame(IxAddress baseAddr)
 	{
 
@@ -24,7 +25,7 @@ public class QuitGame implements IxReceiver
 	{
 
         var gson = new Gson();
-        var doc = gson.toJson(new QuitGameObj(gameId));
+        var doc = gson.toJson(new QuitGameDto(gameId));
 
 		try {
 			tunnel.sendDocument(addr, doc);

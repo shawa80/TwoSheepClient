@@ -7,24 +7,17 @@ import com.siliconandsynapse.net.ixtunnel.IxManager;
 public class SetName
 {
 
-    public SetName()
-    {
-
-    }
-
+    public record SetNameDto(String name) {}
 
     public void execute(IxAddress baseAddr, IxManager tunnel, String name) {
 
         var addr = baseAddr.append("SetName");
 
         var gson = new Gson();
-        var doc = gson.toJson(new SetNameObj(name));
+        var doc = gson.toJson(new SetNameDto(name));
 
-        try {
-            tunnel.sendDocument(addr, doc);
-        } catch (Exception e) {
-            return;
-        }
+        tunnel.sendDocument(addr, doc);
+
     }
 }
 

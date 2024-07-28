@@ -20,7 +20,8 @@ public class PlayerInfo implements IxReceiver
 	private final ITableDisplay table;
 	private final IxAddress baseAddr;
 
-	private XPathFactory factory;
+	public record PlayerInfoDto(String name, int id, String description, int points, int wealth) {}
+
 
 	public PlayerInfo(IxAddress baseAddr, ITableDisplay table)
 	{
@@ -38,7 +39,7 @@ public class PlayerInfo implements IxReceiver
 	{
 		var gson = new Gson();
 
-		var t = new TypeToken<List<PlayerInfoObj>>(){};
+		var t = new TypeToken<List<PlayerInfoDto>>(){};
 		var pi = gson.fromJson(doc, t);
 
 		pi.forEach(p -> {

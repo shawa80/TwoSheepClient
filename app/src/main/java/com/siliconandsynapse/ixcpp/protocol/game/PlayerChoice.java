@@ -11,14 +11,20 @@ import com.siliconandsynapse.ixcpp.common.Answer;
 import com.siliconandsynapse.ixcpp.common.Choice;
 import com.siliconandsynapse.ixcpp.common.ChoiceResponse;
 
+import java.util.List;
+
 
 public class PlayerChoice implements IxReceiver
 {
-	private AcceptedAddresses events;
-	private ITableDisplay table;
-	private IxAddress baseAddr;
-	private IxAddress addr;
-	private Mutex block;
+	private final AcceptedAddresses events;
+	private final ITableDisplay table;
+	private final IxAddress baseAddr;
+	private final IxAddress addr;
+	private final Mutex block;
+
+	public record PlayerChoiceRequestAnswer(int id, String answer) {}
+	public record PlayerChoiceRequestObj(String id, String question,List<PlayerChoiceRequestAnswer> answers) {}
+	public record PlayerChoiceResponseObj(int id, String value) {}
 
 	public PlayerChoice(IxAddress baseAddr, ITableDisplay table, Mutex block)
 	{
@@ -73,11 +79,7 @@ public class PlayerChoice implements IxReceiver
         var gson = new Gson();
         var doc = gson.toJson(new PlayerChoiceResponseObj(a.getId(), a.getValue()));
 
-		try {
-			returnTunnel.sendDocument(addr, doc);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		returnTunnel.sendDocument(addr, doc);
 
 	}
 }

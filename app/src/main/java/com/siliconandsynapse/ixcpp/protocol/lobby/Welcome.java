@@ -9,20 +9,16 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 public class Welcome implements IxReceiver
 {
-	private AcceptedAddresses events;
+	private final AcceptedAddresses events;
 
-	private IxAddress baseAddr;
-	private IxAddress addr;
-
-	private MainActivity monitor;
+	private final IxAddress baseAddr;
 
 
 	public Welcome(IxAddress baseAddr, MainActivity monitor)
 	{
 		this.baseAddr = baseAddr;
-		this.monitor = monitor;
 
-        addr = baseAddr.append("Welcome");
+		var addr = baseAddr.append("Welcome");
 
 		events = new AcceptedAddresses(addr);
 	}

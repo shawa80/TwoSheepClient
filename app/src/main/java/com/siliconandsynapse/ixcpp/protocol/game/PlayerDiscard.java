@@ -11,16 +11,20 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 import com.siliconandsynapse.ixcpp.common.Discard;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerDiscard implements IxReceiver
 {
 
-	private AcceptedAddresses events;
-	private ITableDisplay table;
-	private IxAddress baseAddr;
-	private IxAddress addr;
-	private CardFactory cache;
-	private Mutex block;
+	private final AcceptedAddresses events;
+	private final ITableDisplay table;
+	private final IxAddress baseAddr;
+	private final IxAddress addr;
+	private final CardFactory cache;
+	private final Mutex block;
+
+	public record PlayerDiscardDto (int min, int max, String message, List<Integer> codes) {}
+	public record PlayerDiscardResponseDto(List<Integer> secureCodes) {}
 
 	public PlayerDiscard(IxAddress baseAddr,
 		ITableDisplay table,
@@ -44,7 +48,7 @@ public class PlayerDiscard implements IxReceiver
 	{
 
         var gson = new Gson();
-        var d = gson.fromJson(doc, PlayerDiscardObj.class);
+        var d = gson.fromJson(doc, PlayerDiscardDto.class);
 
         var discard = new Discard();
         discard.setMax(d.max());
@@ -78,7 +82,7 @@ public class PlayerDiscard implements IxReceiver
         for (int i = 0; i < d.getCount(); i++)
             cards.add(d.getCardAt(i).getCode());
 
-        var doc = gson.toJson(new PlayerDiscardResponseObj(cards));
+        var doc = gson.toJson(new PlayerDiscardResponseDto(cards));
 
 		try {
 			returnTunnel.sendDocument(addr, doc);

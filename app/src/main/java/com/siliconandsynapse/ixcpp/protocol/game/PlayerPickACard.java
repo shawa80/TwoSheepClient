@@ -11,10 +11,16 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 public class PlayerPickACard implements IxReceiver
 {
     public static final String KEY = "PlayerPickACard";
-	private AcceptedAddresses events;
-	private Mutex block;
-	private IxAddress baseAddr;
-	private IxAddress addr;
+	private final AcceptedAddresses events;
+	private final Mutex block;
+	private final IxAddress baseAddr;
+	private final IxAddress addr;
+
+	public record PlayerPickACardResponse(int code){
+		public PlayerPickACardResponse(Card card) {
+			this(card.getCode());
+		}
+	}
 
 	public PlayerPickACard(IxAddress baseAddr, Mutex block)
 	{
@@ -28,7 +34,6 @@ public class PlayerPickACard implements IxReceiver
 
 	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
-
 		block.sendNotice();
 	}
 	public String placeInThread()

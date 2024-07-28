@@ -9,12 +9,11 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 public class PlayerJoinedGame implements IxReceiver
 {
-	private AcceptedAddresses events;
+	private final AcceptedAddresses events;
+	private final IxAddress baseAddr;
+	private final RoomModel roomModel;
 
-	private IxAddress addr;
-	private IxAddress baseAddr;
-	private RoomModel roomModel;
-
+	public record PlayerJoinedGameDto(int gameId, int seat, String name) {}
 
 	public PlayerJoinedGame(IxAddress baseAddr, RoomModel roomModel)
 	{
@@ -23,7 +22,7 @@ public class PlayerJoinedGame implements IxReceiver
 		this.baseAddr = baseAddr;
 		this.roomModel = roomModel;
 
-		addr = baseAddr.append("PlayerJoinedGame");
+		IxAddress addr = baseAddr.append("PlayerJoinedGame");
 
 		events = new AcceptedAddresses(addr);
 
@@ -33,7 +32,7 @@ public class PlayerJoinedGame implements IxReceiver
 	{
 
 		var gson = new Gson();
-		var joined = gson.fromJson(doc, PlayerJoinedGameObj.class);
+		var joined = gson.fromJson(doc, PlayerJoinedGameDto.class);
 
 		roomModel.addPlayerToGame(joined.gameId(), joined.seat(), joined.name());
 

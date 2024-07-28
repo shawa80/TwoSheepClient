@@ -7,8 +7,7 @@ import java.util.List;
 
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
-import com.siliconandsynapse.ixcpp.protocol.lobby.ListGamesPlayersObj;
-import com.siliconandsynapse.net.ixtunnel.IxManager;
+import com.siliconandsynapse.ixcpp.protocol.lobby.ListGames;
 import com.siliconandsynapse.observerPool.ObserverPool;
 
 public class DefaultRoomModel implements RoomModel {
@@ -37,7 +36,7 @@ public class DefaultRoomModel implements RoomModel {
 
 
 	@Override
-	public void addGame(GameInfo game, List<ListGamesPlayersObj> players) {
+	public void addGame(GameInfo game, List<ListGames.ListGamesPlayersObj> players) {
 
 		if (games.containsKey(game.getId()))
 			return;

@@ -11,21 +11,15 @@ import javax.xml.xpath.*;
 
 public class JoinGame implements IxReceiver
 {
-	private AcceptedAddresses events;
-	private GameController gameManager;
-	private IxAddress addr;
+	private final AcceptedAddresses events;
 
-	private XPathFactory factory;
+	public record JoinGameDto(int gameId, String type) {}
 
 	public JoinGame(IxAddress baseAddr, GameController gameManager)
 	{
-		this.gameManager = gameManager;
-		factory = XPathFactory.newInstance();
-
-        addr = baseAddr.append("JoinGame");
+		var addr = baseAddr.append("JoinGame");
 
 		events = new AcceptedAddresses(addr);
-
 	}
 
 
@@ -33,7 +27,7 @@ public class JoinGame implements IxReceiver
 	{
 
         var gson = new Gson();
-        var x = gson.fromJson(doc, JoinGameObj.class);
+        var x = gson.fromJson(doc, JoinGameDto.class);
 
 		//gameManager.startGame(returnTunnel, x.gameId(), x.type());
 

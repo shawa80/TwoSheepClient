@@ -9,12 +9,12 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 public class PlayerLeftGame implements IxReceiver
 {
-	private AcceptedAddresses events;
+	private final AcceptedAddresses events;
 
-	private IxAddress addr;
-	private IxAddress baseAddr;
-	private RoomModel roomModel;
+	private final IxAddress baseAddr;
+	private final RoomModel roomModel;
 
+	public record PlayerLeftGameDto(int gameId, int seat, String name) {}
 
 	public PlayerLeftGame(IxAddress baseAddr, RoomModel roomModel)
 	{
@@ -23,14 +23,14 @@ public class PlayerLeftGame implements IxReceiver
 		this.baseAddr = baseAddr;
 		this.roomModel = roomModel;
 
-		addr = baseAddr.append("PlayerLeftGame");
+		var addr = baseAddr.append("PlayerLeftGame");
 		events = new AcceptedAddresses(addr);
 	}
 
 	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
 		var gson = new Gson();
-		var left = gson.fromJson(doc, PlayerLeftGameObj.class);
+		var left = gson.fromJson(doc, PlayerLeftGameDto.class);
 
 		roomModel.removePlayerFromGame(left.gameId(), left.seat());
 

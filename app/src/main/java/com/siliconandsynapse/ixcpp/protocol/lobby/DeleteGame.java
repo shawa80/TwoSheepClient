@@ -9,18 +9,18 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 public class DeleteGame implements IxReceiver
 {
-	private AcceptedAddresses events;
-	private RoomModel model;
-	private IxAddress baseAddr;
-	private IxAddress addr;
+	private final AcceptedAddresses events;
+	private final RoomModel model;
+	private final IxAddress baseAddr;
 
+	public record DeleteGameDto(int gameId) { }
 
 	public DeleteGame(IxAddress baseAddr, RoomModel model)
 	{
 		this.model = model;
 		this.baseAddr = baseAddr;
 
-        addr = baseAddr.append("DeleteGame");
+		IxAddress addr = baseAddr.append("DeleteGame");
 
 		events = new AcceptedAddresses(addr);
 
@@ -29,7 +29,7 @@ public class DeleteGame implements IxReceiver
 	public void accept(IxAddress key, IxManager returnTunnel, String doc)
 	{
         var gson = new Gson();
-        var game = gson.fromJson(doc, DeleteGameObj.class);
+        var game = gson.fromJson(doc, DeleteGameDto.class);
 
 		model.removeGame(game.gameId());
 	}

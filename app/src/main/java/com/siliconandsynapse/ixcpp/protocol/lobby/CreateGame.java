@@ -11,21 +11,19 @@ import com.siliconandsynapse.net.ixtunnel.IxReceiver;
 
 public class CreateGame implements IxReceiver
 {
-	private AcceptedAddresses events;
-	private RoomModel model;
-	private IxAddress baseAddr;
-	private IxAddress addr;
+	private final AcceptedAddresses events;
+	private final RoomModel model;
+	private final IxAddress baseAddr;
 
-	private GameController gameManager;
+	public record CreateGameDto (int gameId, String type) { }
 
 	public CreateGame(IxAddress baseAddr, RoomModel model, GameController gameManager)
 	{
 
 		this.model = model;
 		this.baseAddr = baseAddr;
-		this.gameManager = gameManager;
 
-		addr = baseAddr.append("CreateGame");
+		IxAddress addr = baseAddr.append("CreateGame");
 
 		events = new AcceptedAddresses(addr);
 	}
@@ -34,14 +32,12 @@ public class CreateGame implements IxReceiver
 	{
 
         var gson = new Gson();
-        var x = gson.fromJson(doc, CreateGameObj.class);
+        var x = gson.fromJson(doc, CreateGameDto.class);
 
 		var id = x.gameId();
 		var roomType = x.type();
 
 		model.addGame(new GameInfo(id, roomType), null);
-
-		//gameManager.startGame(returnTunnel, x.name(), x.type());
 	}
 	public String placeInThread()
 	{

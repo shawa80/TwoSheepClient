@@ -13,9 +13,8 @@ import com.siliconandsynapse.net.ixtunnel.ParseError;
 
 public class JoinGameCmd {
 
-	private int gameId;
-
-	private DocumentBuilder documentBuilder;
+	private final int gameId;
+	public record JoinGameRequest(int gameId) { }
 
 	public JoinGameCmd(int gameId) {
 
@@ -32,11 +31,7 @@ public class JoinGameCmd {
         var gson = new Gson();
         var doc = gson.toJson(new JoinGameRequest(gameId));
 
-		try {
-			tunnel.sendDocument(addr, doc);
-		} catch (Exception e) {
-			return;
-		}
+		tunnel.sendDocument(addr, doc);
 
 	}
 

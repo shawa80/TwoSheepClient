@@ -9,14 +9,12 @@ import com.siliconandsynapse.net.ixtunnel.ParseError;
 
 public class HeartBeat implements IxReceiver
 {
-	private AcceptedAddresses events;
+	private final AcceptedAddresses events;
 	private IxAddress addr;
-
 
 	public HeartBeat()
 	{
 		super();
-
 
 		try {
 			addr = IxAddress.parse("__System.HeartBeat");
