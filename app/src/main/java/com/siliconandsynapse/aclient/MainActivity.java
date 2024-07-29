@@ -70,8 +70,16 @@ public class MainActivity extends FragmentActivity {
 
 		getOnBackPressedDispatcher().addCallback(this,
 				new OnBackPressedCallback(true) {
+
 			@Override
 			public void handleOnBackPressed() {
+
+				var f = getSupportFragmentManager()
+						.findFragmentById(id.fragment_container_view);
+				if (f instanceof MainFragment mf) {
+					if (mf.handleBackPress()) return;
+				}
+
 				switch (currentState) {
 					case Game -> showGameList();
 					case Login -> finish();

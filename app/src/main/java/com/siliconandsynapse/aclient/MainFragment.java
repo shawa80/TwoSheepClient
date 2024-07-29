@@ -49,6 +49,16 @@ public class MainFragment extends Fragment {
         super(R.layout.games);
     }
 
+    public boolean handleBackPress() {
+
+        if(dealerChoice.getVisibility() == View.VISIBLE)
+        {
+            dealerChoice.setVisibility(View.GONE);
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -104,7 +114,7 @@ public class MainFragment extends Fragment {
                 adapter.add(g);
             });
         }
-
+        //TODO is a remove needed?
         rm.gameAdded.add((game) -> {
             act.runOnUiThread(() -> {
                 adapter.add(game);
