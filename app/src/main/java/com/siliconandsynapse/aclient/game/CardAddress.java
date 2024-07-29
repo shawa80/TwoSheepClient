@@ -4,12 +4,12 @@ import com.siliconandsynapse.aclient.gameModels.models.CardUpdateEvent;
 
 public class CardAddress {
 
-	private int player;
-	private String type;
-	private int stack;
-	private int layer;
+	private final int player;
+	private final String type;
+	private final int stack;
+	private final int layer;
 	
-	private String addr;
+	private final String addr;
 	
 	public CardAddress(CardUpdateEvent event) {
 		
@@ -33,10 +33,8 @@ public class CardAddress {
 	@Override
 	public boolean equals(Object o) {
 
-		if (o instanceof CardAddress)
+		if (o instanceof CardAddress ca)
 		{
-			CardAddress ca = (CardAddress)o;
-			
 			return addr.equals(ca.addr);
 		}
 		

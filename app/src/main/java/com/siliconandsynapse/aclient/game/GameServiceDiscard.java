@@ -8,13 +8,13 @@ import com.siliconandsynapse.net.ixtunnel.IxManager;
 
 public class GameServiceDiscard implements Runnable {
 
-	private Thread t;
+	private final Thread t;
 
-	private Mutex serverBlock;
-	private Mutex userBlock;
-	private GameService service;
-	private PlayerDiscard playerDiscard;
-	private IxManager home;
+	private final Mutex serverBlock;
+	private final Mutex userBlock;
+	private final GameService service;
+	private final PlayerDiscard playerDiscard;
+	private final IxManager home;
 
 	private volatile boolean keepRunning = true;
 
@@ -55,19 +55,12 @@ public class GameServiceDiscard implements Runnable {
 		while (keepRunning)
 		{
 			try {
-				Log.d("DebugPrint", "Waiting for server discard request");
-
 				serverBlock.waitForInterruptable();
-
-				Log.d("DebugPrint", "Server requested discard");
 
 				while (keepRunning) {
 					service.setDiscardResponse(null);
-					Log.d("DebugPrint", "Waiting for user discard");
 
 					userBlock.waitForInterruptable();
-
-					Log.d("DebugPrint", "User unlocked discard");
 
 					if (service.getDiscardResponse() != null) {
 						playerDiscard.answer(home, service.getDiscardResponse());

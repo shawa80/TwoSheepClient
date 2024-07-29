@@ -8,13 +8,13 @@ import com.siliconandsynapse.net.ixtunnel.IxManager;
 
 public class GameServiceChoice implements Runnable {
 
-	private Thread t;
+	private final Thread t;
 
-	private Mutex choiceServerBlock;
-	private Mutex choiceUserBlock;
-	private GameService service;
-	private PlayerChoice playerPickAChoice;
-	private IxManager home;
+	private final Mutex choiceServerBlock;
+	private final Mutex choiceUserBlock;
+	private final GameService service;
+	private final PlayerChoice playerPickAChoice;
+	private final IxManager home;
 
 	private volatile boolean keepRunning = true;
 
@@ -55,19 +55,13 @@ public class GameServiceChoice implements Runnable {
 		while (keepRunning)
 		{
 			try {
-				Log.d("DebugPrint", "Waiting for server choice request");
 
 				choiceServerBlock.waitForInterruptable();
 
-				Log.d("DebugPrint", "Server requested choice");
-
 				while (keepRunning) {
 					service.setChoiceResponse(null);
-					Log.d("DebugPrint", "Waiting for user choice");
 
 					choiceUserBlock.waitForInterruptable();
-
-					Log.d("DebugPrint", "User unlocked choice");
 
 					if (service.getChoiceResponse() != null) {
 						playerPickAChoice.answer(home, service.getChoiceResponse());

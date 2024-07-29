@@ -101,8 +101,6 @@ public class GameService implements Runnable {
 		discardServerBlock = new Mutex();
 		discardUserBlock = new Mutex();
 
-		//cache = CardFactory.getInstance(CardFactory.POKER);
-
 		table = new TableModel();
 
 	}
@@ -167,84 +165,51 @@ public class GameService implements Runnable {
 
 	public void run() {
 
-		CardFactory f = CardFactory.getInstance(CardFactory.SHEEPSHEAD);
-
-
-//		table.setMyPlayerId(0);
-//		table.getHandTranslator().validateCard(0, "public",
-//				0, 0, x.get(0));
-//		table.getHandTranslator().validateCard(0, "trick",
-//				0, 1, x.get(1));
-//		table.getHandTranslator().validateCard(0, "public",
-//				1, 0, x.get(2));
-//		table.getHandTranslator().validateCard(0, "public",
-//				1, 1, x.get(3));
-//		x.get(3).setFace(Card.UP);
-//		table.getHandTranslator().removeNonvalidatedCards();
+		var f = CardFactory.getInstance(CardFactory.SHEEPSHEAD);
 
 		addr = IxAddress.createRoot("ixcpp.games." + gameId);
 
 
 		service = NetworkService.getService();
 
-//		baseAddr = service.getGameAddr();
-//
-//		try {
-//			addr = baseAddr.append(gameName);
-//		} catch (ParseError e) {
-//			e.printStackTrace();
-//		}
+		home = service.getTunnel();
 
-			home = service.getTunnel();
+		playerInfo = new PlayerInfo(addr, table);
+		home.registerReceiver(playerInfo);
 
-//			gameStart = new GameStart(addr, cache);
-//			home.registerReceiver(gameStart);
-//
-			playerInfo = new PlayerInfo(addr, table);
-			home.registerReceiver(playerInfo);
+		playerId = new PlayerId(addr, table);
+		home.registerReceiver(playerId);
 
-			playerId = new PlayerId(addr, table);
-			home.registerReceiver(playerId);
+		playerPickACard = new PlayerPickACard(addr, cardServerBlock);
+		home.registerReceiver(playerPickACard);
 
-			playerPickACard = new PlayerPickACard(addr, cardServerBlock);
-			home.registerReceiver(playerPickACard);
+		gameMessage = new GameMessage(addr, table);
+		home.registerReceiver(gameMessage);
 
-			gameMessage = new GameMessage(addr, table);
-			home.registerReceiver(gameMessage);
-//
-//			gameChat = new GameChat(addr, home);
-//			gameChat.registerTable(table);
-//			home.registerReceiver(gameChat);
-//
-			tableChange = new TableChange(addr, table.getHandTranslator(), f);
-			home.registerReceiver(tableChange);
+		tableChange = new TableChange(addr, table.getHandTranslator(), f);
+		home.registerReceiver(tableChange);
 
-			trickChange = new TrickChange(addr, table.getTrickTranslator(), f);
-			home.registerReceiver(trickChange);
+		trickChange = new TrickChange(addr, table.getTrickTranslator(), f);
+		home.registerReceiver(trickChange);
 
-			turnChange = new TurnChange(addr, table);
-			home.registerReceiver(turnChange);
+		turnChange = new TurnChange(addr, table);
+		home.registerReceiver(turnChange);
 
-			pause = new Pause(addr);
-			home.registerReceiver(pause);
+		pause = new Pause(addr);
+		home.registerReceiver(pause);
 
-			playerChoice = new PlayerChoice(addr, table, choiceServerBlock);
-			home.registerReceiver(playerChoice);
+		playerChoice = new PlayerChoice(addr, table, choiceServerBlock);
+		home.registerReceiver(playerChoice);
 
 
-			playerDiscard = new PlayerDiscard(addr, table, f, discardServerBlock);
-			home.registerReceiver(playerDiscard);
+		playerDiscard = new PlayerDiscard(addr, table, f, discardServerBlock);
+		home.registerReceiver(playerDiscard);
 
-
-		//service.start();  already running
 
 		var jg = new JoinGameCmd(gameId);
 		var gameKey = IxAddress.createRoot("ixcpp.lobby");
 		jg.execute(gameKey, home);
 
-
-//		service.executeLobby(new JoinGameCmd(gameName));
-//
 		serviceCard = new GameServiceCard(
 				cardServerBlock, cardUserBlock, this,
 				playerPickACard, home);
@@ -256,10 +221,6 @@ public class GameService implements Runnable {
 		serviceDiscard = new GameServiceDiscard(
 				discardServerBlock, discardUserBlock, this,
 				playerDiscard, home);
-
-//		serviceCard.join();
-//		serviceChoice.join();
-//		serviceDiscard.join();
 	}
 
 	public void stop() {
@@ -282,13 +243,10 @@ public class GameService implements Runnable {
 
 		quit.sendQuitGame(home, gameId);
 
-
-		//home.unregisterReciever(gameStart);
 		home.unregisterReciever(playerInfo);
 		home.unregisterReciever(playerId);
 		home.unregisterReciever(playerPickACard);
 		home.unregisterReciever(gameMessage);
-		//home.unregisterReciever(gameChat);
 		home.unregisterReciever(tableChange);
 		home.unregisterReciever(trickChange);
 		home.unregisterReciever(turnChange);

@@ -4,17 +4,15 @@ import com.siliconandsynapse.ixcpp.protocol.game.PlayerPickACard;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
 
-import android.util.Log;
-
 public class GameServiceCard implements Runnable {
 
-	private Thread t;
+	private final Thread t;
 
-	private Mutex cardServerBlock;
-	private Mutex cardUserBlock;
-	private GameService service;
-	private PlayerPickACard playerPickACard;
-	private IxManager home;
+	private final Mutex cardServerBlock;
+	private final Mutex cardUserBlock;
+	private final GameService service;
+	private final PlayerPickACard playerPickACard;
+	private final IxManager home;
 
 	private volatile boolean keepRunning = true;
 
@@ -43,7 +41,7 @@ public class GameServiceCard implements Runnable {
 
 		try {
 			t.join();
-		} catch (InterruptedException e) {
+		} catch (InterruptedException ignored) {
 
 		}
 	}
@@ -54,19 +52,13 @@ public class GameServiceCard implements Runnable {
 		while (keepRunning)
 		{
 			try {
-				Log.d("DebugPrint", "Waiting for server request");
 
 				cardServerBlock.waitForInterruptable();
 
-				Log.d("DebugPrint", "Server requested Card");
-
 				while (keepRunning) {
 					service.setCard(null);
-					Log.d("DebugPrint", "Waiting for user card");
 
 					cardUserBlock.waitForInterruptable();
-
-					Log.d("DebugPrint", "User unlocked card");
 
 					if (service.getCard() != null) {
 						playerPickACard.sendPlayCard(home, service.getCard());
