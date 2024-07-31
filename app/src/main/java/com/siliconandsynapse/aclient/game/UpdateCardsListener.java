@@ -92,25 +92,20 @@ public class UpdateCardsListener implements UpdateCards {
 			return;
 		
 		
-		act.runOnUiThread(new Runnable() {
+		act.runOnUiThread(() -> {
 
-			@Override
-			public void run() {
-			
-				Drawable d = iv.getDrawable();
-				LayerDrawable layer = (LayerDrawable)d;
+            Drawable d = iv.getDrawable();
+            LayerDrawable layer = (LayerDrawable)d;
 
-				Drawable image = act.getResources().getDrawable(R.drawable.nocard2);
-								
-				if (level == 1)
-					layer.setDrawableByLayerId(R.id.top, image);
-				else { 
-					layer.setDrawableByLayerId(R.id.bottom, image);
-				}
-			
-			}
-			
-		});
+            Drawable image = act.getResources().getDrawable(R.drawable.nocard2);
+
+            if (level == 1)
+                layer.setDrawableByLayerId(R.id.top, image);
+            else {
+                layer.setDrawableByLayerId(R.id.bottom, image);
+            }
+
+        });
 
 	
 	}

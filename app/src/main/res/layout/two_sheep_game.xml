@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/table"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:id="@+id/YourPrivate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPrivate1"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPrivate2"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPrivate3"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPrivate4"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/YourPublic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="74dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPublic1"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPublic2"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPublic3"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPublic4"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPublic5"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/yourPublic6"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/Dmz"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" >
+
+        <TextView
+            android:id="@+id/myname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:text="@string/nop"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/yourname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text="@string/nop"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:id="@+id/Trick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/myname"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/yourname"
+            android:gravity="center_vertical" >
+
+            <ImageView
+                android:contentDescription="@string/nop"
+                android:id="@+id/YourCard"
+                android:layout_width="43dip"
+                android:layout_height="70dip"
+                android:layout_weight="0.25"
+                android:src="@drawable/dual_stack" />
+
+            <ImageView
+                android:contentDescription="@string/nop"
+                android:id="@+id/MyCard"
+                android:layout_width="43dip"
+                android:layout_height="70dip"
+                android:layout_weight="0.25"
+                android:src="@drawable/dual_stack" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/myTurn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/star"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/yourTurn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/star"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <TextView
+            android:id="@+id/yourScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/nop"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/myScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="@string/nop"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/MyPublic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Dmz"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPublic1"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPublic2"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPublic3"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPublic4"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPublic5"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPublic6"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/MyPrivate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/MyPublic"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPrivate1"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPrivate2"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPrivate3"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:contentDescription="@string/nop"
+            android:id="@+id/myPrivate4"
+            android:layout_width="43dip"
+            android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:src="@drawable/dual_stack" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/currentMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>

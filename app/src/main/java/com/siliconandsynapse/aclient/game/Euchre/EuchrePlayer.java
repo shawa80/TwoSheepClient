@@ -42,8 +42,8 @@ public class EuchrePlayer implements UpdateUser {
 
 	private void init(ImageView card)
 	{
-		Drawable d = card.getDrawable();
-		LayerDrawable layer = (LayerDrawable)d;
+		var d = card.getDrawable();
+		var layer = (LayerDrawable)d;
 		layer.setDrawableByLayerId(R.id.top, act.getResources().getDrawable(R.drawable.nocard2));
 		layer.setDrawableByLayerId(R.id.bottom, act.getResources().getDrawable(R.drawable.nocard2));
 	}
@@ -53,20 +53,12 @@ public class EuchrePlayer implements UpdateUser {
 	public void turnChanged(PlayerModel player) {
 
 		turnGui.indicate(this);
-
 	}
 
 	@Override
 	public void nameChanged(PlayerModel player, final String name) {
 
-		act.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				nameGui.setText(name);
-			}
-		});
+		act.runOnUiThread(() -> nameGui.setText(name));
 
 	}
 
@@ -79,14 +71,7 @@ public class EuchrePlayer implements UpdateUser {
 	@Override
 	public void descriptionChanged(PlayerModel player, final String description) {
 
-		act.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				descGui.setText(description);
-			}
-		});
+		act.runOnUiThread(() -> descGui.setText(description));
 
 	}
 

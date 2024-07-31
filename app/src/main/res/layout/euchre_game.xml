@@ -2,67 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/table"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:id="@+id/southPrivate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/currentMsg"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" >
-
-        <ImageView
-            android:id="@+id/south1"
-            android:layout_width="43dip"
-            android:layout_height="70dip"
-            android:layout_weight="0.25"
-            android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
-
-        <ImageView
-            android:id="@+id/south2"
-            android:layout_width="43dip"
-            android:layout_height="70dip"
-            android:layout_weight="0.25"
-            android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
-
-        <ImageView
-            android:id="@+id/south3"
-            android:layout_width="43dip"
-            android:layout_height="70dip"
-            android:layout_weight="0.25"
-            android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
-
-        <ImageView
-            android:id="@+id/south4"
-            android:layout_width="43dip"
-            android:layout_height="70dip"
-            android:layout_weight="0.25"
-            android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
-
-        <ImageView
-            android:id="@+id/south5"
-            android:layout_width="43dip"
-            android:layout_height="70dip"
-            android:layout_weight="0.25"
-            android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
-    
-    
-        <ImageView
-            android:id="@+id/south6"
-            android:layout_width="43dip"
-            android:layout_height="70dip"
-            android:layout_weight="0.25"
-            android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
-        
-    </LinearLayout>
+    android:layout_height="match_parent" >
 
     <TextView
         android:id="@+id/currentMsg"
@@ -73,197 +13,327 @@
         android:layout_alignParentStart="true"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/southName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/currentMsg"
+        android:layout_alignParentLeft="true"
+        android:text="southName" />
+
+    <TextView
+        android:id="@+id/descSouth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/currentMsg"
+        android:layout_alignParentRight="true"
+        android:text="southDesc" />
+
+    <TextView
+        android:id="@+id/northName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="northName" />
+
+    <TextView
+        android:id="@+id/descNorth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="northDesc" />
+
+    <LinearLayout
+        android:id="@+id/southPrivate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/southName"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dip"
+        android:padding="0dip" >
+
+        <ImageView
+            android:id="@+id/south1"
+    
+            android:layout_width="43dip"
+        	android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:contentDescription="@string/nop"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:id="@+id/south2"
+            
+            android:layout_width="43dip"
+        	android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:contentDescription="@string/nop"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:id="@+id/south3"
+            
+            android:layout_width="43dip"
+        	android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:contentDescription="@string/nop"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:id="@+id/south4"
+            
+            android:layout_width="43dip"
+        	android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:contentDescription="@string/nop"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:id="@+id/south5"
+            
+            android:layout_width="43dip"
+        	android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:contentDescription="@string/nop"
+            android:src="@drawable/dual_stack" />
+
+        <ImageView
+            android:id="@+id/south6"
+            
+            android:layout_width="43dip"
+        	android:layout_height="70dip"
+            android:layout_weight="0.25"
+            android:contentDescription="@string/nop"
+            android:src="@drawable/dual_stack" />
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/northPrivate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true" >
+        android:layout_below="@+id/northName" 
+        android:layout_margin="5dip"
+        android:padding="0dip"
+        >
 
         <ImageView
+
             android:id="@+id/north1"
             android:layout_width="43dip"
-            android:layout_height="60dip"
-            android:layout_weight="0.25"
+        	android:layout_height="70dip"
             android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack"
+            android:layout_weight="0.25" />
 
         <ImageView
+
             android:id="@+id/north2"
             android:layout_width="43dip"
-            android:layout_height="60dip"
-            android:layout_weight="0.25"
+        	android:layout_height="70dip"
             android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack"
+            android:layout_weight="0.25" />
 
         <ImageView
+
             android:id="@+id/north3"
             android:layout_width="43dip"
-            android:layout_height="60dip"
-            android:layout_weight="0.25"
+        	android:layout_height="70dip"
             android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack"
+            android:layout_weight="0.25" />
 
         <ImageView
+
             android:id="@+id/north4"
             android:layout_width="43dip"
-            android:layout_height="60dip"
-            android:layout_weight="0.25"
+        	android:layout_height="70dip"
             android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack"
+            android:layout_weight="0.25" />
 
         <ImageView
+
             android:id="@+id/north5"
             android:layout_width="43dip"
-            android:layout_height="60dip"
-            android:layout_weight="0.25"
+        	android:layout_height="70dip"
             android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
-        
+            android:src="@drawable/dual_stack"
+            android:layout_weight="0.25" />
+
         <ImageView
+
             android:id="@+id/north6"
             android:layout_width="43dip"
-            android:layout_height="60dip"
-            android:layout_weight="0.25"
+        	android:layout_height="70dip"
             android:contentDescription="@string/nop"
-            android:src="@drawable/dual_stack" />
-                        
+            android:src="@drawable/dual_stack"
+            android:layout_weight="0.25" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/westPrivate"
-        android:layout_width="180dp"
+        android:layout_width="70dip"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/westPrivate"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/northPrivate"
-        android:orientation="vertical" >
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/southName"
+        android:orientation="vertical"
+        android:clipChildren="true">
 
         <ImageView
             android:id="@+id/west1"
-            android:layout_height="43dip"
+            android:scaleType="fitXY"
             android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
 
         <ImageView
             android:id="@+id/west2"
-            android:layout_height="43dip"
+            android:scaleType="fitXY"
             android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
 
         <ImageView
             android:id="@+id/west3"
-            android:layout_height="43dip"
+            android:scaleType="fitXY"
             android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
 
         <ImageView
             android:id="@+id/west4"
-            android:layout_height="43dip"
-			android:layout_width="70dip"
+            android:scaleType="fitXY"
+            android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
 
         <ImageView
             android:id="@+id/west5"
-            android:layout_height="43dip"
-			android:layout_width="70dip"
+            android:scaleType="fitXY"
+            android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
-        
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
+
         <ImageView
             android:id="@+id/west6"
-            android:layout_height="43dip"
-			android:layout_width="70dip"
+            android:scaleType="fitXY"
+            android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/eastPrivate"
-        android:layout_width="wrap_content"
+        android:layout_width="70dip"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/eastPrivate"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/westPrivate"
-        android:orientation="vertical" >
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/eastDesc"
+        android:orientation="vertical"
+        >
 
         <ImageView
             android:id="@+id/east1"
-            android:layout_height="43dip"
+            android:scaleType="fitXY"
             android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
 
         <ImageView
             android:id="@+id/east2"
-            android:layout_height="43dip"
+            android:scaleType="fitXY"
             android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
 
         <ImageView
-            android:id="@+id/east3"            
-            android:layout_height="43dip"
+            android:id="@+id/east3"
+            android:scaleType="fitXY"
             android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
 
         <ImageView
             android:id="@+id/east4"
-            android:layout_height="43dip"
+            android:scaleType="fitXY"
             android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
 
         <ImageView
             android:id="@+id/east5"
-            android:layout_height="43dip"
+            android:scaleType="fitXY"
             android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
-        
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
+
         <ImageView
             android:id="@+id/east6"
-            android:layout_height="43dip"
+            android:scaleType="fitXY"
             android:layout_width="70dip"
+        	android:layout_height="43dip"
             android:layout_weight="0.25"
             android:contentDescription="@string/nop"
-            android:rotation="90"
-            android:src="@drawable/dual_stack" />
+            android:src="@drawable/dual_stack_hz" 
+            android:paddingTop="5dip"/>
     </LinearLayout>
 
+        <ImageView
+        android:id="@+id/trickCenter"
+        android:layout_width="43dip"
+        android:layout_height="70dip"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/nop"
+         />
+    
     <ImageView
         android:id="@+id/trickNorth"
         android:layout_width="43dip"
         android:layout_height="70dip"
-        android:layout_alignTop="@+id/eastPrivate"
+        android:layout_above="@+id/trickCenter"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/nop"
         android:src="@drawable/dual_stack" />
@@ -272,7 +342,7 @@
         android:id="@+id/trickSouth"
         android:layout_width="43dip"
         android:layout_height="70dip"
-        android:layout_above="@+id/southPrivate"
+        android:layout_below="@+id/trickCenter"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/nop"
         android:src="@drawable/dual_stack" />
@@ -282,22 +352,18 @@
         android:layout_width="43dip"
         android:layout_height="70dip"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/eastPrivate"
+        android:layout_toRightOf="@+id/trickCenter"
         android:contentDescription="@string/nop"
-        android:rotation="90"
         android:src="@drawable/dual_stack" />
 
     <ImageView
         android:id="@+id/trickWest"
         android:layout_width="43dip"
         android:layout_height="70dip"
-        android:layout_alignTop="@+id/trickEast"
+        android:layout_toLeftOf="@+id/trickCenter"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/westPrivate"
         android:contentDescription="@string/nop"
-        android:rotation="90"
         android:src="@drawable/dual_stack" />
-    
 
     <LinearLayout
         android:id="@+id/choice"
@@ -307,110 +373,94 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/northPrivate"
-        android:orientation="vertical"
+        android:alpha=".95"
         android:background="@color/black"
-        android:alpha=".75"  >
+        android:orientation="vertical" >
 
-         <TextView
+        <TextView
             android:id="@+id/choiceMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceLarge" />
-        
+
         <ListView
-            
             android:id="@+id/choiceOptions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </ListView>
-
     </LinearLayout>
 
     <TextView
-        android:id="@+id/southName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/trickSouth"
-        android:layout_alignParentLeft="true"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/northName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/eastPrivate"
-        android:layout_toLeftOf="@+id/eastPrivate"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
         android:id="@+id/westName"
-        android:rotation="90"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/westPrivate"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignTop="@+id/westPrivate"
+        android:layout_toRightOf="@+id/westPrivate"
+        android:text="westName" />
+
+    <TextView
+        android:id="@+id/descWest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/westPrivate"
+        android:layout_toRightOf="@+id/westPrivate"
+        android:text="westDesc" />
 
     <TextView
         android:id="@+id/eastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/eastPrivate"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignTop="@+id/eastPrivate"
+        android:layout_toLeftOf="@+id/eastPrivate"
+        android:text="eastName" />
 
     <TextView
-        android:id="@+id/turnNorth"
+        android:id="@+id/descEast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/northName"
-        android:layout_alignBottom="@+id/northName"
-        android:layout_toLeftOf="@+id/northName"
-        android:text="*"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/turnWest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/westName"
-        android:layout_alignBottom="@+id/westName"
-        android:layout_toRightOf="@+id/westName"
-        android:text="*"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/turnEast"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/eastName"
-        android:layout_alignBottom="@+id/eastName"
-        android:layout_toLeftOf="@+id/eastName"
-        android:text="*"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_alignBottom="@+id/eastPrivate"
+        android:layout_toLeftOf="@+id/eastPrivate"
+        android:text="eastDesc" />
 
     <TextView
         android:id="@+id/turnSouth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/southName"
-        android:layout_alignBottom="@+id/southName"
-        android:layout_toRightOf="@+id/southName"
-        android:text="*"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageView
-        android:id="@+id/trump"
-        android:layout_width="43dip"
-        android:layout_height="70dip"
         android:layout_above="@+id/southPrivate"
-        android:layout_alignLeft="@+id/trickEast"
-        android:contentDescription="@string/nop"
-        android:src="@drawable/dual_stack" />
+        android:layout_centerHorizontal="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/turnWest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/westPrivate"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/turnEast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/eastPrivate"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/turnNorth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/northPrivate"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/turnSouth"
+        android:layout_alignParentRight="true"
+        android:text="TextView" />
 
 </RelativeLayout>

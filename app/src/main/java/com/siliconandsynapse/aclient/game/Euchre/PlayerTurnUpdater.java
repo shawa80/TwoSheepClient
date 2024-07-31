@@ -6,8 +6,8 @@ import android.widget.TextView;
 
 public class PlayerTurnUpdater {
 
-	private EuchreFragment act;
-	private Hashtable<EuchrePlayer, TextView> mapping = new Hashtable<EuchrePlayer, TextView>();
+	private final EuchreFragment act;
+	private final Hashtable<EuchrePlayer, TextView> mapping = new Hashtable<EuchrePlayer, TextView>();
 
 	public PlayerTurnUpdater(EuchreFragment act) {
 		this.act = act;

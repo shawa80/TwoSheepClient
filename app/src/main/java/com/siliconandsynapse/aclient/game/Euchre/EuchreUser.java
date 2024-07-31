@@ -27,26 +27,14 @@ public class EuchreUser implements DiscardRequest, ChoiceRequest {
 	@Override
 	public void displayChoiceDialog(final Choice c) {
 
-		act.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				act.showChoice(c);
-			}
-		});
+		act.runOnUiThread(() -> act.showChoice(c));
 
 	}
 
 	@Override
 	public void displayDiscardDialog(final Discard d) {
 
-		act.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				act.showDiscard(d);
-			}
-		});
+		act.runOnUiThread(() -> act.showDiscard(d));
 
 	}
 

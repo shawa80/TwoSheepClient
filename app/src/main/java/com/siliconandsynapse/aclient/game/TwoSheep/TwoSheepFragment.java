@@ -1,12 +1,7 @@
 package com.siliconandsynapse.aclient.game.TwoSheep;
 
-import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,7 +16,6 @@ import com.siliconandsynapse.aclient.R;
 import com.siliconandsynapse.aclient.game.CardAddress;
 import com.siliconandsynapse.aclient.game.GameActivity;
 import com.siliconandsynapse.aclient.game.GameService;
-import com.siliconandsynapse.aclient.game.Images;
 import com.siliconandsynapse.aclient.game.UpdateCardsListener;
 import com.siliconandsynapse.aclient.gameModels.models.UpdateGame;
 import com.siliconandsynapse.ixcpp.common.Choice;
@@ -68,7 +62,7 @@ public class TwoSheepFragment extends Fragment implements GameActivity {
 
     private MainActivity act;
     public TwoSheepFragment() {
-        super(R.layout.activity_game2);
+        super(R.layout.two_sheep_game);
     }
 
     @Override

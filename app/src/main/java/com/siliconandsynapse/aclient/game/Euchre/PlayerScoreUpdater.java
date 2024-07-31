@@ -7,8 +7,8 @@ import android.widget.TextView;
 public class PlayerScoreUpdater {
 
 
-	private EuchreFragment act;
-	private TextView scoreText;
+	private final EuchreFragment act;
+	private final TextView scoreText;
 
 	private int teamNS;
 	private int teamEW;
@@ -29,16 +29,7 @@ public class PlayerScoreUpdater {
 		if (loc == EuchreFragment.SeatLocation.EAST)
 			teamEW = score;
 
-
-
-		act.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				scoreText.setText(teamNS + " to " + teamEW);
-			}
-		});
+		act.runOnUiThread(() -> scoreText.setText(teamNS + " to " + teamEW));
 
 	}
 

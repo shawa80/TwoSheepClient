@@ -2,12 +2,8 @@ package com.siliconandsynapse.aclient.game.Euchre;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -35,9 +31,7 @@ import java.util.Hashtable;
 public class EuchreFragment  extends Fragment implements GameActivity {
 
     private GameService service;
-
     private ViewGroup table;
-
 
     public enum SeatLocation {
         NORTH,
@@ -95,7 +89,7 @@ public class EuchreFragment  extends Fragment implements GameActivity {
 
     private MainActivity act;
     public EuchreFragment() {
-        super(R.layout.euchre_game2);
+        super(R.layout.euchre_game);
     }
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -173,27 +167,10 @@ public class EuchreFragment  extends Fragment implements GameActivity {
 
             service = GameService.getService(act, gameId);
 
-            updateGame = new UpdateGame() {
-
-                @Override
-                public void writeNotice(final String msg) {
-                    act.runOnUiThread(new Runnable() {
-
-                        @Override
-                        public void run() {
-
-                            currentMsg.setText(msg);
-                            //gameChat.append(msg + "\n");
-                        }
-
-                    });
-                }
-            };
+            updateGame = msg -> act.runOnUiThread(() -> currentMsg.setText(msg));
             service.getModel().addListener(updateGame);
 
-
             PlayerTurnUpdater turn = new PlayerTurnUpdater(this);
-
 
             updateUserNorth = new EuchrePlayer(this, northName, northDesc, north, trickNorth, turn, scoreUpdater);
             updateUserEast = new EuchrePlayer(this, eastName, eastDesc, east, trickEast, turn, scoreUpdater);
@@ -216,7 +193,7 @@ public class EuchreFragment  extends Fragment implements GameActivity {
             service.getModel().addListener(updateCardsListener);
 
 
-            EuchreUser user = new EuchreUser(this, updateUserSouth, service);
+            var user = new EuchreUser(this, updateUserSouth, service);
             service.getModel().addChoiceListener(user);
             service.getModel().addDiscardListener(user);
 
@@ -250,28 +227,16 @@ public class EuchreFragment  extends Fragment implements GameActivity {
 
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        hideChoice();
-//    }
-
-
 
     private void mapCards() {
 
         cardsByAddress.clear();
-
-        //trick order depends on who went first...
-        //we need to register our trick cards for each order
 
         cardsByAddress.put(new CardAddress(0, "trick", 0, 0), trickSouth);
         cardsByAddress.put(new CardAddress(1, "trick", 0, 0), trickWest);
         cardsByAddress.put(new CardAddress(2, "trick", 0, 0), trickNorth);
         cardsByAddress.put(new CardAddress(3, "trick", 0, 0), trickEast);
 
-
-        //player, stack type, stack number, level
         for (int i = 0; i < PRIVATE_TOTAL; i++) {
 
             cardsByAddress.put(new CardAddress(0, "private", i, 0),  south[i]);
@@ -283,13 +248,8 @@ public class EuchreFragment  extends Fragment implements GameActivity {
 
     }
 
-
-
-
-
     private void hideChoice() {
         choice.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -299,7 +259,7 @@ public class EuchreFragment  extends Fragment implements GameActivity {
 
     public void showChoice(final Choice c) {
 
-        TextView text = (TextView)act.findViewById(R.id.choiceMessage);
+        var text = (TextView)act.findViewById(R.id.choiceMessage);
 
         text.setText(c.getQuestion());
 
@@ -311,20 +271,16 @@ public class EuchreFragment  extends Fragment implements GameActivity {
         }
 
         ArrayAdapter<String> namesAA = new ArrayAdapter<String> (act, android.R.layout.simple_list_item_1, names );
-        ListView choiceList = (ListView)act.findViewById(R.id.choiceOptions);
+        var choiceList = (ListView)act.findViewById(R.id.choiceOptions);
         choiceList.setAdapter(namesAA);
 
 
-        choiceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+        choiceList.setOnItemClickListener((arg0, arg1, position, arg3) -> {
 
-                EuchreFragment.this.hideChoice();
+            EuchreFragment.this.hideChoice();
 
-
-                service.setChoiceResponse(new ChoiceResponse(c.getAnswerAt(position)));
-                service.getChoiceBlock().sendNotice();
-            }
+            service.setChoiceResponse(new ChoiceResponse(c.getAnswerAt(position)));
+            service.getChoiceBlock().sendNotice();
         });
 
         choice.setVisibility(View.VISIBLE);
@@ -340,31 +296,27 @@ public class EuchreFragment  extends Fragment implements GameActivity {
 
         text.setText(d.getMessage());
 
-        final ArrayList<String> names = new ArrayList<String>();
+        final var names = new ArrayList<Card>();
         names.clear();
 
         for (int i = 0; i < d.getCount(); i++) {
             Card c = d.getCardAt(i);
 
-            names.add(c.getType() + " of " + c.getSuit());
+            names.add(c);
         }
 
-        ArrayAdapter<String> namesAA = new ArrayAdapter<String> (act, android.R.layout.simple_list_item_1, names );
-        ListView choiceList = (ListView)act.findViewById(R.id.choiceOptions);
+        var namesAA = new DiscardAdapter(act, names );
+        var choiceList = (ListView)act.findViewById(R.id.choiceOptions);
         choiceList.setAdapter(namesAA);
 
+        choiceList.setOnItemClickListener((arg0, arg1, position, arg3) -> {
 
-        choiceList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+            EuchreFragment.this.hideChoice();
 
-                EuchreFragment.this.hideChoice();
-
-                Discard response = new Discard();
-                response.addCard(d.getCardAt(position));
-                service.setDiscardResponse(response);
-                service.getDiscardBlock().sendNotice();
-            }
+            Discard response = new Discard();
+            response.addCard(d.getCardAt(position));
+            service.setDiscardResponse(response);
+            service.getDiscardBlock().sendNotice();
         });
 
         choice.setVisibility(View.VISIBLE);

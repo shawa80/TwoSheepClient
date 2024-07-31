@@ -18,8 +18,11 @@ public class GameServiceChoice implements Runnable {
 
 	private volatile boolean keepRunning = true;
 
-	public GameServiceChoice(Mutex choiceServerBlock,  Mutex choiceUserBlock, GameService service,
-			PlayerChoice playerPickAChoice, IxManager home) {
+	public GameServiceChoice(Mutex choiceServerBlock,
+							 Mutex choiceUserBlock,
+							 GameService service,
+							 PlayerChoice playerPickAChoice,
+							 IxManager home) {
 
 		this.choiceUserBlock = choiceUserBlock;
 		this.choiceServerBlock = choiceServerBlock;

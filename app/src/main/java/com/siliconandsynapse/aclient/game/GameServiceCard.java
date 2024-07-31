@@ -16,8 +16,12 @@ public class GameServiceCard implements Runnable {
 
 	private volatile boolean keepRunning = true;
 
-	public GameServiceCard(Mutex cardServerBlock, Mutex cardUserBlock, GameService service,
-			PlayerPickACard playerPickACard, IxManager home) {
+	public GameServiceCard(Mutex cardServerBlock,
+						   Mutex cardUserBlock,
+						   GameService service,
+						   PlayerPickACard playerPickACard,
+						   IxManager home) {
+
 		this.cardServerBlock = cardServerBlock;
 		this.cardUserBlock = cardUserBlock;
 		this.service = service;

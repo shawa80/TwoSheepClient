@@ -18,8 +18,11 @@ public class GameServiceDiscard implements Runnable {
 
 	private volatile boolean keepRunning = true;
 
-	public GameServiceDiscard(Mutex serverBlock,  Mutex userBlock, GameService service,
-			PlayerDiscard playerDiscard, IxManager home) {
+	public GameServiceDiscard(Mutex serverBlock,
+							  Mutex userBlock,
+							  GameService service,
+							  PlayerDiscard playerDiscard,
+							  IxManager home) {
 
 		this.userBlock = userBlock;
 		this.serverBlock = serverBlock;
