@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/table"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    >
 
     <TextView
         android:id="@+id/currentMsg"
@@ -11,7 +12,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/southName"
@@ -19,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/currentMsg"
         android:layout_alignParentLeft="true"
-        android:text="southName" />
+        android:text="southName"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/descSouth"
@@ -27,7 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/currentMsg"
         android:layout_alignParentRight="true"
-        android:text="southDesc" />
+        android:text="southDesc"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/northName"
@@ -35,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="northName" />
+        android:text="northName"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/descNorth"
@@ -43,7 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="northDesc" />
+        android:text="northDesc"
+        android:textSize="20sp"/>
 
     <LinearLayout
         android:id="@+id/southPrivate"
@@ -395,33 +401,33 @@
         android:id="@+id/westName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/westPrivate"
-        android:layout_toRightOf="@+id/westPrivate"
-        android:text="westName" />
+        android:layout_above="@+id/westPrivate"
+        android:text="westName"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/descWest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/westPrivate"
-        android:layout_toRightOf="@+id/westPrivate"
-        android:text="westDesc" />
+        android:layout_below="@+id/westPrivate"
+        android:text="westDesc"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/eastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/eastPrivate"
-        android:layout_toLeftOf="@+id/eastPrivate"
-        android:text="eastName" />
+        android:layout_above="@+id/eastPrivate"
+        android:text="eastName"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/descEast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/eastPrivate"
-        android:layout_toLeftOf="@+id/eastPrivate"
-        android:text="eastDesc" />
+        android:layout_below="@+id/eastPrivate"
+        android:text="eastDesc"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/turnSouth"
@@ -429,7 +435,9 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/southPrivate"
         android:layout_centerHorizontal="true"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="30sp" />
+        />
 
     <TextView
         android:id="@+id/turnWest"
@@ -437,7 +445,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/westPrivate"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/turnEast"
@@ -445,7 +454,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/eastPrivate"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/turnNorth"
@@ -453,7 +463,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/northPrivate"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/score"
@@ -461,6 +472,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/turnSouth"
         android:layout_alignParentRight="true"
-        android:text="TextView" />
+        android:text="TextView"
+        android:textSize="20sp"/>
 
 </RelativeLayout>

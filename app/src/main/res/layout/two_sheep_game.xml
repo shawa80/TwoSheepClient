@@ -118,7 +118,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:text="@string/nop"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/yourname"
@@ -127,7 +127,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:text="@string/nop"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="20sp"/>
 
         <LinearLayout
             android:id="@+id/Trick"
@@ -163,7 +163,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:text="@string/star"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/yourTurn"
@@ -172,7 +172,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:text="@string/star"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="30sp" />
         
         <TextView
             android:id="@+id/yourScore"
@@ -181,7 +181,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:text="@string/nop"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/myScore"
@@ -190,7 +190,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="@string/nop"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <LinearLayout
@@ -299,6 +299,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textSize="20sp" />
 
 </RelativeLayout>
