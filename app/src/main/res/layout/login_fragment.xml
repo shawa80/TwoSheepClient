@@ -35,6 +35,15 @@
         android:layout_alignLeft="@+id/userInput"
         />
 
+    <EditText
+        android:id="@+id/extraInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/server"
+        android:ems="10" />
+
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="wrap_content"
@@ -42,7 +51,7 @@
         android:layout_alignEnd="@+id/userInput"
         android:layout_alignLeft="@+id/userInput"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/server"
+        android:layout_below="@+id/extraInput"
         android:text="Login" />
 
 

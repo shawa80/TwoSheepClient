@@ -2,37 +2,22 @@ package com.siliconandsynapse.aclient;
 
 import static com.siliconandsynapse.aclient.R.*;
 
+import com.siliconandsynapse.aclient.Servers.ServerConnection;
 import com.siliconandsynapse.aclient.game.Images;
 import com.siliconandsynapse.aclient.game.ThreeSheep.ThreeSheepFragment;
 import com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepFragment;
 import com.siliconandsynapse.aclient.game.Euchre.EuchreFragment;
-import com.siliconandsynapse.aclient.lobbyModels.DefaultRoomModel;
-import com.siliconandsynapse.aclient.lobbyModels.Game;
-import com.siliconandsynapse.aclient.lobbyModels.Player;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
-import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGameCmd;
 import com.siliconandsynapse.ixcpp.util.Mutex;
-import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
-import com.siliconandsynapse.net.ixtunnel.IxAddress;
-import com.siliconandsynapse.net.ixtunnel.ParseError;
 import com.siliconandsynapse.server.IxcppServ;
 import com.siliconandsynapse.server.locator.LocatorService;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListView;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentContainerView;
-
-import java.sql.Connection;
-import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity {
 

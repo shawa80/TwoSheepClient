@@ -10,6 +10,12 @@ import android.widget.Spinner;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.siliconandsynapse.aclient.Servers.ConfigurableServerConnection;
+import com.siliconandsynapse.aclient.Servers.DynamicServerConnection;
+import com.siliconandsynapse.aclient.Servers.ServerConnection;
+import com.siliconandsynapse.aclient.Servers.StaticServerConnection;
+import com.siliconandsynapse.aclient.util.SelectedListener;
+
 import java.util.ArrayList;
 
 public class LoginFragment extends Fragment {
@@ -35,15 +41,29 @@ public class LoginFragment extends Fragment {
         final var user = (EditText)act.findViewById(R.id.userInput);
         user.setText(savedName);
         final var serverList = (Spinner)act.findViewById(R.id.server);
+        final var extraInput = (EditText)act.findViewById(R.id.extraInput);
+        extraInput.setVisibility(View.GONE);
+
 
         final var s = new ArrayList<ServerConnection>();
-        s.add(new ServerConnection("Internet Server", "twosheep.shawtonabbey.com", -1));
-        s.add(new ServerConnection("Local Server", "localhost",-1));
+        s.add(new StaticServerConnection("Internet Server", "twosheep.shawtonabbey.com"));
+        s.add(new StaticServerConnection("Start Local Server", "localhost"));
+        s.add(new ConfigurableServerConnection("Specify Server", extraInput));
+
         servers = new ArrayAdapter<ServerConnection>(act,
                 android.R.layout.simple_list_item_1, s);
         serverList.setAdapter(servers);
 
         var loginBtn = (Button)act.findViewById(R.id.loginBtn);
+
+        serverList.setOnItemSelectedListener((SelectedListener)(parent, v, position, id) -> {
+            var conn = (ServerConnection)parent.getItemAtPosition(position);
+            if (conn instanceof ConfigurableServerConnection ) {
+                extraInput.setVisibility(View.VISIBLE);
+            } else {
+                extraInput.setVisibility(View.GONE);
+            }
+        });
 
         loginBtn.setOnClickListener((e) -> {
             var name = user.getText().toString();
@@ -68,9 +88,13 @@ public class LoginFragment extends Fragment {
             for(var i = 0; i < servers.getCount(); i++)
             {
                 var exConn = servers.getItem(i);
-                exConn.increment();
-                if (exConn.expired())
-                    toRemove.add(exConn);
+                if (exConn instanceof DynamicServerConnection dynConn) {
+
+                    dynConn.increment();
+                    if (dynConn.expired())
+                        toRemove.add(dynConn);
+                }
+
             }
             toRemove.forEach((c) -> servers.remove(c));
         });
@@ -80,14 +104,16 @@ public class LoginFragment extends Fragment {
         act.runOnUiThread(() -> {
 
             var alreadyExists = false;
-            var conn = new ServerConnection(name, address, 0);
+            var conn = new DynamicServerConnection(name, address, 0);
             for(var i = 0; i < servers.getCount(); i++)
             {
                 var exConn = servers.getItem(i);
-                if (exConn.address().equals(address)) {
-                    alreadyExists = true;
-                    exConn.reset();
-                    break;
+                if (exConn instanceof DynamicServerConnection dynConn) {
+                    if (dynConn.address().equals(address)) {
+                        alreadyExists = true;
+                        dynConn.reset();
+                        break;
+                    }
                 }
             }
             if (!alreadyExists)

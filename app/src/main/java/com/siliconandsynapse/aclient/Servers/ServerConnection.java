@@ -1,14 +1,13 @@
-package com.siliconandsynapse.aclient;
+package com.siliconandsynapse.aclient.Servers;
 
 import androidx.annotation.NonNull;
 
 import java.util.Objects;
 
-public class ServerConnection {
+public abstract class ServerConnection {
 
     private String name;
     private String address;
-    private int ticks;
 
     @Override
     public boolean equals(Object o) {
@@ -23,10 +22,9 @@ public class ServerConnection {
         return Objects.hash(name, address);
     }
 
-    public ServerConnection(String name, String address, int ticks) {
+    public ServerConnection(String name, String address) {
         this.name = name;
         this.address = address;
-        this.ticks = ticks;
     }
 
     public String name() {
@@ -34,22 +32,6 @@ public class ServerConnection {
     }
     public String address() {
         return address;
-    }
-    public boolean expired() {
-        if (ticks >= 2)
-            return true;
-        return false;
-    }
-
-    public void increment() {
-        if (ticks == -1)
-            return;
-        ticks++;
-    }
-    public void reset() {
-        if (ticks == -1)
-            return;
-        ticks = 0;
     }
 
 
