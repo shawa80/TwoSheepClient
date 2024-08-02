@@ -104,7 +104,7 @@ public class LoginFragment extends Fragment {
         act.runOnUiThread(() -> {
 
             var alreadyExists = false;
-            var conn = new DynamicServerConnection(name, address, 0);
+            var conn = new DynamicServerConnection("Local:" + name, address, 0);
             for(var i = 0; i < servers.getCount(); i++)
             {
                 var exConn = servers.getItem(i);
