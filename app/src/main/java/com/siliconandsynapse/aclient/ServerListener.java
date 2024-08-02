@@ -3,9 +3,12 @@ package com.siliconandsynapse.aclient;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.List;
 
 public class ServerListener {
 
@@ -20,6 +23,14 @@ public class ServerListener {
     public interface ServerTickEvent {
         public void tick();
     }
+
+//    public static String getLocalAddresses() {
+//        try {
+//            return InetAddress.getLocalHost().getHostAddress();
+//        } catch (Exception e) {
+//            return "";
+//        }
+//    }
 
     public void stop() {
         keepRunning = false;

@@ -54,6 +54,14 @@
         android:layout_below="@+id/extraInput"
         android:text="Login" />
 
+    <TextView
+        android:id="@+id/currentIp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginBtn"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 
 
 </RelativeLayout>

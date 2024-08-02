@@ -484,7 +484,7 @@
         android:layout_alignTop="@+id/westPrivate"
         android:layout_toRightOf="@+id/westPrivate"
         android:text="westName"
-        android:textSize="30sp"/>
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/descWest"
@@ -510,7 +510,8 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/eastPrivate"
         android:layout_toLeftOf="@+id/eastPrivate"
-        android:text="eastDesc" />
+        android:text="eastDesc"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/turnSouth"

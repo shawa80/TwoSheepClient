@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -43,7 +44,7 @@ public class LoginFragment extends Fragment {
         final var serverList = (Spinner)act.findViewById(R.id.server);
         final var extraInput = (EditText)act.findViewById(R.id.extraInput);
         extraInput.setVisibility(View.GONE);
-
+        final var ipAddress = (TextView)act.findViewById(R.id.currentIp);
 
         final var s = new ArrayList<ServerConnection>();
         s.add(new StaticServerConnection("Internet Server", "twosheep.shawtonabbey.com"));
@@ -63,6 +64,12 @@ public class LoginFragment extends Fragment {
             } else {
                 extraInput.setVisibility(View.GONE);
             }
+//            if ("localhost".equals(conn.address())) {
+//                ipAddress.setText(ServerListener.getLocalAddresses());
+//            } else {
+//                ipAddress.setText("");
+//            }
+
         });
 
         loginBtn.setOnClickListener((e) -> {
