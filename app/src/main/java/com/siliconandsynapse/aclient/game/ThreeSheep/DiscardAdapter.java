@@ -2,7 +2,6 @@ package com.siliconandsynapse.aclient.game.ThreeSheep;
 
 import android.app.Activity;
 
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -22,7 +21,7 @@ public class DiscardAdapter extends ArrayAdapter<Card> {
     private final List<Card> cards;
 
     public DiscardAdapter(Activity context, List<Card> cards) {
-        super(context, R.layout.three_sheep_discard_list, cards);
+        super(context, R.layout.card_image_discard_list_item, cards);
 
         this.context=context;
         this.cards = cards;
@@ -31,7 +30,7 @@ public class DiscardAdapter extends ArrayAdapter<Card> {
 
     public View getView(int position, View view, ViewGroup parent) {
         var inflater = context.getLayoutInflater();
-        var rowView=inflater.inflate(R.layout.three_sheep_discard_list, null,true);
+        var rowView=inflater.inflate(R.layout.card_image_discard_list_item, null,true);
 
         var titleText = (TextView) rowView.findViewById(R.id.title);
         var imageView = (ImageView) rowView.findViewById(R.id.icon);

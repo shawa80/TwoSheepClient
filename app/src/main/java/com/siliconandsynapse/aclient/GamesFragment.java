@@ -1,34 +1,26 @@
 package com.siliconandsynapse.aclient;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.siliconandsynapse.aclient.game.Images;
-import com.siliconandsynapse.aclient.lobbyModels.DefaultRoomModel;
 import com.siliconandsynapse.aclient.lobbyModels.Game;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
 import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
 import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGameCmd;
-import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
-import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.ParseError;
-import com.siliconandsynapse.server.IxcppServ;
-import com.siliconandsynapse.server.locator.LocatorService;
 
 import java.util.ArrayList;
 
-public class MainFragment extends Fragment {
+public class GamesFragment extends Fragment implements BackButtonHandler {
 
     private NetworkService service;
     private Button createGame;
@@ -45,7 +37,7 @@ public class MainFragment extends Fragment {
 
     private MainActivity act;
 
-    public MainFragment() {
+    public GamesFragment() {
         super(R.layout.games);
     }
 
@@ -66,8 +58,9 @@ public class MainFragment extends Fragment {
 
         act = (MainActivity) getActivity();
 
-        dealerChoice = (View)act.findViewById(R.id.dealers);
-        dealers = (ListView)act.findViewById(R.id.dealersOptions);
+        ProgressBar progressBar = act.findViewById(R.id.progressBar);
+        dealerChoice = act.findViewById(R.id.dealers);
+        dealers = act.findViewById(R.id.dealersOptions);
         var dealersList = new ArrayList<String>();
         dealersList.add("Two Sheep");
         dealersList.add("Three Sheep");
@@ -77,6 +70,7 @@ public class MainFragment extends Fragment {
                 android.R.layout.simple_list_item_1, dealersList);
         dealers.setAdapter(dealerAdapter);
         dealerChoice.setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
 
 
         dealers.setOnItemClickListener((adpt, viewx, pos, arg) -> {
@@ -144,15 +138,14 @@ public class MainFragment extends Fragment {
 
         if (!service.isConnected())
             act.runOnUiThread(() -> {
-                var toast = Toast.makeText(act , "Connecting...", Toast.LENGTH_SHORT);
-                toast.show();
+                progressBar.setVisibility(View.VISIBLE);
             });
-        if (service.isConnected())
+        if (service.isConnected()) {
+            progressBar.setVisibility(View.GONE);
             createGame.setEnabled(true);
-
+        }
         service.onConnectSuccess.add((service) -> act.runOnUiThread(() -> {
-            var toast = Toast.makeText(act , "Connected", Toast.LENGTH_LONG);
-            toast.show();
+            progressBar.setVisibility(View.GONE);
             createGame.setEnabled(true);
         }));
         service.onConnectFailure.add((service, message) -> act.runOnUiThread(() -> {

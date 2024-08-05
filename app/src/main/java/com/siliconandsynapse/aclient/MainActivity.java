@@ -61,14 +61,14 @@ public class MainActivity extends FragmentActivity {
 
 				var f = getSupportFragmentManager()
 						.findFragmentById(id.fragment_container_view);
-				if (f instanceof MainFragment mf) {
-					if (mf.handleBackPress()) return;
+				if (f instanceof BackButtonHandler handler) {
+					if (handler.handleBackPress()) return;
 				}
 
 				switch (currentState) {
 					case Game -> showGameList();
 					case Login -> finish();
-					case GameList -> { logoff(); finish();}
+					case GameList -> { logoff(); showlogin();}
 				}
 			}
 		});
@@ -136,7 +136,7 @@ public class MainActivity extends FragmentActivity {
 		currentState = AppState.GameList;
 		getSupportFragmentManager().beginTransaction()
 				.setReorderingAllowed(true)
-				.replace(id.fragment_container_view, MainFragment.class, null)
+				.replace(id.fragment_container_view, GamesFragment.class, null)
 				.commit();
 	}
 

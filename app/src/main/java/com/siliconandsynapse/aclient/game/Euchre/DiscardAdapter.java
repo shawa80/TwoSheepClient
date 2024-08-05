@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.siliconandsynapse.aclient.R;
 import com.siliconandsynapse.aclient.game.Images;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
-import com.siliconandsynapse.ixcpp.common.cards.types.PokerCard;
 
 import java.util.List;
 
@@ -20,7 +19,7 @@ public class DiscardAdapter extends ArrayAdapter<Card> {
     private final List<Card> cards;
 
     public DiscardAdapter(Activity context, List<Card> cards) {
-        super(context, R.layout.three_sheep_discard_list, cards);
+        super(context, R.layout.card_image_discard_list_item, cards);
 
         this.context=context;
         this.cards = cards;
@@ -29,7 +28,7 @@ public class DiscardAdapter extends ArrayAdapter<Card> {
 
     public View getView(int position, View view, ViewGroup parent) {
         var inflater = context.getLayoutInflater();
-        var rowView=inflater.inflate(R.layout.three_sheep_discard_list, null,true);
+        var rowView=inflater.inflate(R.layout.card_image_discard_list_item, null,true);
 
         var titleText = (TextView) rowView.findViewById(R.id.title);
         var imageView = (ImageView) rowView.findViewById(R.id.icon);
