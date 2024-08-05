@@ -3,6 +3,7 @@ package com.siliconandsynapse.aclient;
 import static com.siliconandsynapse.aclient.R.*;
 
 import com.siliconandsynapse.aclient.Servers.ServerConnection;
+import com.siliconandsynapse.aclient.game.GameActivity;
 import com.siliconandsynapse.aclient.game.Images;
 import com.siliconandsynapse.aclient.game.ThreeSheep.ThreeSheepFragment;
 import com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepFragment;
@@ -33,13 +34,6 @@ public class MainActivity extends FragmentActivity {
 	}
 	public boolean localStarted = false;
 
-	private enum AppState {
-		Login,
-		GameList,
-		Game
-	}
-
-	private AppState currentState = AppState.Login;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +59,12 @@ public class MainActivity extends FragmentActivity {
 					if (handler.handleBackPress()) return;
 				}
 
-				switch (currentState) {
-					case Game -> showGameList();
-					case Login -> finish();
-					case GameList -> { logoff(); showlogin();}
+				if (f instanceof GameActivity)
+					showGameList();
+				else if (f instanceof LoginFragment)
+					finish();
+				else if (f instanceof GamesFragment) {
+					 logoff(); showlogin();
 				}
 			}
 		});
@@ -116,7 +112,6 @@ public class MainActivity extends FragmentActivity {
 		var bundle = new Bundle();
 		bundle.putInt("GAME_ID", gi.getId());
 
-		currentState = AppState.Game;
 		Class<? extends Fragment> type = TwoSheepFragment.class;
 		if ("Two Sheep".equals(gi.getName()))
 			type = TwoSheepFragment.class;
@@ -133,7 +128,7 @@ public class MainActivity extends FragmentActivity {
 
 	public void showGameList() {
 		setTheme(android.R.style.Theme_Light_NoTitleBar_Fullscreen);
-		currentState = AppState.GameList;
+
 		getSupportFragmentManager().beginTransaction()
 				.setReorderingAllowed(true)
 				.replace(id.fragment_container_view, GamesFragment.class, null)

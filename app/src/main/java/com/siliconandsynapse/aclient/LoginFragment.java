@@ -51,7 +51,7 @@ public class LoginFragment extends Fragment {
         s.add(new StaticServerConnection("Start Local Server", "localhost"));
         s.add(new ConfigurableServerConnection("Specify Server", extraInput));
 
-        servers = new ArrayAdapter<ServerConnection>(act,
+        servers = new ArrayAdapter<>(act,
                 android.R.layout.simple_list_item_1, s);
         serverList.setAdapter(servers);
 
@@ -112,6 +112,7 @@ public class LoginFragment extends Fragment {
 
             var alreadyExists = false;
             var conn = new DynamicServerConnection("Local:" + name, address, 0);
+
             for(var i = 0; i < servers.getCount(); i++)
             {
                 var exConn = servers.getItem(i);
