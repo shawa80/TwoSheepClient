@@ -138,6 +138,7 @@ public class NetworkService {
 	public IxManager getTunnel() {
 		return tunnel;
 	}
+	private Socket connection = null;
 
 	public void run() {
 
@@ -164,7 +165,6 @@ public class NetworkService {
 		bootStrap.add(beat);
 		bootStrap.add(welcome);
 
-		Socket connection = null;
 		try {
 			connection = tryConnection(server);
 
@@ -220,7 +220,12 @@ public class NetworkService {
 		onConnectSuccess.clear();
 		onConnectFailure.clear();
 		isRunning = false;
-		tunnel.close();
+		try {
+			connection.close();
+		} catch (Exception e) {}
+		try {
+			tunnel.close();
+		} catch (Exception e){}
 	}
 
 }

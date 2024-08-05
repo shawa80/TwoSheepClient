@@ -33,8 +33,8 @@ public class GamesFragment extends Fragment implements BackButtonHandler {
     private RoomModel rooms;
     //private LobbyUserList lobbyModel;
 
-
-
+    private NetworkService.OnConnectSuccessListener onConnect;
+    private NetworkService.OnConnectFailureListener onFailure;
     private MainActivity act;
 
     public GamesFragment() {
@@ -144,15 +144,18 @@ public class GamesFragment extends Fragment implements BackButtonHandler {
             progressBar.setVisibility(View.GONE);
             createGame.setEnabled(true);
         }
-        service.onConnectSuccess.add((service) -> act.runOnUiThread(() -> {
+        onConnect = (service) -> act.runOnUiThread(() -> {
             progressBar.setVisibility(View.GONE);
             createGame.setEnabled(true);
-        }));
-        service.onConnectFailure.add((service, message) -> act.runOnUiThread(() -> {
+        });
+        service.onConnectSuccess.add(onConnect);
+
+        onFailure = (service, message) -> act.runOnUiThread(() -> {
             var toast = Toast.makeText(act , message, Toast.LENGTH_SHORT);
             toast.show();
             act.showlogin();
-        }));
+        });
+        service.onConnectFailure.add(onFailure);
 
         games.setOnItemClickListener((parent, viewx, pos, id)-> {
             new Thread(() -> {
@@ -176,7 +179,8 @@ public class GamesFragment extends Fragment implements BackButtonHandler {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        service.onConnectSuccess.remove(onConnect);
+        service.onConnectFailure.remove(onFailure);
     }
 
 
