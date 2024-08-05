@@ -31,6 +31,11 @@ public class ObserverPool<T> {
                         observers.remove(observer);
                 }
         }
+        public void clear() {
+                synchronized (observers) {
+                        observers.clear();
+                }
+        }
        
         public T getDispatcher() {
 

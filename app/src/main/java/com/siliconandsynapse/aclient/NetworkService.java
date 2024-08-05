@@ -217,6 +217,8 @@ public class NetworkService {
 
 	public void stop() {
 
+		onConnectSuccess.clear();
+		onConnectFailure.clear();
 		isRunning = false;
 		tunnel.close();
 	}

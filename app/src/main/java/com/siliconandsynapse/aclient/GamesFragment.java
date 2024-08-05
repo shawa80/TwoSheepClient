@@ -149,7 +149,7 @@ public class GamesFragment extends Fragment implements BackButtonHandler {
             createGame.setEnabled(true);
         }));
         service.onConnectFailure.add((service, message) -> act.runOnUiThread(() -> {
-            var toast = Toast.makeText(act , message, Toast.LENGTH_LONG);
+            var toast = Toast.makeText(act , message, Toast.LENGTH_SHORT);
             toast.show();
             act.showlogin();
         }));
