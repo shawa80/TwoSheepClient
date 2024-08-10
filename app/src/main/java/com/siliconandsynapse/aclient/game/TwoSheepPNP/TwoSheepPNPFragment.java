@@ -222,8 +222,9 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity {
                 this.runOnUiThread(() -> {
                     Arrays.stream(myPublic).forEach(c->c.setRotation(0));
                     Arrays.stream(yourPublic).forEach(c->c.setRotation(0));
-                    showMyCards.setEnabled(true);
-                    showYourCards.setEnabled(false);
+                    //Arrays.stream(yourPrivate).forEach(c -> c.setSupressed(true));
+//                    showMyCards.setEnabled(true);
+//                    showYourCards.setEnabled(false);
                     myCard.setRotation(0);
                     yourCard.setRotation(0);
                     table.invalidate();
@@ -233,8 +234,9 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity {
                 this.runOnUiThread(() -> {
                     Arrays.stream(myPublic).forEach(c->c.setRotation(180));
                     Arrays.stream(yourPublic).forEach(c->c.setRotation(180));
-                    showMyCards.setEnabled(false);
-                    showYourCards.setEnabled(true);
+                    //Arrays.stream(myPrivate).forEach(c -> c.setSupressed(true));
+//                    showMyCards.setEnabled(false);
+//                    showYourCards.setEnabled(true);
                     myCard.setRotation(180);
                     yourCard.setRotation(180);
                     table.invalidate();

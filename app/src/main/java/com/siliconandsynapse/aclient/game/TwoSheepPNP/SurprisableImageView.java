@@ -39,6 +39,9 @@ public class SurprisableImageView extends ImageView {
     public void setSupressed(boolean isSupressed) {
         this.isSupressed = isSupressed;
 
+        if (surpressed == null || bottom == null)
+            return;
+
         var d = this.getDrawable();
         var layer = (LayerDrawable) d;
 

@@ -19,7 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/youCurrentMsg"
         android:gravity="center_vertical"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:paddingTop="30dp"
+        android:paddingBottom="20dp">
 
         <view
             class="com.siliconandsynapse.aclient.game.TwoSheepPNP.SurprisableImageView"
@@ -58,12 +60,14 @@
             android:src="@drawable/dual_stack" />
     </LinearLayout>
 
+
+
     <LinearLayout
         android:id="@+id/YourPublic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@id/showYourCards"
+        android:layout_below="@id/YourPrivate"
         android:gravity="center_vertical"
         android:orientation="horizontal" >
 
@@ -115,6 +119,16 @@
             android:layout_weight="0.25"
             android:src="@drawable/dual_stack" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/showYourCards"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Dmz"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="Show" />
+
 
     <RelativeLayout
         android:id="@+id/Dmz"
@@ -206,12 +220,21 @@
 
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/showMyCards"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Dmz"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:text="Show" />
+
     <LinearLayout
         android:id="@+id/MyPublic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/Dmz"
+        android:layout_above="@+id/MyPrivate"
         android:gravity="center_vertical" >
 
         <ImageView
@@ -263,14 +286,20 @@
             android:src="@drawable/dual_stack" />
     </LinearLayout>
 
+
+
+
     <LinearLayout
         android:id="@+id/MyPrivate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/showMyCards"
+        android:layout_above="@+id/myCurrentMsg"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:gravity="center_vertical" >
+        android:gravity="center_vertical"
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        >
 
         <view
             class="com.siliconandsynapse.aclient.game.TwoSheepPNP.SurprisableImageView"
@@ -309,6 +338,8 @@
             android:src="@drawable/dual_stack" />
     </LinearLayout>
 
+
+
     <TextView
         android:id="@+id/myCurrentMsg"
         android:layout_width="wrap_content"
@@ -318,22 +349,5 @@
         android:layout_alignParentBottom="true"
         android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/showMyCards"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/MyPublic"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:text="Show" />
-
-    <Button
-        android:id="@+id/showYourCards"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/YourPrivate"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:text="Show" />
 
 </RelativeLayout>
