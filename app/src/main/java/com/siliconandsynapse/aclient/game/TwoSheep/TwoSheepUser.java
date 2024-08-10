@@ -15,13 +15,10 @@ import java.util.Arrays;
 
 public class TwoSheepUser implements ChoiceRequest, DiscardRequest {
 
-	private GameActivity act;
-	private TwoSheepPlayer player;
+	private final GameActivity act;
 
 	public TwoSheepUser(GameActivity act, TwoSheepPlayer player, GameService service) {
 		this.act = act;
-		this.player = player;
-
 
 		for (int i = 0; i < player.publicCards.length; i++) {
 			player.publicCards[i].setOnClickListener(new CardSelectHandler(act, service, "public", i));
@@ -30,29 +27,16 @@ public class TwoSheepUser implements ChoiceRequest, DiscardRequest {
 		for (int i = 0; i < player.privateCards.length; i++) {
 			player.privateCards[i].setOnClickListener(new CardSelectHandler(act, service, "private", i));
 		}
-
-
 	}
 
 
 	@Override
 	public void displayChoiceDialog(Choice c) {
-		act.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				act.showChoice(c);
-			}
-		});
+		act.runOnUiThread(() -> act.showChoice(c));
 	}
 
 	@Override
 	public void displayDiscardDialog(Discard d) {
-		act.runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				act.showDiscard(d);
-			}
-		});
+		act.runOnUiThread(() -> act.showDiscard(d));
 	}
 }

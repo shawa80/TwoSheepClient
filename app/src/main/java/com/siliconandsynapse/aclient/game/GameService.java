@@ -43,6 +43,7 @@ public class GameService implements Runnable {
 
 	private IxManager home;
 	private int gameId;
+	private String subGameId;
 	private IxAddress addr;
 
 	private NetworkService service;
@@ -67,25 +68,29 @@ public class GameService implements Runnable {
 	private Discard dis;
 
 
-	private static Hashtable<Integer, GameService> services = new Hashtable<>();
+	private static Hashtable<String, GameService> services = new Hashtable<>();
 
 	private Activity act;
 
 	public static GameService getService(Activity act, int gameId) {
+		return getService(act, gameId, null);
+	}
+	public static GameService getService(Activity act, int gameId, String subGameId) {
 
-		if (!services.containsKey(gameId)) {
-			services.put(gameId, new GameService(act, gameId));
+		if (!services.containsKey(gameId+subGameId)) {
+			services.put(gameId+subGameId, new GameService(act, gameId, subGameId));
 		}
 
-		return services.get(gameId);
+		return services.get(gameId+subGameId);
 	}
 
-
-
-
-
 	private GameService(Activity act, int gameId) {
+		this(act, gameId, null);
+	}
 
+	private GameService(Activity act, int gameId, String subGameId) {
+
+		this.subGameId = subGameId;
 		this.gameId = gameId;
 //
 		act = this.act;
@@ -169,6 +174,8 @@ public class GameService implements Runnable {
 
 		addr = IxAddress.createRoot("ixcpp.games." + gameId);
 
+		if (subGameId != null)
+			addr = addr.append(subGameId);
 
 		service = NetworkService.getService();
 
@@ -225,7 +232,7 @@ public class GameService implements Runnable {
 
 	public void stop() {
 
-		services.remove(gameId);
+		services.remove(gameId+subGameId);
 
 		serviceCard.stop();
 		serviceChoice.stop();

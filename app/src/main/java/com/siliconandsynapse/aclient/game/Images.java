@@ -99,11 +99,13 @@ public class Images {
 	
 	public static Drawable getPokerImage(Activity act, Card card, boolean horiz) {
 
-		
 		return getDrawable(act, getPokerImageResource(card, horiz));
 
 	}
-	
+
+	public static Drawable getCardBack(Activity act) {
+		return getDrawable(act, R.drawable.back_hz);
+	}
 
 	private static int getPokerImageResource(Card card, boolean horiz) {
 		

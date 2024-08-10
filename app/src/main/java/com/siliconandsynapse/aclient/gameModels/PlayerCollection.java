@@ -41,6 +41,7 @@ public class PlayerCollection implements TableVistable {
 		
 		if (players.containsKey(id) == false) {
 			players.put(id, new PlayerModel(id));
+			//return null;
 		}
 		
 		return players.get(id);

@@ -8,6 +8,7 @@ import com.siliconandsynapse.aclient.game.Images;
 import com.siliconandsynapse.aclient.game.ThreeSheep.ThreeSheepFragment;
 import com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepFragment;
 import com.siliconandsynapse.aclient.game.Euchre.EuchreFragment;
+import com.siliconandsynapse.aclient.game.TwoSheepPNP.TwoSheepPNPFragment;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
 import com.siliconandsynapse.ixcpp.util.Mutex;
 import com.siliconandsynapse.server.IxcppServ;
@@ -115,6 +116,8 @@ public class MainActivity extends FragmentActivity {
 		Class<? extends Fragment> type = TwoSheepFragment.class;
 		if ("Two Sheep".equals(gi.getName()))
 			type = TwoSheepFragment.class;
+		if ("Two Sheep PNP".equals(gi.getName()))
+			type = TwoSheepPNPFragment.class;
 		else if ("Euchre".equals(gi.getName()))
 			type = EuchreFragment.class;
 		else

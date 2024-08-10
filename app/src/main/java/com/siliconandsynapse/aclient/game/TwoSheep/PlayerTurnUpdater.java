@@ -26,19 +26,15 @@ public class PlayerTurnUpdater {
 
 	public void indicate(final TwoSheepPlayer player) {
 
-		act.runOnUiThread(new Runnable() {
+		act.runOnUiThread(() -> {
+            for (TextView views : mapping.values()) {
+                views.setText("");
+            }
 
-			@Override
-			public void run() {
-				for (TextView views : mapping.values()) {
-					views.setText("");
-				}
-
-				if (mapping.containsKey(player)) {
-					mapping.get(player).setText("*");
-				}
-			}
-		});
+            if (mapping.containsKey(player)) {
+                mapping.get(player).setText("*");
+            }
+        });
 	}
 
 

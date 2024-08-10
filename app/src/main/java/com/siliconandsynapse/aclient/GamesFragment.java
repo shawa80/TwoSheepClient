@@ -65,6 +65,7 @@ public class GamesFragment extends Fragment implements BackButtonHandler {
         dealersList.add("Two Sheep");
         dealersList.add("Three Sheep");
         dealersList.add("Euchre");
+        dealersList.add("Two Sheep PNP");
 
         var dealerAdapter = new ArrayAdapter<>(act.getApplicationContext(),
                 android.R.layout.simple_list_item_1, dealersList);
