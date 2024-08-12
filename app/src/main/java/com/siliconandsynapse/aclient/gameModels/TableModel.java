@@ -211,7 +211,7 @@ public class TableModel implements ITableDisplay {
 
 	@Override
 	public void updateWealth(int player, int wealth) {
-		// TODO Auto-generated method stub
+		players.getPlayerFromServer(player).setWealth(wealth);
 
 	}
 

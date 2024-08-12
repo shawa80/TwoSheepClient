@@ -114,14 +114,17 @@ public class MainActivity extends FragmentActivity {
 		bundle.putInt("GAME_ID", gi.getId());
 
 		Class<? extends Fragment> type = TwoSheepFragment.class;
-		if ("Two Sheep".equals(gi.getName()))
-			type = TwoSheepFragment.class;
-		if ("Two Sheep PNP".equals(gi.getName()))
-			type = TwoSheepPNPFragment.class;
-		else if ("Euchre".equals(gi.getName()))
-			type = EuchreFragment.class;
-		else
-			type = ThreeSheepFragment.class;
+
+		type = switch (gi.getName()) {
+			case "Two Sheep" -> TwoSheepFragment.class;
+			case "Two Sheep PNP" -> TwoSheepPNPFragment.class;
+			case "Three Sheep" -> ThreeSheepFragment.class;
+			case "Euchre" -> EuchreFragment.class;
+			default -> null;
+		};
+
+		if (type == null)
+			return;
 
 		getSupportFragmentManager().beginTransaction()
 				.setReorderingAllowed(true)

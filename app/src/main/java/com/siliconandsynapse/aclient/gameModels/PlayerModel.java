@@ -66,7 +66,14 @@ public class PlayerModel implements TableVistable {
 		return score;
 	}
 	
-	
+	private int wealth;
+	public void setWealth(int wealth) {
+		this.wealth = wealth;
+		userUpdate.getDispatcher().wealthChanged(this, wealth);
+	}
+	public int getWealth() {return wealth;}
+
+
 	public void setId(int playerId) {
 		this.playerId = playerId;
 	}

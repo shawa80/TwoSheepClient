@@ -511,6 +511,33 @@
         android:text=""
         android:textSize="30sp"/>
 
+    <TextView
+        android:id="@+id/wealthSouth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/currentMsg"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="20sp"/>
 
+    <TextView
+        android:id="@+id/wealthWest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/westName"
+        android:layout_toRightOf="@+id/westPrivate"
+        android:text=""
+        android:textSize="20sp"/>
+
+    <TextView
+        android:id="@+id/wealthEast"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/eastName"
+        android:layout_toLeftOf="@+id/eastPrivate"
+        android:text=""
+        android:textSize="20sp"/>
 
 </RelativeLayout>

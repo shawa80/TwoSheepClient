@@ -209,9 +209,9 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity {
             turnUpdaterB = new PlayerTurnUpdater(act);
 
             updateUserNorth = new TwoSheepPlayer(act, yourName, null,
-                    yourPrivate, yourPublic, yourCard, turnUpdaterA, null);
+                    yourPrivate, yourPublic, yourCard, turnUpdaterA, null, null);
             updateUserSouth = new TwoSheepPlayer(act, myName, null,
-                    myPrivate, myPublic, myCard, turnUpdaterA, null);
+                    myPrivate, myPublic, myCard, turnUpdaterA, null, null);
             serviceB.getModel().getPlayer(1);
             serviceB.getModel().getPlayer(0).addListener(updateUserNorth);
 

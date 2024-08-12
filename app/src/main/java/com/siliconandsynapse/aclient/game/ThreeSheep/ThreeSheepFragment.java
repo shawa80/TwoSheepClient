@@ -58,6 +58,9 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
     private TextView westScore;
     private TextView southScore;
 
+    private TextView eastWealth;
+    private TextView westWealth;
+    private TextView southWealth;
 
 
     private final int PRIVATE_TOTAL = 10;
@@ -114,6 +117,10 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
             southDesc = act.findViewById(R.id.descSouth);
             westDesc = act.findViewById(R.id.descWest);
             eastDesc = act.findViewById(R.id.descEast);
+
+            southWealth = act.findViewById(R.id.wealthSouth);
+            westWealth = act.findViewById(R.id.wealthWest);
+            eastWealth = act.findViewById(R.id.wealthEast);
 
             eastPrivate[0] = (ImageView)act.findViewById(R.id.east1);
             eastPrivate[1] = (ImageView)act.findViewById(R.id.east2);
@@ -176,11 +183,13 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
             turnUpdater = new PlayerTurnUpdater(act);
 
             updateUserWest = new TwoSheepPlayer(act, westName, westScore,
-                    westPrivate, null, trickWest, turnUpdater, westDesc);
+                    westPrivate, null, trickWest, turnUpdater, westDesc, westWealth);
+
             updateUserEast = new TwoSheepPlayer(act, eastName, eastScore,
-                    eastPrivate, null, trickEast, turnUpdater, eastDesc);
+                    eastPrivate, null, trickEast, turnUpdater, eastDesc, eastWealth);
+
             updateUserSouth = new TwoSheepPlayer(act, southName, southScore,
-                    southPrivate, null, trickSouth, turnUpdater, southDesc);
+                    southPrivate, null, trickSouth, turnUpdater, southDesc, southWealth);
 
             service.getModel().getPlayer(0).addListener(updateUserSouth);
             service.getModel().getPlayer(1).addListener(updateUserWest);

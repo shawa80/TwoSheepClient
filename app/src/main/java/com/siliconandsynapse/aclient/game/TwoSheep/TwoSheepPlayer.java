@@ -17,6 +17,7 @@ public class TwoSheepPlayer implements UpdateUser {
 	private TextView scoreGui;
 	private TextView nameGui;
 	private TextView descGui;
+	private TextView wealthGui;
 	public ImageView[] privateCards;
 	public ImageView[] publicCards;
 
@@ -24,9 +25,14 @@ public class TwoSheepPlayer implements UpdateUser {
 
 	private PlayerTurnUpdater turn;
 
-	public TwoSheepPlayer(Activity act, TextView nameGui, TextView scoreGui, ImageView[] privateCards,
-						  ImageView[] publicCards, ImageView trick, PlayerTurnUpdater turn,
-						  TextView descGui) {
+	public TwoSheepPlayer(Activity act, TextView nameGui,
+						  TextView scoreGui,
+						  ImageView[] privateCards,
+						  ImageView[] publicCards,
+						  ImageView trick,
+						  PlayerTurnUpdater turn,
+						  TextView descGui,
+						  TextView wealthGui) {
 
 		if (privateCards == null)
 			privateCards = new ImageView[0];
@@ -42,6 +48,7 @@ public class TwoSheepPlayer implements UpdateUser {
 		this.publicCards = publicCards;
 		this.trick = trick;
 		this.turn = turn;
+		this.wealthGui = wealthGui;
 
 
 		for (int i = 0; i < privateCards.length; i++) {
@@ -76,30 +83,30 @@ public class TwoSheepPlayer implements UpdateUser {
 	@Override
 	public void nameChanged(PlayerModel player, final String name) {
 
-		act.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				if (nameGui != null)
-					nameGui.setText(name);
-			}
-		});
+		act.runOnUiThread(() -> {
+            if (nameGui != null)
+                nameGui.setText(name);
+        });
 
 	}
 
 	@Override
 	public void scoreChanged(PlayerModel player, final int score) {
 
-		act.runOnUiThread(new Runnable() {
+		act.runOnUiThread(() -> {
+            if (scoreGui != null)
+                scoreGui.setText("" + score);
+        });
 
-			@Override
-			public void run() {
-				if (scoreGui != null)
-					scoreGui.setText("" + score);
-			}
+
+	}
+
+	@Override
+	public void wealthChanged(PlayerModel player, int wealth) {
+		act.runOnUiThread(() -> {
+			if (wealthGui != null)
+				wealthGui.setText("" + wealth);
 		});
-
-
 	}
 
 	@Override
@@ -107,14 +114,10 @@ public class TwoSheepPlayer implements UpdateUser {
 
 		if (descGui == null)
 			return;
-		act.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				if (descGui != null)
-					descGui.setText(description);
-			}
-		});
+		act.runOnUiThread(() -> {
+            if (descGui != null)
+                descGui.setText(description);
+        });
 
 	}
 

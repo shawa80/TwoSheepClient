@@ -65,7 +65,11 @@ public class EuchrePlayer implements UpdateUser {
 	@Override
 	public void scoreChanged(PlayerModel player, int score) {
 
-		this.scoreGui.setScore(this, score);
+	}
+
+	@Override
+	public void wealthChanged(PlayerModel player, int wealth) {
+		this.scoreGui.setScore(this, wealth);
 	}
 
 	@Override

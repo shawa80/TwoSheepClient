@@ -38,12 +38,14 @@ public class LoginFragment extends Fragment {
 
         var settings = act.getSharedPreferences("loginSettings", 0);
         var savedName = settings.getString("name", "");
+        var savedServer = settings.getString("specifyServer", "");
 
         final var user = (EditText)act.findViewById(R.id.userInput);
         user.setText(savedName);
         final var serverList = (Spinner)act.findViewById(R.id.server);
         final var extraInput = (EditText)act.findViewById(R.id.extraInput);
         extraInput.setVisibility(View.GONE);
+        extraInput.setText(savedServer);
         final var ipAddress = (TextView)act.findViewById(R.id.currentIp);
 
         final var s = new ArrayList<ServerConnection>();
@@ -74,11 +76,14 @@ public class LoginFragment extends Fragment {
 
         loginBtn.setOnClickListener((e) -> {
             var name = user.getText().toString();
+            var specifyServer = extraInput.getText().toString();
             var connectTo = (ServerConnection)serverList.getSelectedItem();
 
             var editor = settings.edit();
             editor.putString("name", name);
+            editor.putString("specifyServer", specifyServer);
             editor.apply();
+
 
             act.login(name, connectTo);
         });
