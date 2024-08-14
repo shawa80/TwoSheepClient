@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<SlidingDrawer
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/simpleSlidingDrawer1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:content="@+id/content1"
+    android:handle="@+id/handle1"
+    android:orientation="horizontal"
+    >
+
+    <!-- Let us define the button -->
+    <Button
+        android:id="@id/handle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#307021"
+        android:paddingStart="10dp"
+        android:paddingTop="1dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="1dp"
+        android:rotation="270"
+        android:translationX="23dp"
+        android:text="Guide"
+        android:textSize="20dp" />
+
+    <!-- layout for the content of the SlidingDrawer -->
+    <LinearLayout
+        android:id="@id/content1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="43dip"
+                    android:layout_height="70dip"
+                    android:src="@drawable/poker_clubs_queen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=" 3 points"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="43dip"
+                    android:layout_height="70dip"
+                    android:src="@drawable/poker_spades_queen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=" 3 points"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="43dip"
+                    android:layout_height="70dip"
+                    android:src="@drawable/poker_hearts_queen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=" 3 points"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="43dip"
+                    android:layout_height="70dip"
+                    android:src="@drawable/poker_diamonds_queen" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=" 3 points"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="20dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="43dip"
+                    android:layout_height="70dip"
+                    android:src="@drawable/poker_clubs_jack" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=" 2 points"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="43dip"
+                    android:layout_height="70dip"
+                    android:src="@drawable/poker_spades_jack" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=" 2 points"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="43dip"
+                    android:layout_height="70dip"
+                    android:src="@drawable/poker_hearts_jack" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=" 2 points"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:layout_width="43dip"
+                    android:layout_height="70dip"
+                    android:src="@drawable/poker_diamonds_jack" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text=" 2 points"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+                <ImageView android:layout_width="43dip" android:layout_height="70dip" android:src="@drawable/poker_diamonds_ace" />
+                <TextView
+                    android:text=" 11 points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+                <ImageView android:layout_width="43dip" android:layout_height="70dip" android:src="@drawable/poker_diamonds_ten" />
+                <TextView android:text=" 10 points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+                <ImageView android:layout_width="43dip" android:layout_height="70dip" android:src="@drawable/poker_diamonds_king" />
+                <TextView android:text=" 4 points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+                <ImageView android:layout_width="43dip" android:layout_height="70dip" android:src="@drawable/poker_diamonds_nine" />
+                <TextView android:text=" 0 points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+                <ImageView android:layout_width="43dip" android:layout_height="70dip" android:src="@drawable/poker_diamonds_eight" />
+                <TextView android:text=" 0 points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+                <ImageView android:layout_width="43dip" android:layout_height="70dip" android:src="@drawable/poker_diamonds_seven" />
+                <TextView android:text=" 0 points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</SlidingDrawer>
+
+
+<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    >-->
+
+<!--    <LinearLayout-->
+<!--        xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content">-->
+<!--&lt;!&ndash;    <app:data>&ndash;&gt;-->
+<!--&lt;!&ndash;        <app:variable name="myText" type="java.lang.String"/>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;        <app:variable name="mySrc" type="android.graphics.drawable.Drawable"/>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;    </app:data>&ndash;&gt;-->
+
+<!--    <ImageView android:layout_width="43dip" android:layout_height="70dip" android:src="@drawable/poker_clubs_queen" />-->
+<!--    <TextView android:text="@{myText}" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/black" android:textSize="20sp"/>-->
+<!--    </LinearLayout>-->
+<!--&lt;!&ndash;</layout>&ndash;&gt;-->

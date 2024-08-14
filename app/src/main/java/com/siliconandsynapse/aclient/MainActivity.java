@@ -15,8 +15,10 @@ import com.siliconandsynapse.server.IxcppServ;
 import com.siliconandsynapse.server.locator.LocatorService;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.databinding.BindingAdapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentContainerView;
@@ -147,5 +149,6 @@ public class MainActivity extends FragmentActivity {
 
 
 	private Mutex logonBlock = new Mutex();;
+
 
 }

@@ -538,7 +538,8 @@
         android:text=""
         android:textSize="20sp"/>
 
-
+    <include
+        layout="@layout/card_hint"/>
 
 
 

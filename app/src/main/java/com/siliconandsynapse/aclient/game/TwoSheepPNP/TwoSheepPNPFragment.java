@@ -208,10 +208,12 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity {
             turnUpdaterA = new PlayerTurnUpdater(act);
             turnUpdaterB = new PlayerTurnUpdater(act);
 
-            updateUserNorth = new TwoSheepPlayer(act, yourName, null,
+            updateUserNorth = new TwoSheepPlayer(act, null, null,
                     yourPrivate, yourPublic, yourCard, turnUpdaterA, null, null);
-            updateUserSouth = new TwoSheepPlayer(act, myName, null,
+
+            updateUserSouth = new TwoSheepPlayer(act, null, null,
                     myPrivate, myPublic, myCard, turnUpdaterA, null, null);
+
             serviceB.getModel().getPlayer(1);
             serviceB.getModel().getPlayer(0).addListener(updateUserNorth);
 
@@ -222,9 +224,6 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity {
                 this.runOnUiThread(() -> {
                     Arrays.stream(myPublic).forEach(c->c.setRotation(0));
                     Arrays.stream(yourPublic).forEach(c->c.setRotation(0));
-                    //Arrays.stream(yourPrivate).forEach(c -> c.setSupressed(true));
-//                    showMyCards.setEnabled(true);
-//                    showYourCards.setEnabled(false);
                     myCard.setRotation(0);
                     yourCard.setRotation(0);
                     table.invalidate();
@@ -234,9 +233,6 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity {
                 this.runOnUiThread(() -> {
                     Arrays.stream(myPublic).forEach(c->c.setRotation(180));
                     Arrays.stream(yourPublic).forEach(c->c.setRotation(180));
-                    //Arrays.stream(myPrivate).forEach(c -> c.setSupressed(true));
-//                    showMyCards.setEnabled(false);
-//                    showYourCards.setEnabled(true);
                     myCard.setRotation(180);
                     yourCard.setRotation(180);
                     table.invalidate();
