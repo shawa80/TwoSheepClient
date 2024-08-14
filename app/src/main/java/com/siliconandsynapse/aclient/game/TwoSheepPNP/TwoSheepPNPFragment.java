@@ -8,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.siliconandsynapse.aclient.BackButtonHandler;
 import com.siliconandsynapse.aclient.MainActivity;
 import com.siliconandsynapse.aclient.R;
 import com.siliconandsynapse.aclient.game.CardAddress;
@@ -32,7 +34,7 @@ import com.siliconandsynapse.ixcpp.common.Discard;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class TwoSheepPNPFragment extends Fragment implements GameActivity {
+public class TwoSheepPNPFragment extends Fragment implements GameActivity, BackButtonHandler {
 
     private GameService serviceA;
     private GameService serviceB;
@@ -76,6 +78,7 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity {
     private Button showYourCards;
     private Button showMyCards;
 
+    private SlidingDrawer hints;
     private MainActivity act;
     public TwoSheepPNPFragment() {
         super(R.layout.two_sheep_game_pnp);
@@ -92,6 +95,7 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity {
 
             var gameId = requireArguments().getInt("GAME_ID");
 
+            hints = (SlidingDrawer)act.findViewById(R.id.simpleSlidingDrawer1);
             table = (ViewGroup)act.findViewById(R.id.table);
 
             table.setBackgroundColor(tableColor);
@@ -311,6 +315,18 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity {
     @Override
     public void showDiscard(Discard d) {
 
+    }
+
+    @Override
+    public boolean handleBackPress() {
+
+        if (hints.isOpened())
+        {
+            hints.close();
+            return true;
+        }
+
+        return false;
     }
 
 }

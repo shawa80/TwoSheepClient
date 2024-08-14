@@ -8,12 +8,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.siliconandsynapse.aclient.BackButtonHandler;
 import com.siliconandsynapse.aclient.MainActivity;
 import com.siliconandsynapse.aclient.R;
 import com.siliconandsynapse.aclient.game.CardAddress;
@@ -33,7 +35,7 @@ import com.siliconandsynapse.ixcpp.common.cards.Card;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-public class ThreeSheepFragment extends Fragment implements GameActivity {
+public class ThreeSheepFragment extends Fragment implements GameActivity, BackButtonHandler {
 
     private GameService service;
 
@@ -89,6 +91,7 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
 
     private PlayerTurnUpdater turnUpdater;
 
+    private SlidingDrawer hints;
     private MainActivity act;
     public ThreeSheepFragment() {
         super(R.layout.three_sheep_game);
@@ -101,6 +104,8 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
         try {
 
             var gameId = requireArguments().getInt("GAME_ID");
+
+            hints = (SlidingDrawer)act.findViewById(R.id.simpleSlidingDrawer1);
 
             table = (ViewGroup)act.findViewById(R.id.table);
 
@@ -205,6 +210,7 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
 
             service.getModel().addChoiceListener(user);
             service.getModel().addDiscardListener(user);
+
 
             hideChoice();
             service.start();
@@ -359,6 +365,18 @@ public class ThreeSheepFragment extends Fragment implements GameActivity {
     @Override
     public void runOnUiThread(Runnable run) {
         act.runOnUiThread(run);
+    }
+
+    @Override
+    public boolean handleBackPress() {
+
+        if (hints.isOpened())
+        {
+            hints.close();
+            return true;
+        }
+
+        return false;
     }
 }
 
