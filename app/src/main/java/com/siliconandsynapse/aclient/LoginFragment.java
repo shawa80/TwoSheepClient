@@ -49,7 +49,7 @@ public class LoginFragment extends Fragment {
         final var ipAddress = (TextView)act.findViewById(R.id.currentIp);
 
         final var s = new ArrayList<ServerConnection>();
-        s.add(new StaticServerConnection("Internet Server", "twosheep.shawtonabbey.com"));
+        s.add(new StaticServerConnection("Internet Server", "twosheep.siliconandsynapse.com"));
         s.add(new StaticServerConnection("Start Local Server", "localhost"));
         s.add(new ConfigurableServerConnection("Specify Server", extraInput));
 
