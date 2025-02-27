@@ -29,7 +29,7 @@ public class MainActivity extends FragmentActivity {
 	private LocatorService loc;
 	private IxcppServ localServer;
 	private ServerConnection connectTo = null;
-	private NetworkService networkService = null;
+	private volatile NetworkService networkService = null;
 
 	private FragmentContainerView container;
 	public MainActivity() {

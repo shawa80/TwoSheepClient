@@ -11,10 +11,10 @@ android {
 
     defaultConfig {
         applicationId = "com.siliconandsynapse.aclient"
-        minSdk = 31
+        minSdk = 34
         targetSdk = 34
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.0.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
