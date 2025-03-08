@@ -63,8 +63,8 @@ public class GamesFragment extends Fragment implements BackButtonHandler {
         dealers = act.findViewById(R.id.dealersOptions);
         var dealersList = new ArrayList<String>();
         dealersList.add("Two Sheep");
-        dealersList.add("Three Sheep");
-        dealersList.add("Euchre");
+        //dealersList.add("Three Sheep");
+        //dealersList.add("Euchre");
         dealersList.add("Two Sheep PNP");
 
         var dealerAdapter = new ArrayAdapter<>(act.getApplicationContext(),
