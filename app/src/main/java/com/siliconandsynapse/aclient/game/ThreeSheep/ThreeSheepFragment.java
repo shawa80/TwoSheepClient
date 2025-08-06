@@ -20,6 +20,7 @@ import com.siliconandsynapse.aclient.BackButtonHandler;
 import com.siliconandsynapse.aclient.InsertHandler;
 import com.siliconandsynapse.aclient.MainActivity;
 import com.siliconandsynapse.aclient.R;
+import com.siliconandsynapse.aclient.game.BaseGameFragment;
 import com.siliconandsynapse.aclient.game.CardAddress;
 import com.siliconandsynapse.aclient.game.GameActivity;
 import com.siliconandsynapse.aclient.game.GameService;
@@ -37,7 +38,7 @@ import com.siliconandsynapse.ixcpp.common.cards.Card;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
-public class ThreeSheepFragment extends Fragment implements GameActivity, BackButtonHandler {
+public class ThreeSheepFragment extends BaseGameFragment implements GameActivity, BackButtonHandler {
 
     private GameService service;
 
@@ -100,7 +101,7 @@ public class ThreeSheepFragment extends Fragment implements GameActivity, BackBu
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
         act = (MainActivity) getActivity();
 

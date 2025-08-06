@@ -178,9 +178,9 @@ public class NetworkService {
 
 			tunnel = new IxManager(connection, bootStrap);
 			tunnel.connectionClosedListner.add((t) -> {
-				stop();
 				onConnectFailure.getDispatcher()
 						.failed(this, "Disconnected");
+				stop();
 			});
 			tunnel.registerAllReciever(new Debug(act));
 

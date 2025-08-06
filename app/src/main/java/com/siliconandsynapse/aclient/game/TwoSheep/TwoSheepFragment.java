@@ -16,7 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.siliconandsynapse.aclient.BackButtonHandler;
 import com.siliconandsynapse.aclient.InsertHandler;
 import com.siliconandsynapse.aclient.MainActivity;
+import com.siliconandsynapse.aclient.NetworkService;
 import com.siliconandsynapse.aclient.R;
+import com.siliconandsynapse.aclient.game.BaseGameFragment;
 import com.siliconandsynapse.aclient.game.CardAddress;
 import com.siliconandsynapse.aclient.game.GameActivity;
 import com.siliconandsynapse.aclient.game.GameService;
@@ -27,7 +29,7 @@ import com.siliconandsynapse.ixcpp.common.Discard;
 
 import java.util.Hashtable;
 
-public class TwoSheepFragment extends Fragment implements GameActivity, BackButtonHandler {
+public class TwoSheepFragment extends BaseGameFragment implements GameActivity, BackButtonHandler {
 
     private GameService service;
 
@@ -70,9 +72,10 @@ public class TwoSheepFragment extends Fragment implements GameActivity, BackButt
         super(R.layout.two_sheep_game);
     }
 
+
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
         act = (MainActivity) getActivity();
         ViewCompat.setOnApplyWindowInsetsListener(view, new InsertHandler());
@@ -154,6 +157,8 @@ public class TwoSheepFragment extends Fragment implements GameActivity, BackButt
             turnUpdater.add(updateUserSouth, myTurn);
 
             TwoSheepUser user = new TwoSheepUser(this, updateUserSouth, service);
+
+
 
             service.start();
 

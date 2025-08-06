@@ -21,6 +21,7 @@ import com.siliconandsynapse.aclient.BackButtonHandler;
 import com.siliconandsynapse.aclient.InsertHandler;
 import com.siliconandsynapse.aclient.MainActivity;
 import com.siliconandsynapse.aclient.R;
+import com.siliconandsynapse.aclient.game.BaseGameFragment;
 import com.siliconandsynapse.aclient.game.CardAddress;
 import com.siliconandsynapse.aclient.game.GameActivity;
 import com.siliconandsynapse.aclient.game.GameService;
@@ -37,7 +38,7 @@ import com.siliconandsynapse.ixcpp.common.Discard;
 import java.util.Arrays;
 import java.util.Hashtable;
 
-public class TwoSheepPNPFragment extends Fragment implements GameActivity, BackButtonHandler {
+public class TwoSheepPNPFragment extends BaseGameFragment implements GameActivity, BackButtonHandler {
 
     private GameService serviceA;
     private GameService serviceB;
@@ -90,7 +91,7 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity, BackB
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onViewCreated(view, savedInstanceState);
 
         ViewCompat.setOnApplyWindowInsetsListener(view, new InsertHandler());
 
