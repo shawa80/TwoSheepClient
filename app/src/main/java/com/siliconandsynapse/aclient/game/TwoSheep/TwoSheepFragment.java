@@ -10,9 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 import com.siliconandsynapse.aclient.BackButtonHandler;
+import com.siliconandsynapse.aclient.InsertHandler;
 import com.siliconandsynapse.aclient.MainActivity;
 import com.siliconandsynapse.aclient.R;
 import com.siliconandsynapse.aclient.game.CardAddress;
@@ -73,6 +75,7 @@ public class TwoSheepFragment extends Fragment implements GameActivity, BackButt
         super.onCreate(savedInstanceState);
 
         act = (MainActivity) getActivity();
+        ViewCompat.setOnApplyWindowInsetsListener(view, new InsertHandler());
         try {
 
             var gameId = requireArguments().getInt("GAME_ID");

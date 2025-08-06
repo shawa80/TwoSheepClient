@@ -42,6 +42,7 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+
 //		var intent = getIntent();
 //		String action = intent.getAction();
 //		var data = intent.getData();

@@ -2,6 +2,7 @@ package com.siliconandsynapse.aclient;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -9,6 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.siliconandsynapse.aclient.lobbyModels.Game;
@@ -57,6 +60,8 @@ public class GamesFragment extends Fragment implements BackButtonHandler {
         super.onCreate(savedInstanceState);
 
         act = (MainActivity) getActivity();
+
+        ViewCompat.setOnApplyWindowInsetsListener(view, new InsertHandler());
 
         ProgressBar progressBar = act.findViewById(R.id.progressBar);
         dealerChoice = act.findViewById(R.id.dealers);

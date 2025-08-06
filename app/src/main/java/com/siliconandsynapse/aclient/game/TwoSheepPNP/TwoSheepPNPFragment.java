@@ -13,9 +13,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.siliconandsynapse.aclient.BackButtonHandler;
+import com.siliconandsynapse.aclient.InsertHandler;
 import com.siliconandsynapse.aclient.MainActivity;
 import com.siliconandsynapse.aclient.R;
 import com.siliconandsynapse.aclient.game.CardAddress;
@@ -88,6 +91,8 @@ public class TwoSheepPNPFragment extends Fragment implements GameActivity, BackB
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ViewCompat.setOnApplyWindowInsetsListener(view, new InsertHandler());
 
         var tableColor = Color.rgb(0x30, 0x70, 0x21);
         act = (MainActivity) getActivity();

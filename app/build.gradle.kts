@@ -11,8 +11,8 @@ android {
 
     defaultConfig {
         applicationId = "com.siliconandsynapse.aclient"
-        minSdk = 34
-        targetSdk = 34
+        minSdk = 35
+        targetSdk = 35
         versionCode = 7
         versionName = "1.0.0.7"
 

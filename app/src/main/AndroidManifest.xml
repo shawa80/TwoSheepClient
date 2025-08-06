@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme"
          android:hardwareAccelerated="false">
         <activity
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
