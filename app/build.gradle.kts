@@ -4,14 +4,14 @@ plugins {
 
 android {
     namespace = "com.siliconandsynapse.aclient"
-    compileSdk = 34
+    compileSdk = 36
     dataBinding {
         enable = true
     }
 
     defaultConfig {
         applicationId = "com.siliconandsynapse.aclient"
-        minSdk = 35
+        minSdk = 32
         targetSdk = 35
         versionCode = 7
         versionName = "1.0.0.7"
