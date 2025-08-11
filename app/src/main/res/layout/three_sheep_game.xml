@@ -11,7 +11,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:textSize="20sp" />
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/southName"
@@ -165,13 +165,12 @@
         android:id="@+id/westPrivate"
         android:layout_width="95dip"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_centerVertical="false"
-        android:layout_toRightOf="@+id/southName"
+        android:layout_below="@+id/descWest"
         android:clipChildren="true"
         android:orientation="vertical"
         android:paddingLeft="25dip"
-        android:paddingTop="50dip">
+        >
 
         <ImageView
             android:id="@+id/west1"
@@ -278,11 +277,10 @@
         android:id="@+id/eastPrivate"
         android:layout_width="95dip"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_centerVertical="false"
-        android:layout_toLeftOf="@+id/eastDesc"
+        android:layout_below="@+id/descEast"
+        android:layout_alignParentEnd="true"
         android:orientation="vertical"
-        android:paddingTop="50dip"
         android:paddingRight="25dip">
 
         <ImageView
@@ -452,7 +450,6 @@
         android:id="@+id/westName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/westPrivate"
         android:layout_alignParentStart="true"
         android:text=""
         android:textSize="20sp"/>
@@ -470,7 +467,7 @@
         android:id="@+id/descWest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/westPrivate"
+        android:layout_below="@+id/wealthWest"
         android:layout_alignParentStart="true"
         android:text=""
         android:textSize="20sp"/>
@@ -479,7 +476,6 @@
         android:id="@+id/eastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/eastPrivate"
         android:layout_alignParentEnd="true"
         android:text=""
         android:textSize="20sp"/>
@@ -497,7 +493,7 @@
         android:id="@+id/descEast"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/eastPrivate"
+        android:layout_below="@+id/wealthEast"
         android:layout_alignParentEnd="true"
         android:text=""
         android:textSize="20sp"/>
