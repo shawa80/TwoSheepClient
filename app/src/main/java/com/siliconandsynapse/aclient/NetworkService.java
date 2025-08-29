@@ -2,29 +2,10 @@ package com.siliconandsynapse.aclient;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Vector;
-
-
-//import com.siliconandsynapse.aclient.lobbyModels.Credentials;
-//import com.siliconandsynapse.aclient.lobbyModels.DefaultMessageModel;
 import com.siliconandsynapse.aclient.lobbyModels.DefaultRoomModel;
 import com.siliconandsynapse.aclient.lobbyModels.GameModel;
-//import com.siliconandsynapse.ixcpp.Cmd;
 import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
-import com.siliconandsynapse.ixcpp.gameInteraction.GameInfo;
-import com.siliconandsynapse.ixcpp.gameInteraction.RoomModel;
-//import com.siliconandsynapse.ixcpp.gameInteraction.GameController;
-//import com.siliconandsynapse.ixcpp.protocol.HeartBeat;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.AccessControl;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGame;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.DeleteGame;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.JoinGame;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.ListGames;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.LobbyModel;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.MessageDisplay;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.UserList;
-//import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
 import com.siliconandsynapse.ixcpp.protocol.Debug;
 import com.siliconandsynapse.ixcpp.protocol.HeartBeat;
 import com.siliconandsynapse.ixcpp.protocol.lobby.CreateGame;
@@ -35,7 +16,6 @@ import com.siliconandsynapse.ixcpp.protocol.lobby.PlayerJoinedGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.PlayerLeftGame;
 import com.siliconandsynapse.ixcpp.protocol.lobby.SetName;
 import com.siliconandsynapse.ixcpp.protocol.lobby.Welcome;
-import com.siliconandsynapse.ixcpp.ui.MessageReceiverModel;
 import com.siliconandsynapse.net.ixtunnel.IxAddress;
 import com.siliconandsynapse.net.ixtunnel.IxManager;
 import com.siliconandsynapse.net.ixtunnel.IxReceiver;
@@ -44,7 +24,7 @@ import com.siliconandsynapse.observerPool.ObserverPool;
 
 public class NetworkService {
 
-	private String server;
+	private final String server;
 	private Thread t;
 
 	private IxManager tunnel;
@@ -62,17 +42,17 @@ public class NetworkService {
 	private final IxAddress gamesAddr;
 	private final IxAddress lobbyAddr;
 	private final MainActivity act;
-	private DefaultRoomModel roomModel;
+	private final DefaultRoomModel roomModel;
 	private final String clientName;
 
 	public ObserverPool<OnConnectSuccessListener> onConnectSuccess;
 	public ObserverPool<OnConnectFailureListener> onConnectFailure;
 
 	public interface OnConnectFailureListener {
-		public void failed(NetworkService service, String message);
+		void failed(NetworkService service, String message);
 	}
 	public interface OnConnectSuccessListener {
-		public void connected(NetworkService service);
+		void connected(NetworkService service);
 	}
 
 	private static NetworkService service;
@@ -187,7 +167,7 @@ public class NetworkService {
 			var sn = new SetName();
 			sn.execute(lobbyAddr, tunnel, clientName);
 
-		} catch (Exception e) {
+		} catch (Exception ignored) {
 
 		}
 
@@ -195,13 +175,13 @@ public class NetworkService {
 	}
 
 	private Socket tryConnection(String server) throws IOException {
-		Socket connection = null;
+		Socket connection;
 		int times = 3;
 		while (times > 0) {
 			try {
 				connection = new Socket(server, 1077);
 				return connection;
-			} catch (Exception e) {
+			} catch (Exception ignored) {
 
 			}
 			times--;
@@ -222,10 +202,10 @@ public class NetworkService {
 		isRunning = false;
 		try {
 			connection.close();
-		} catch (Exception e) {}
+		} catch (Exception ignored) {}
 		try {
 			tunnel.close();
-		} catch (Exception e){}
+		} catch (Exception ignored){}
 	}
 
 }

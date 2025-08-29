@@ -2,6 +2,7 @@ package com.siliconandsynapse.aclient.game.Euchre;
 
 import java.util.Hashtable;
 
+import android.annotation.SuppressLint;
 import android.widget.TextView;
 
 public class PlayerScoreUpdater {
@@ -19,7 +20,8 @@ public class PlayerScoreUpdater {
 
 	}
 
-	public void setScore(EuchrePlayer player, final int score) {
+	@SuppressLint("SetTextI18n")
+    public void setScore(EuchrePlayer player, final int score) {
 
 		EuchreFragment.SeatLocation loc = act.getSeat(player);
 
@@ -29,7 +31,7 @@ public class PlayerScoreUpdater {
 		if (loc == EuchreFragment.SeatLocation.EAST)
 			teamEW = score;
 
-		act.runOnUiThread(() -> scoreText.setText(teamNS + " to " + teamEW));
+		act.runOnUiThread(() -> scoreText.setText("score: " + teamNS + " to " + teamEW));
 
 	}
 
