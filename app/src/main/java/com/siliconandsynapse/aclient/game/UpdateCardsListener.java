@@ -1,6 +1,8 @@
 package com.siliconandsynapse.aclient.game;
 
+import java.util.Collections;
 import java.util.Hashtable;
+import java.util.List;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;
@@ -14,22 +16,27 @@ import com.siliconandsynapse.aclient.gameModels.PlayerModel;
 import com.siliconandsynapse.aclient.gameModels.models.CardUpdateEvent;
 import com.siliconandsynapse.aclient.gameModels.models.UpdateCards;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
+import com.siliconandsynapse.ixcpp.protocol.game.TableChange;
 
 public class UpdateCardsListener implements UpdateCards {
 
-	private Hashtable<CardAddress, ImageView> cardsByAddress;
-	private Activity act;
-	private View table;
-	private PlayerModel[] horzPlayers;
-	
+	private final Hashtable<CardAddress, ImageView> cardsByAddress;
+	private final Activity act;
+	private final View table;
+	private final PlayerModel[] horzPlayers;
+
+	private final StackProcessor stackProcessor;
+
 	public UpdateCardsListener(Activity act,
 							   Hashtable<CardAddress, ImageView> cardsByAddress,
 							   View table,
-								PlayerModel ... horizontal) {
+							   StackProcessor stackProcessor,
+							   PlayerModel ... horizontal) {
 		this.horzPlayers = horizontal;
 		this.cardsByAddress = cardsByAddress;
 		this.act = act;
 		this.table = table;
+		this.stackProcessor = stackProcessor;
 	}
 	
 	public UpdateCardsListener(Activity act,
@@ -39,7 +46,19 @@ public class UpdateCardsListener implements UpdateCards {
 		this.cardsByAddress = cardsByAddress;
 		this.act = act;
 		this.table = table;
+		this.stackProcessor = null;
 	}
+	public UpdateCardsListener(Activity act,
+							   Hashtable<CardAddress, ImageView> cardsByAddress,
+							   View table,
+							   StackProcessor stackProcessor) {
+		this.horzPlayers = null;
+		this.cardsByAddress = cardsByAddress;
+		this.act = act;
+		this.table = table;
+		this.stackProcessor = stackProcessor;
+	}
+
 
 	@Override
 	public void cardChanged(CardUpdateEvent change) {
@@ -144,6 +163,13 @@ public class UpdateCardsListener implements UpdateCards {
 			}
         });
 		
+	}
+
+	@Override
+	public List<TableChange.TableChangeObjStack> stackPreprocessor(List<TableChange.TableChangeObjStack> stack) {
+		if (stackProcessor == null)
+			return stack;
+		return 	stackProcessor.stackPreprocessor(stack);
 	}
 
 	@Override

@@ -17,11 +17,11 @@ import com.siliconandsynapse.observerPool.ObserverPool;
 public class TableModel implements ITableDisplay {
 
 
-	private PlayerCollection players = new PlayerCollection();
-	private PlayerCollection trick = new PlayerCollection();
+	private final PlayerCollection players = new PlayerCollection();
+	private final PlayerCollection trick = new PlayerCollection();
 
-	private TableModelTranslator handTranslator;
-	private TableModelTranslator trickTranslator;
+	private final TableModelTranslator handTranslator;
+	private final TableModelTranslator trickTranslator;
 
 
 	private ObserverPool<ChoiceRequest> choiceRequest;

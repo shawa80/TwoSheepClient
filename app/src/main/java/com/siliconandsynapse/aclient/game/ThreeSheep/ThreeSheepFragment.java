@@ -29,6 +29,8 @@ import com.siliconandsynapse.aclient.game.TwoSheep.PlayerTurnUpdater;
 import com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepPlayer;
 import com.siliconandsynapse.aclient.game.TwoSheep.TwoSheepUser;
 import com.siliconandsynapse.aclient.game.UpdateCardsListener;
+import com.siliconandsynapse.aclient.gameModels.models.CardUpdateEvent;
+import com.siliconandsynapse.aclient.gameModels.models.UpdateCards;
 import com.siliconandsynapse.aclient.gameModels.models.UpdateGame;
 import com.siliconandsynapse.ixcpp.common.Choice;
 import com.siliconandsynapse.ixcpp.common.ChoiceResponse;
@@ -70,9 +72,9 @@ public class ThreeSheepFragment extends BaseGameFragment implements GameActivity
 
     private final int PRIVATE_TOTAL = 10;
 
-    private ImageView[] southPrivate = new ImageView[PRIVATE_TOTAL+2];
-    private ImageView[] eastPrivate = new ImageView[PRIVATE_TOTAL];
-    private ImageView[] westPrivate = new ImageView[PRIVATE_TOTAL];
+    private final ImageView[] southPrivate = new ImageView[PRIVATE_TOTAL+2];
+    private final ImageView[] eastPrivate = new ImageView[PRIVATE_TOTAL];
+    private final ImageView[] westPrivate = new ImageView[PRIVATE_TOTAL];
 
 
     private ImageView trickEast;
@@ -81,7 +83,7 @@ public class ThreeSheepFragment extends BaseGameFragment implements GameActivity
 
     private TextView currentMsg;
 
-    private Hashtable<CardAddress, ImageView> cardsByAddress = new Hashtable<CardAddress, ImageView>();
+    private final Hashtable<CardAddress, ImageView> cardsByAddress = new Hashtable<CardAddress, ImageView>();
 
     private int gameId;
 
@@ -186,7 +188,8 @@ public class ThreeSheepFragment extends BaseGameFragment implements GameActivity
                 });
             });
 
-            updateCardsListener = new UpdateCardsListener(act, cardsByAddress, table);
+            updateCardsListener = new UpdateCardsListener(act, cardsByAddress, table,
+                    new CardSorter());
             service.getModel().addListener(updateCardsListener);
 
 

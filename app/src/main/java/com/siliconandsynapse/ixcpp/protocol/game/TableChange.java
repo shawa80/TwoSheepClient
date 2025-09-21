@@ -57,9 +57,9 @@ public class TableChange implements IxReceiver
 			}
 		}
 
-		GsonBuilder gsonBuilder = new GsonBuilder();
+		var gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Card.class,  new CardCreator());
-		Gson gson = gsonBuilder.create();
+		var gson = gsonBuilder.create();
 
 		var t = new TypeToken<List<TableChangeObjSeat>>(){};
 		var x = gson.fromJson(doc, t);
@@ -67,7 +67,10 @@ public class TableChange implements IxReceiver
 		table.invalidateAllCards();
 
 		x.forEach( seat-> {
-			seat.stacks().forEach(stack -> {
+			var before = seat.stacks();
+			var stacks = table.stackPreprocessor(seat.stacks());
+			stacks.forEach(stack -> {
+			//seat.stacks().forEach(stack -> {
 				stack.cards().forEach(card -> {
 					table.validateCard(seat.playerId(),
 						stack.stackType(), stack.id(),

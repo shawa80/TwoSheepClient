@@ -53,11 +53,12 @@ public class ObserverPool<T> {
                 }
  
                 private Object dispatchToObservers(Method method, List<Throwable> exceptionsThrown, Object... args) {
+                        Object returnVal = null;
                         try {
                                 synchronized (observers) {
                                         for (Object observer : observers) {
                                                 try {
-                                                        method.invoke(observer, args);
+                                                        returnVal = method.invoke(observer, args);
                                                 } catch (RuntimeException re) {
                                                         exceptionsThrown.add(re);
                                                 } catch (Exception e) {
@@ -70,7 +71,7 @@ public class ObserverPool<T> {
                         }
                        
                         if (exceptionsThrown.isEmpty()) {
-                                return null;
+                                return returnVal;
                         } else {
                                 throw new DispatchException(exceptionsThrown);
                         }

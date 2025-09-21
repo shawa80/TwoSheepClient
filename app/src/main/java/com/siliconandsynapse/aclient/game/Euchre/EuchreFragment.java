@@ -192,11 +192,17 @@ public class EuchreFragment  extends BaseGameFragment implements GameActivity {
             service.getModel().getPlayer(2).addListener(updateUserNorth);
             service.getModel().getPlayer(3).addListener(updateUserEast);
 
+            var cs = new CardSorter();
             updateCardsListener = new UpdateCardsListener(act, cardsByAddress, table,
+                    cs,
                     service.getModel().getPlayer(1),
                     service.getModel().getPlayer(3));
             service.getModel().addListener(updateCardsListener);
 
+            service.getModel().getPlayer(0).addListener(cs);
+            service.getModel().getPlayer(1).addListener(cs);
+            service.getModel().getPlayer(2).addListener(cs);
+            service.getModel().getPlayer(3).addListener(cs);
 
             var user = new EuchreUser(this, updateUserSouth, service);
             service.getModel().addChoiceListener(user);

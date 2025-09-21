@@ -42,33 +42,33 @@ public class GameService implements Runnable {
 	private Thread t;
 
 	private IxManager home;
-	private int gameId;
-	private String subGameId;
+	private final int gameId;
+	private final String subGameId;
 	private IxAddress addr;
 
 	private NetworkService service;
 
 	private CardFactory cache;
-	private TableModel table;
+	private final TableModel table;
 
 	private GameServiceCard serviceCard;
-	private Mutex cardServerBlock;
-	private Mutex cardUserBlock;
+	private final Mutex cardServerBlock;
+	private final Mutex cardUserBlock;
 	private Card cardToPlay;
 
 	private GameServiceChoice serviceChoice;
-	private Mutex choiceServerBlock;
-	private Mutex choiceUserBlock;
+	private final Mutex choiceServerBlock;
+	private final Mutex choiceUserBlock;
 	private ChoiceResponse resp;
 
 
 	private GameServiceDiscard serviceDiscard;
-	private Mutex discardServerBlock;
-	private Mutex discardUserBlock;
+	private final Mutex discardServerBlock;
+	private final Mutex discardUserBlock;
 	private Discard dis;
 
 
-	private static Hashtable<String, GameService> services = new Hashtable<>();
+	private static final Hashtable<String, GameService> services = new Hashtable<>();
 
 	private Activity act;
 
@@ -92,7 +92,7 @@ public class GameService implements Runnable {
 
 		this.subGameId = subGameId;
 		this.gameId = gameId;
-//
+
 		act = this.act;
 		cardServerBlock = new Mutex();
 		cardUserBlock = new Mutex();

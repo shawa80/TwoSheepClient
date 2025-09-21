@@ -4,13 +4,17 @@ import com.siliconandsynapse.aclient.gameModels.models.CardUpdateEvent;
 import com.siliconandsynapse.aclient.gameModels.models.UpdateCards;
 import com.siliconandsynapse.ixcpp.common.cards.Card;
 import com.siliconandsynapse.ixcpp.gameInteraction.TableCardEventHandler;
+import com.siliconandsynapse.ixcpp.protocol.game.TableChange;
 import com.siliconandsynapse.observerPool.ObserverPool;
+
+import java.util.Collections;
+import java.util.List;
 
 public class TableModelTranslator implements TableCardEventHandler {
 
-	private PlayerCollection collection;
-	private ObserverPool<UpdateCards> cardUpdate;
-	private boolean isTrickStack;
+	private final PlayerCollection collection;
+	private final ObserverPool<UpdateCards> cardUpdate;
+	private final boolean isTrickStack;
 	
 	public TableModelTranslator(PlayerCollection collection, ObserverPool<UpdateCards> cardUpdate, boolean isTrickStack) {
 		
@@ -121,6 +125,11 @@ public class TableModelTranslator implements TableCardEventHandler {
 		cardUpdate.getDispatcher().changeFinished();
 		
 	}
-	
-	
+
+	@Override
+	public List<TableChange.TableChangeObjStack> stackPreprocessor(List<TableChange.TableChangeObjStack> stack) {
+		return cardUpdate.getDispatcher().stackPreprocessor(stack);
+	}
+
+
 }
