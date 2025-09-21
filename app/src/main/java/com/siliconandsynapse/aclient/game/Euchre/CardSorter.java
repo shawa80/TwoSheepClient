@@ -36,49 +36,62 @@ public class CardSorter extends CardSorterBase implements StackProcessor, Update
     {
         var map = new Hashtable<String, Integer>();
 
+        int jackClubBonus = 0;
+        int jackSpaceBonus = 0;
+        int jackHeartBonus = 0;
+        int jackDiamondBonus = 0;
+
         int hearts = 0;
         if (suit == PokerCard.HEART) {
             hearts = 100;
+            jackHeartBonus = 100;
+            jackDiamondBonus = 50;
         }
         int clubs = 0;
         if (suit == PokerCard.CLUB) {
             clubs = 100;
+            jackClubBonus = 100;
+            jackSpaceBonus = 50;
         }
         int diamonds = 0;
         if (suit == PokerCard.DIAMOND) {
             diamonds = 100;
+            jackDiamondBonus = 100;
+            jackHeartBonus = 50;
         }
         int spades = 0;
         if (suit == PokerCard.SPADE) {
             spades = 100;
+            jackSpaceBonus = 100;
+            jackClubBonus = 50;
         }
 
 
         map.put("ACE-Clubs", 24 + clubs);
         map.put("King-Clubs", 23 + clubs);
         map.put("Queen-Clubs", 22 + clubs);
-        map.put("Jack-Clubs", 21 + clubs);
+        map.put("Jack-Clubs", 21 + clubs + jackClubBonus + jackSpaceBonus);
         map.put("Ten-Clubs", 20 + clubs);
         map.put("Nine-Clubs", 19 + clubs);
 
         map.put("ACE-Spades", 18 + spades);
         map.put("King-Spades", 17 + spades);
         map.put("Queen-Spades", 16 + spades);
-        map.put("Jack-Spades", 15 + spades);
+        map.put("Jack-Spades", 15 + spades + jackClubBonus + jackSpaceBonus);
         map.put("Ten-Spades", 14 + spades);
         map.put("Nine-Spades", 13 + spades);
 
         map.put("ACE-Hearts", 12 + hearts);
         map.put("King-Hearts", 11 + hearts);
         map.put("Queen-Hearts", 10 + hearts);
-        map.put("Jack-Hearts", 9 + hearts);
+        map.put("Jack-Hearts", 9 + hearts + jackHeartBonus + jackDiamondBonus);
         map.put("Ten-Hearts", 8 + hearts);
         map.put("Nine-Hearts", 7 + hearts);
 
         map.put("ACE-Diamonds", 6 + diamonds);
         map.put("King-Diamonds", 5 + diamonds);
         map.put("Queen-Diamonds", 4 + diamonds);
-        map.put("Jack-Diamonds", 3 + diamonds);
+        map.put("Jack-Diamonds", 3 + diamonds + jackDiamondBonus + jackHeartBonus);
         map.put("Ten-Diamonds", 2 + diamonds);
         map.put("Nine-Diamonds", 1 + diamonds);
 
